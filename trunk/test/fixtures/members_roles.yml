@@ -1,0 +1,19 @@
+publisher:
+  member_id: 1
+  role_id: 2
+
+publisher_admin:
+  member_id: 1
+  role_id: 1
+  
+agent:
+  member_id: 4
+  role_id: 4
+    
+sales:
+  member_id: 6
+  role_id: 5
+
+ad_owner:
+  member_id: 2
+  role_id: 3

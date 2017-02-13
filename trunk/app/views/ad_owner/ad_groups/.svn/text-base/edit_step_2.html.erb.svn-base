@@ -1,0 +1,85 @@
+<% page_title '广告组投放目标及价格' 
+   include_js_file 'ad_editor' -%>
+
+<% navigation_bar [link_to('广告主', '/ad_owner'), link_to('广告活动', ad_owner_campaigns_path(:format=>:html)),
+		   link_to(@campaign.name, ad_owner_campaign_path(@campaign, :format=>:html)),
+		   link_to(@ad_group.name, ad_owner_campaign_ad_group_path(@campaign.id, @ad_group.id, :format=>:html)),
+		  '投放目标及价格'] -%>
+
+<ul class="wizard_steps clearfix">
+  <li class="step">1. 定义广告组</li>
+  <li class="arrow">&nbsp;</li>
+  <li class="selected step">2. 投放目标及价格</li>
+</ul>
+
+<div class="aside">
+  <div class="head">
+    <h2>帮助提示</h2>
+  </div>
+  <div class="body">
+  </div>
+</div>
+
+<div class="form with_aside">
+  <div class="head">
+    <h2>投放目标及价格</h2>
+  </div>
+
+  <%= error_messages_for :ad_group %>
+
+  <%= form_for :ad_group, @ad_group, :url=>ad_owner_campaign_ad_group_path(@campaign.id, @ad_group.id, :format=>:html),
+      :html=>{:class=>'validable', :method=>:put} do |f| -%>
+  <%= hidden_field_tag :step, params[:step] %>
+
+  <fieldset>
+  	<label class="form-label">选择内容分类</label>
+  	<div class="group">
+  	<ul class="data_list">
+  	<%if @content_categories%>	
+  	<%for cc in @content_categories%>
+  	 <li><%= check_box_tag "content_categories[#{cc.id}]"%><%=cc.name%></li>
+  	<%end%>
+  	<%end%>
+  	</ul>
+  	</div>
+  </fieldset>
+  <h3>设置价格</h3>
+  <p>付费方式: <%= @ad_group.pay_method.name %>, <%= @ad_group.pay_method.note %>请设置您的广告价格，出价越高，您的广告被显示的机会越大。</p>
+  <fieldset>
+    <label class="form-label">最低价格</label>
+    <div class="group">
+      <%= format_money @ad_group.pay_method.base_price %>
+    </div>
+  </fieldset>
+  <fieldset>
+    <%= f.label :bid_price, :class=>'form-label' %>
+    <div class="group">
+    <%= f.text_field :bid_price, :size=>15, :class=>'required number', :min=>@ad_group.pay_method.base_price, 'data-paymethod-id'=>@ad_group.pay_method_id %>
+    <span class="help">不能低于上述最低价格。</span>
+    <p class="help" id="compare_price_result"></p>
+    </div>
+  </fieldset>
+  <fieldset>
+    <%= f.label :daily_budget, :class=>'form-label' %>
+    <div class="group">
+      <%= f.text_field :daily_budget, :size=>15, :class=>'required number', :min=>10 %>
+      <span class="help">元</span>
+      <p class="help">设定每天广告投放金额，如果您的活动只有一个广告组，不需要设定。</p>
+      <p id="compare_price_result"></p>
+    </div>
+  </fieldset>
+  <div class="buttons">
+    <%= link_to '下一步', '', :class=>'primary_button submit' %>
+    <% if @ad_group.creating -%>
+    <%= link_to '取消', ad_owner_campaign_ad_group_path(@campaign, @ad_group, :format=>:js), 
+	:class=>'secondary_button delete', :confirm_message=>'现在取消的话，前一步输入的信息也不会保存，您确定吗?' %>
+    <% else -%>
+    <%= link_to '取消', ad_owner_campaign_ad_group_path(@campaign, @ad_group, :format=>:js), 
+	:class=>'secondary_button' %>
+    <% end -%>
+  </div>
+<% end -%>
+
+
+</div>
+

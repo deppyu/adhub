@@ -1,0 +1,28 @@
+zh-CN:
+  activerecord:
+    models:
+      publish_policy: 创意发布
+    attributes:
+      publish_policy:
+        name: 名称
+        campaign_id: 活动
+        channel_id: 渠道
+        start_from: 开始时间
+        end_to: 结束时间
+        pay_method_id: 付费方式
+        daily_budget: 每日预算
+        call_to_action: 点击方式
+        bid_price: 出价
+        advertisement_id: 广告创意
+        ad_containers: 广告容器
+        ad_owner: 广告主
+        publisher_admin_title: 广告策略管理
+
+  publish_policy:
+    status:
+      "0": 创建中
+      "1": 创建完成
+      "2": 停止
+      "3": 运行
+    publisher_admin_title:
+      "0": 广告策略详情

@@ -1,0 +1,3 @@
+<li id="<%=element_id s%>">
+  <%= sdk_os_type(s)%>&nbsp;&nbsp;版本：<%=link_to s.version,"/sdks/:os_type/download?#{s.os_type}"%>
+</li>

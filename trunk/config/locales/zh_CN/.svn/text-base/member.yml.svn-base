@@ -1,0 +1,26 @@
+zh-CN:
+     activerecord:
+       models:
+         member: 会员
+       attributes:
+           member:
+             status: 当前状态
+             account_balance: 账户余额
+             password: 口令
+             email: 电子邮件
+             real_name: 真实姓名
+             role: 角色
+             operate: 操作
+             password_confirm: 密码确认
+     member:
+       status:
+         "0" : 已经注册
+         "1" : 活跃用户
+         "2" : 已经锁定
+       operate:
+         "0" : 注册
+         "1" : 编辑
+         "2" : 锁定
+         "3" : 重设口令
+         "4" : 创建员工帐号
+         "5" : 编辑员工帐号

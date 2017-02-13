@@ -1,0 +1,19 @@
+zh-CN:
+  activerecord:
+    models:
+      sdk: sdk系统
+    attributes:
+      sdk:
+        os_type: 操作系统
+        status: 状态
+        name: 名称
+        version: 版本号
+        file: 文件
+        
+  sdk:
+    os_type:
+      "0": 安卓操作系统
+    status:
+      "0": 未上传文件    
+      "1": 已经上传
+      "2": 活跃

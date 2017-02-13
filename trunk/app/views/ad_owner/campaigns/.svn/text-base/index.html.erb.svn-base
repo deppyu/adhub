@@ -1,0 +1,28 @@
+<% page_title '广告活动' 
+  side_bar 'ad_owner' -%>
+
+<% navigation_bar ['广告主', link_to('广告活动', ad_owner_campaigns_path(:format=>:html))] %>
+
+<div class="section">
+  <div class="head">
+    <div class="buttons">
+      <%= link_to '新建活动', new_ad_owner_campaign_path(:format=>:html), :class=>'button' %>
+    </div>
+
+    <h2>广告活动</h2>
+  </div>
+
+  <div class="body">
+
+    <table class="data_list stripped">
+      <tr class="head">
+	<th width="*">活动名称</th>
+	<th width="25%">时间范围</th>
+	<th width="15%" class="number">广告数/有效数</th>
+	<th width="30%" class="number">预算/余额</th>
+	<th width="12%">操作</th>
+      </tr>
+      <%= render :partial=>'campaign', :collection=>@campaigns %>
+    </table>
+  </div>
+</div>

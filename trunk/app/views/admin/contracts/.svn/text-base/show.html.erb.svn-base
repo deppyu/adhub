@@ -1,0 +1,51 @@
+<%
+  page_title "续约"
+  side_bar "admin_console"
+%>
+
+<%= javascript_tag do -%>
+$(function(){
+    $('#renewal_form').validate();
+});
+<% end -%>
+
+<div class="section">
+  <div class="head"> 
+    <h2>续约</h2>
+  </div>
+  
+  <div class="body">
+  	
+     <dl class="attributes">
+     	<dt><%= Contract.human_attribute_name :contact_person %>:</dt>
+     	<dd><%= @contract.contact_person %> </dd>
+        <dt><%= Contract.human_attribute_name :business_type %>:</dt>
+        <dd><%= t "contract.business_type.#{@contract.business_type}" %></dd>
+        
+        <dt><%= Contract.human_attribute_name :mobile_phone %>:</dt>
+        <dd><%= @contract.mobile_phone %></dd>
+     	<dt><%= Contract.human_attribute_name :start_from  %>:</dt>
+     	<dd><%= @contract.start_from %></dd>
+       <dt><%= Contract.human_attribute_name :expired_at %>:</dt>
+       <dd>
+         <% if current_user.party.adhub_operator %>
+           <%= form_for @contract, 
+                 :as=>:contract,
+                 :url=> renewal_admin_contract_path(@contract, :format=>:html),
+                 :html=> {:id=>'renewal_form', :method=> :put} do |f| %>
+           <%= f.text_field :expired_at, :class=>'required date-field', :id=>'expired_at' %>
+           <%= submit_tag (t "contract.operate.1"), :class=>"primary_button" %>
+           <% end -%>
+         <% else %>
+           <%= @contract.expired_at %>
+         <% end %>
+       </dd>
+        
+     </dl>
+     </div>
+  </div> 
+  
+  <div class="block">
+	
+  </div> 	
+</div>

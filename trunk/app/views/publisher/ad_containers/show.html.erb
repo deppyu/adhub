@@ -1,0 +1,68 @@
+<%page_title '广告容器详情'
+  side_bar 'publisher'%>
+  
+<%javascript_tag do%>
+  $(function(){ 
+  	  
+  	  var url = "<%= approve_logs_path(:target_type=>class_name_for_url(@ad_container), :target_id=>@ad_container.id, :format=>:html) %>";
+      $('div .block').load(url);
+  	});
+<%end%>
+
+<div class="section">
+  <div class="head">
+  	 
+  	<h2>广告容器详情</h2>
+  	<%= link_to '编辑',edit_publisher_ad_container_path(@ad_container,:format=>:html),:method=>:get,:class=>'button'%>
+  	<%if @ad_container.status == AdContainer::STATUS_EDITING%>
+  	 <%= link_to '提交审核',submission_publisher_ad_container_path(@ad_container,:format=>:js),:method=>:post,:class=>'button remote',:id=>'flag'%>
+  	<%end%>
+  </div>
+  
+  <div class="body">
+  	
+     <dl class="attributes">
+     	<dt><%= AdContainer.human_attribute_name :name %>:</dt>
+     	<dd><%=@ad_container.name%> </dd>
+        <dt><%= AdContainer.human_attribute_name :channel %>:</dt>
+        <dd><%= @ad_container.channel.name if @ad_container.channel %></dd>
+        
+     	<dt><%= AdContainer.human_attribute_name :url  %>:</dt>
+     	<dd><%=@ad_container.url%></dd>
+       <dt><%= AdContainer.human_attribute_name :os_type %>:</dt>
+       <dd><%= case @ad_container.os_type when AdContainer::OS_ANDROID then
+       	                    'Android SDK'
+       	                    end%></dd>
+       <dt><%= AdContainer.human_attribute_name :status %>:</dt>
+       <dd id="ad_co_status"><%= t "ad_container.status.#{@ad_container.status}" %></dd>
+       <dt><%= AdContainer.human_attribute_name :description %>:</dt>
+       <dd><%=@ad_container.description %></dd>
+       <dt><%= AdContainer.human_attribute_name :request_count %>:</dt>
+       <dd><%= @ad_container.request_count %>次</dd>
+       <dt><%= AdContainer.human_attribute_name :show_count %>:</dt>
+       <dd><%= @ad_container.show_count %>次</dd>
+       <dt><%= AdContainer.human_attribute_name :click_count %>:</dt>
+       <dd><%= @ad_container.click_count %>次</dd>
+       <dt><%= AdContainer.human_attribute_name :income %>:</dt>
+       <dd><%= @ad_container.income %>元</dd>
+       <dt><%= AdContainer.human_attribute_name :identity %>:</dt>
+       <dd><%= @ad_container.identity %></dd>
+       <dt><%= AdContainer.human_attribute_name :content_categories %>:</dt>
+       <dd><%for cc in @ad_container.content_categories%>
+               <%= cc.name%></br> 
+           <%end%>
+       </dd>  
+       	                  
+       <div class="group">
+       	<span class="help">注意:编辑内容后,应用会被要求再次审核。</span>
+       </div>
+     </dl>
+     </div>
+  </div> 
+  
+  <div class="block">
+	
+  </div> 	
+</div>
+
+

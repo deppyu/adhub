@@ -1,0 +1,2 @@
+module AdRequestsHelper
+end

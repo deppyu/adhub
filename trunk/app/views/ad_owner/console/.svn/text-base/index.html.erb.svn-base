@@ -1,0 +1,66 @@
+<% page_title '广告主控制台' 
+   side_bar 'ad_owner' -%>
+
+<div class="section">
+  <div class="head">
+    <h2>控制台</h2>
+  </div>
+
+  <div class="body">
+    <h3>欢迎使用AdHub</h3>
+    <h4>使用流程</h4>
+    <ul class="steps clearfix" >
+      <li class="step">
+	<p class="head">第一步</p>
+	<p class="name">完善账户信息</p>
+	<p class="note">为了更好的为您提供服务，请完善您的账户信息。</p>
+	<%= link_to '完善账户信息', edit_member_path(current_user, :forward_to=>new_ad_owner_campaign_path(:format=>:html), :format=>:html), :class=>:button %>
+      </li>
+      <li class="arrow">&nbsp;</li>
+      <li class="step">
+	<p class="head">第二步</p>
+	<p class="name">创建广告</p>
+	<p class="note">根据您的投放目的，创建您的广告。</p>
+	<%= link_to '创建广告', new_ad_owner_campaign_path(:format=>:html), :class=>:button %>
+      </li>
+      <li class="arrow">&nbsp;</li>
+      <li class="step">
+	<p class="head">第三步</p>
+	<p class="name">充值</p>
+	<p class="note">在您投放广告之前，请先充值。</p>
+	<%= link_to '马上充值', '', :class=>:button %>
+      </li>
+
+    </ul>
+    <h4>数据总览</h4>
+    <table class="data_list">
+      <tr>
+	<th width="16%" class="number">广告活动</th>
+	
+	<th width="16%" class="number">广告总数</th>
+	<th width="16%" class="number">账户余额</th>
+	<th width="16%" class="number">展示次数</th>
+	<th width="16%" class="number">点击总数</th>
+      </tr>
+      <tr>
+      	<%if session[:party]%>
+    <td class="number" ><%if session[:party].campaigns%><%= session[:party].campaigns.count %><%end%></td>
+	
+	<td class="number"><%= ad_count %></td>
+	<td class="number"><%if session[:party].account%><%= format_money session[:party].account.balance %><%end%></td>
+	<td class="number"><%= impression_count%></td>
+	<td class="number"><%= click_count %></td>
+      	<%else%>
+    <td class="number" ><%= current_user.party.campaigns.count %></td>
+	
+	<td class="number"><%= ad_count %></td>
+	<td class="number"><%if current_user.party.account%><%= format_money current_user.party.account.balance %><%end%></td>
+	<td class="number"><%= impression_count%></td>
+	<td class="number"><%= click_count %></td>
+      	<%end%>
+	
+      </tr>
+    </table>
+  </div>
+</div>
+

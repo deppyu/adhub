@@ -1,0 +1,29 @@
+<%page_title "提款设置"
+  side_bar 'publisher'
+%>
+
+<div class="section">
+  <div class="head">
+    <div class="buttons">
+      <%= link_to '提现', new_publisher_cash_claim_path(:format=>:html), :class=>'button' %>
+
+      <%= link_to '添加提款账户',new_publisher_bank_account_path(:format=>:html),:class=>'button long'%>
+    </div>
+    
+    <h2>银行账号</h2>			
+  </div>
+  
+  <div class="body">
+   <table class="data_list stripped">
+     <tr class="head">
+     	<th width="*">银行名称</th>
+     	<th width="20%">户名</th>
+     	<th width="20%">银行账户</th>
+     	<th width="15%">操作</th>
+     </tr>
+     <%= render :partial=>'bc',:collection=>@bank_accounts%>
+        	
+   </table>  		
+	</div>
+</div>
+

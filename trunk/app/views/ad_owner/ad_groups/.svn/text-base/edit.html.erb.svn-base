@@ -1,0 +1,109 @@
+<% page_title '编辑广告组'
+   include_js_file 'ad_editor' %>
+
+<% javascript_tag do %>
+  $(function(){ 
+  Fusion.use_feature(InitDatepicker);
+  
+   $('select').attr("disabled",true);
+   $('input:radio').attr("disabled",true); 
+  
+  });
+<% end -%>
+
+
+<% navigation_bar [link_to('广告主', '/ad_owner'), link_to('广告活动', ad_owner_campaigns_path(:format=>:html)),
+		   link_to(@campaign.name, ad_owner_campaign_path(@campaign, :format=>:html)),
+		   link_to(@ad_group.name, ad_owner_campaign_ad_group_path(@campaign, @ad_group, :format=>:html))] -%>
+
+<div class="aside">
+  <div class="head">
+    <h2>帮助信息</h2>
+  </div>
+
+  <div class="body">
+    
+  </div>
+</div>
+
+<div class="form with_aside">
+  <div class="head">
+    <h2>编辑广告组</h2>
+  </div>
+
+  <%= error_messages_for :ad_group %>
+
+  <%= form_for :ad_group, @ad_group, :url=>ad_owner_campaign_ad_group_path(@campaign, :format=>:html),
+      :html=>{:class=>'validable',:method=>:put} do |f| -%>
+      
+   
+	  <fieldset>
+	  	<label class="form-label">选择内容分类</label>
+	  	<div class="group">
+	  	<ul class="data_list">
+	  	<%for cc in @content_categories%>
+	  	 <li><%= check_box_tag "content_categories[#{cc.id}]",nil,@ad_group.has_content_category(cc) %><%=cc.name%></li>
+	  	<%end%>
+	  	</ul>
+	  	</div>
+	  </fieldset>
+    
+  <fieldset>
+    <%= f.label :name, :class=>'form-label' %>
+    <div class="group">
+      <%= f.text_field :name, :size=>40, :class=>'required', :maxlength=>40 %>
+      <span class="help">不超过40个字。</span>
+    </div>
+  </fieldset>
+  <fieldset>
+    <%= f.label :call_to_action, :class=>'form-label' %>
+    <div class="group">
+      <%= @ad_group.call_to_action.note %>
+    </div>
+  </fieldset>
+  <fieldset>
+    <%= f.label :start_from, :class=>'form-label' %>
+    <%= f.text_field :start_from, :size=>15, :class=>'required date-field',
+	'data-min-date' => "+0", 
+	'data-max-date' => (@campaign.end_to ? @campaign.end_to.to_formatted_s(:db) : '') %>
+  </fieldset>      
+  <fieldset>
+    <%= f.label :end_to, :class=>'form-label' %>
+    <div class="group">
+      <%= f.text_field :end_to, :size=>15, :class=>'date-field', 
+	  'data-min-date' => "+0",
+	  'data-max-date' => (@campaign.end_to ? @campaign.end_to.to_formatted_s(:db) : '') %>
+      <span class="help">可选</span>
+    </div>
+  </fieldset>
+  <h3>设置价格</h3>
+  <p>付费方式: <%= @ad_group.pay_method.name %>, <%= @ad_group.pay_method.note %>请设置您的广告价格，出价越高，您的广告被显示的机会越大。</p>
+  <fieldset>
+    <label class="form-label">最低价格</label>
+    <div class="group">
+      <%= format_money @ad_group.pay_method.base_price %>
+    </div>
+  </fieldset>
+  <fieldset>
+    <%= f.label :bid_price, :class=>'form-label' %>
+    <div class="group">
+    <%= f.text_field :bid_price, :size=>15, :class=>'required number', :min=>@ad_group.pay_method.base_price, 'data-paymethod-id'=>@ad_group.pay_method_id %>
+    <span class="help">不能低于上述最低价格。</span>
+    <p class="help" id="compare_price_result"></p>
+    </div>
+  </fieldset>
+  <fieldset>
+    <%= f.label :daily_budget, :class=>'form-label' %>
+    <div class="group">
+      <%= f.text_field :daily_budget, :size=>15, :class=>'required number', :min=>10 %>
+      <span class="help">元</span>
+      <p class="help">设定每天广告投放金额，如果您的活动只有一个广告组，不需要设定。</p>
+    </div>
+  </fieldset>
+
+  <div class="buttons">
+    <%= submit_tag '提交', :class=>'primary_button' %>
+    <%= link_to '取消', ad_owner_campaign_path(@campaign, :format=>:html), :class=>'secondary_button' %>
+  </div>
+<% end -%>
+</div>

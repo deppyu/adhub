@@ -1,0 +1,59 @@
+<% page_title '提现请求'
+   side_bar 'admin_console'  -%>
+
+<% javascript_tag do -%>
+  $(function(){
+    Fusion.use_feature(InitDatepicker);
+  $("input#keyword").autocomplete({
+	source: '/admin/members/autocomplete_search.json'
+});
+
+  });
+<% end -%>
+
+
+<div class="form">
+  <div class="head">
+    <h2>提现请求</h2>
+  </div>
+
+  <%= form_tag admin_cash_claims_path(:format=>:html), :method=>:get do -%>
+    <fieldset>
+      <label class="form-label">日期: </label>
+      <div class="group">
+	<%= text_field_tag :start_from, params[:start_from], :size=>12, :class=>'date-field' %>&nbsp;——&nbsp;
+	<%= text_field_tag :end_to, params[:end_to], :size=>12, :class=>'date-field' %>
+      </div>
+    </fieldset>
+    <fieldset>
+      <%= label_tag :keyword, '客户名称或EMail', :class=>'form-label' %>
+      <%= text_field_tag :keyword, params[:keyword], :size=>30 %>
+    </fieldset>
+    <fieldset>
+      <%= label_tag :keyword, '处理结果', :class=>'form-label' %>
+      <%= select_tag :result, options_for_select(CashClaim::ALL_RESULTS.collect { |r| [cash_claim_result(r), r.to_s] }, params[:result] ), :include_blank=>true %>
+    </fieldset>
+    <div class="buttons">
+      <%= link_to '搜索', '', :class=>'submit primary_button' %>
+    </div>
+  <% end -%>
+  
+  <table class="data_list">
+    <tr>
+      <th width="*">用户</th>
+      <th width="25%">申请日期</th>
+      <th width="12%" class="number">金额</th>
+      <th width="10%">结果</th>
+      <th width="10%">操作</th>
+    </tr>
+    <% for claim in @cash_claims %>
+      <tr>
+	<td><%= claim.member.name or claim.member.email %></td>
+	<td><%= format_time claim.created_at %></td>
+	<td class="number"><%= format_money claim.amount %></td>
+	<td><%= cash_claim_result claim %></td>
+	<td><%= link_to '详情', admin_cash_claim_path(claim, :format=>:html) %></td>
+      </tr>
+    <% end -%>
+  </table>
+</div>

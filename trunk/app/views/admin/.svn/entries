@@ -1,0 +1,55 @@
+10
+
+dir
+5408
+svn://svn.shinerad.com/adhub/webapp/trunk/app/views/admin
+svn://svn.shinerad.com
+
+
+
+2012-03-09T03:51:19.374947Z
+5084
+yulinfeng
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+f072bba4-7beb-4405-955d-6f99f87615b6
+
+account_transactions
+dir
+
+ad_containers
+dir
+
+advertisements
+dir
+
+cash_claims
+dir
+
+content_categories
+dir
+
+contracts
+dir
+
+members
+dir
+
+parties
+dir
+
+sdks
+dir
+

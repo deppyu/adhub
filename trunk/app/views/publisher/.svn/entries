@@ -1,0 +1,66 @@
+10
+
+dir
+5408
+svn://svn.shinerad.com/adhub/webapp/trunk/app/views/publisher
+svn://svn.shinerad.com
+
+
+
+2012-03-08T07:00:19.436819Z
+5054
+panhaifeng
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+f072bba4-7beb-4405-955d-6f99f87615b6
+
+
+
+
+
+
+0
+
+ad_containers
+dir
+
+applications
+dir
+
+
+
+delete
+
+bank_accounts
+dir
+
+black_lists
+dir
+
+cash_claims
+dir
+
+console
+dir
+
+prices
+dir
+
+publish_policies
+dir
+
+reports
+dir
+

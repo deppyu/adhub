@@ -1,0 +1,11 @@
+<%page_title '应用ID'%>
+
+<div class="section">
+	<div class="body">
+		<span><h2>您的应用已经生成id：<%=@application.identity%></h2></span>
+		
+		<div class="buttons">
+			<%=link_to '查看所有应用',publisher_ad_containers_path(:format=>:html),:class=>:button%>
+		</div>
+	</div>
+</div>

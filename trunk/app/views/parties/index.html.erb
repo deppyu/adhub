@@ -1,0 +1,72 @@
+<%page_title "广告客户管理"
+  side_bar 'agent'
+%>
+
+<%= javascript_tag do -%>
+$(function(){
+    $('#search_date').datepicker({ autoSize:true,
+                                    dateFormat :'yy-mm-dd'});                          
+});
+<% end -%>
+
+<div class="section">
+  <div class="head">
+    <div class="buttons">
+      <%= link_to '添加广告客户',new_party_path(:format=>:html),:class=>'button long'%>
+    </div>
+    
+    <h2>广告客户管理</h2>	
+    <div class="search">
+       <% form_tag parties_path(:format=>:html), :method=>:get, :id=>'search_form' do %>
+          <table>
+            <tr>
+              <td>名称：</td>
+              <td><%= text_field_tag 'name', params[:name], :size=>8, :class=>"ml10" %></td>
+              <td class="ml10"><span class="ml10">类型：</div></td>
+              <td><%= party_type_select_tag 'party_type', params[:party_type], :include_blank=>true, :class=>"ml10" %></td>
+	     </tr>
+          <tr>
+            <td>中止日期早于：</td>
+            <td colspan="3"><%= text_field_tag 'expired_at', params[:expired_at], :size=>5, :id=>'search_date', :class=>"ml10" %></td>
+	  </tr>
+          <tr>
+            <td>账户资金：</td>
+            <td><%= text_field_tag 'account_min', params[:account_min], :size=>3, :class=>"ml10" %><span class="ml10">~</span>
+              <%= text_field_tag 'account_max', params[:account_max], :size=>3, :class=>"ml10" %>
+            </td>
+            <td>
+              <%= check_box_tag :archived, 1,params[:archived], :class=>"ml10" %>
+              <span>包含已归档客户</span>
+	    </td>
+            <td>
+              <%= submit_tag '查询', :class=>'primary_button ml10' %>
+	    </td>
+	  </tr>
+          <tr>
+            <td><%= Contract.human_attribute_name :fast_search %>:</td>
+            <td colspan="3"><span class="ml10"><%= link_to (t "contract.fast_search.0"), parties_path(:expired_at=>Time.now.to_date.advance(:months=>1).strftime("%Y-%m-%d"), :format=>:html) %>
+              <%= link_to (t "contract.fast_search.1"), parties_path(:account_max=> Contract::BALANCE_WARN,:format=>:html) %></span>
+	    </td>
+          </tr>
+	</table>
+       <% end %>
+    </div>		
+  </div>
+
+  <div class="body">
+   <table class="data_list stripped">
+     <tr class="head">
+     	<th width="*"><%= Party.human_attribute_name :name %></th>
+        <th width="10%"><%= Party.human_attribute_name :party_type %></th>
+        <th width="10%"><%= Party.human_attribute_name :sales %></th>
+        <th width="20%">广告主合约</th>
+        <th width="15%"><%= Contract.human_attribute_name :expiration_processed %></td>
+        <th width="10%"><%= Party.human_attribute_name :archived %></td>
+     	<th width="15%"><%= Party.human_attribute_name :agent_operate %></th>
+     </tr>
+     <%= render :partial=>'party',:collection=>@parties %>
+   </table>
+   <%= will_paginate @parties %>	
+  </div>
+</div>
+

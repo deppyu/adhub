@@ -1,0 +1,28 @@
+<%page_title "充值页面"
+  side_bar 'member_account'
+%>
+
+<% javascript_tag do %>
+  $(function(){
+  	$('#_faces_form').validate();
+  });
+<% end-%>
+
+<div class="form">
+<%form_tag supplement_member_path(:id=>@member.id,:format=>:html),:method=>:post,:id=>"_faces_form" do%>
+  <fieldset>
+   <span>充值金额：<%= text_field_tag 'amount','',:class=>"required",:size=>20%></span>
+  </fieldset>
+  <fieldset>
+   <span>充值方式：<select name="op_way">
+   	                  <%= options_for_select choice_for_account_transaction%>
+                 </select>
+   </span>
+  </fieldset>
+  
+  <div class="buttons">
+    <%= submit_tag '提交', :class=>'primary_button' %>
+  </div>
+                             
+<%end%>                                
+</div>

@@ -1,0 +1,6 @@
+page.alert '合约已经中止！'
+page.hide 'stop_bt'
+if @contract.party.can_archived?
+  page.show "archived_bt_#{@contract.party.id}"
+end
+page.replace_html "#exp_flag_#{@contract.id}", "是"

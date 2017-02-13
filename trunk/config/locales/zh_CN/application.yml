@@ -1,0 +1,25 @@
+zh-CN:
+  activerecord:
+    models:
+      application: 应用
+    attributes:
+      application:
+        os_type: 操作系统分类
+        status: 状态
+        type: 类型
+        name: 应用名称
+        url: 市场URL
+        description: 应用描述
+        rejected_reason: 拒绝原因
+  
+  application:
+    os_type:
+      "0": Android应用
+    status:
+       "0": 编辑中
+       "1": 审核通过
+       "2": 被锁定
+       "3": 审核未通过 
+
+
+    

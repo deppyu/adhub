@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%= page_title_tag -%>  
+  <%= javascript_include_tag 'jquery', 'jquery-ui', 'jrails', 'jquery.validate', 'validate/extra', 'fusion', 'application' %>
+  <%= javascript_include_tag 'validate/messages_cn'%>
+
+  <%= javascript_include_tag @js_files.flatten unless @js_files.nil? %>
+  <%= stylesheet_link_tag 'jquery-ui', 'common' %>
+  <%= stylesheet_link_tag @css_files.flatten unless @css_files.nil? %>
+  <% if @use_google_map -%>
+	<script type="text/javascript" src="http://ditu.google.com/maps/api/js?sensor=false"></script>
+	<%= javascript_include_tag 'google_map_helpers' %>
+  <% end -%>
+
+  <%= csrf_meta_tag %>
+	<%= javascript_tag do -%>
+	       
+	  $(function(){
+	    Fusion.use_default_features();
+	    Fusion.use_feature(StrippedTable, 'table.data_list');
+	    Fusion.use_feature(InputHint);
+	    <% if flash[:notice] -%>
+	      alert ('<%= flash[:notice] %>');
+	    <% end -%>
+	  });
+	<% end -%>
+
+</head>
+<body class="<%= body_class %>">
+  <div id="main_wrapper">
+    <%= render :partial=>'/page_head' %>
+
+    <div id="page_content" class="page_content clearfix">
+    <% unless @navigation_bar_content.nil? or @navigation_bar_content.empty? %>
+      <%= @navigation_bar_content %>
+    <% end -%>    
+
+      <% if @side_bar -%>
+	<div id="side_bar">
+	  <%= render :partial=>"side_bar/#{@side_bar}" %>
+	</div> <!-- side_bar -->
+      <% end -%>
+
+      <div id="side_function">
+	<%= yield %>        	
+      </div>
+
+      <% if @side_bar_2 -%>
+	<div id="side_bar2">
+	  <%= render :partial=>"side_bar/#{@side_bar_2}" %>
+	</div> <!-- side_bar_2 -->
+      <% end -%>
+
+    </div>
+    
+    <%= render :partial=>'/page_foot'%>
+  </div> <!-- main_wrapper -->
+
+    <% if flash[:notice] -%>
+      <div id="notice">
+        <%= flash[:notice] %>
+      </div>
+    <% end -%>
+	
+    <% if @use_remote_form_dialog -%>
+      <div id="dialog">
+	<div class="message">
+	  
+	</div>
+        <div class="body">
+	  
+	</div>
+      </div>
+      
+      <% javascript_tag do -%>
+	$(function(){
+	$('#dialog').dialog({
+	autoOpen: false,
+	modal: true,
+	resizable: false,
+	height: 'auto',
+	width: 550,
+	buttons: {
+        '提交' : function () {
+        var frm = $(this).find('form');
+        if ( frm.valid && ! frm.valid()) {
+        return;
+        }
+        $(this).dialog('close').find('form').trigger('submit');
+        },
+        '取消' : function () {
+        $(this).dialog('close').find('form').html('');
+        }
+	}
+	});
+	});
+      <% end -%>
+    <% end -%>
+</body>
+</html>

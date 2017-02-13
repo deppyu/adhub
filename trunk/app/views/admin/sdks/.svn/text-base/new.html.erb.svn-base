@@ -1,0 +1,34 @@
+<%page_title '新建sdk'
+  side_bar 'admin_console'
+  include_js_file  'jquery.uploadify','ad_editor.js'
+  include_css_file 'uploadify'
+%>
+
+<% session_key_name = Rails.application.config.session_options[:key] %>
+<%javascript_tag do%>
+
+<%end%>
+
+<%= error_messages_for @sdk%>
+<div class="form">
+	<%= form_for @sdk,:as=>:sdk,:url=>admin_sdks_path(:format=>:html),
+	                     :html=>{:class=>'validable',:method=>:post} do |f|%>
+	                     
+	          <fieldset>
+		          	<%= f.label :os_type,:class=>'form-label'%>
+		          	<%= f.select :os_type,choice_sdk_os_type%>
+	          </fieldset>
+	          
+	          <fieldset>
+	          		<%= f.label :name,:class=>'form-label'%>
+	          		<%= f.text_field :name,:class=>'required',:size=>30%>
+	          </fieldset>
+	          <fieldset>
+	          		<%= f.label :version,:class=>'form-label'%>
+	          		<%= f.text_field :version,:class=>'required',:size=>30%>
+	          </fieldset>	                   
+	          <div class="buttons">
+	          	  <%=f.submit  '下一步',:class=>'primary_button'%>
+	          </div>
+	  <%end%>        
+</div>

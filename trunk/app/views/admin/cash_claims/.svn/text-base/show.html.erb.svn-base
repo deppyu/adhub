@@ -1,0 +1,87 @@
+<% page_title '处理提现请求' 
+   side_bar 'admin_console' -%>
+
+<% javascript_tag do -%>
+  $(function(){
+    $('.rdo_result').change(function(e){
+      if ('1' == this.value) {
+        $('#fs_bill_no').show();
+        $('#fs_fail_reason').hide();
+        $('#bill_no').addClass('required');
+        $('#fail_reason').removeClass('required');
+      } else {
+        $('#fs_bill_no').hide();
+        $('#fs_fail_reason').show();
+        $('#bill_no').removeClass('required');
+        $('#fail_reason').addClass('required');
+      }  
+      $('form').validate();
+    });
+  });
+<% end -%>
+
+<% navigation_bar [link_to('管理后台', '/admin'), 
+		   link_to('提现请求', admin_cash_claims_path(:format=>:html)), '处理提现请求']%>
+<div class="form">
+  <div class="head">
+    <h2>处理提现请求</h2>
+  </div>
+
+  <dl class="attributes">
+    <dt>客户名称</dt>
+    <dd><%= @cash_claim.member.name or @cash_claim.member.email %></dd>
+    
+    <dt>银行账号</dt>
+    <dd><%= @cash_claim.bank_account_summary %></dd>
+
+    <dt>提现金额</dt>
+    <dd><%= format_money @cash_claim.amount %></dd>
+
+    <% case @cash_claim.result 
+       when CashClaim::SUCCEED -%>
+    <dt>处理结果</dt>
+    <dd>成功</dd>
+
+    <dt>银行回单号</dt>
+    <dd><%= @cash_claim.bill_no %></dd>
+    
+    <dt>处理人</dt>
+    <dd><%= @cash_claim.operator.label %></dd>
+    <% when CashClaim::FAILED -%>
+    <dt>处理结果</dt>
+    <dd>失败</dd>
+
+    <dt>失败原因</dt>
+    <dd><%= @cash_claim.fail_reason %></dd>
+    
+    <dt>处理人</dt>
+    <dd><%= @cash_claim.operator.label %></dd>
+    <% end -%>
+  </dl>
+    
+    <% if CashClaim::PENDING == @cash_claim.result -%>
+    <h3>处理结果</h3>
+    <%= form_tag admin_cash_claim_path(@cash_claim, :format=>:html), :method=>:put do -%>
+      <fieldset>
+	<div class="group">
+	  <%= radio_button_tag :result, 1, true, :class=>'required rdo_result' %>转账成功&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  <%= radio_button_tag :result, 2, false, :class=>'required rdo_result' %>转账失败
+	</div>
+      </fieldset>
+      <fieldset id="fs_bill_no">
+	<%= label_tag :bill_no, '银行回单号', :class=>'form-label' %>
+	<%= text_field_tag :bill_no, params[:bill_no], :class=>'required', :size=>40, :maxlength=>30 %>
+      </fieldset>
+      <fieldset id="fs_fail_reason" class="hidden">
+	<%= label_tag :fail_reason, '失败原因', :class=>'form-label' %>	
+	<%= text_area_tag :fail_reason, params[:fail_reason], :class=>'required', :size=>'40x2', :maxlength=>100 %>
+	</fieldset>
+      <div class="buttons">
+	<%= link_to '提交', '', :class=>'submit primary_button' %>
+      </div>
+    <% end
+     end -%>
+
+
+</div>
+

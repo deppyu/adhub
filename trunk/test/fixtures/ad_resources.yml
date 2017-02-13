@@ -1,0 +1,26 @@
+ad1_icon:
+  id: 1
+  advertisement_id: 1
+  ad_format: icon_text
+  name: icon
+  width: 80
+  height: 80
+  size_code: square
+  file: icon_text_icon.jpg
+  file_content_type: image/jpeg
+
+ad1_title:
+  id: 2
+  member_id: 1
+  advertisement_id: 1
+  ad_format: icon_text
+  name: title
+  text: Title
+
+ad1_subtitle:
+  id: 3
+  member_id: 1
+  advertisement_id: 1
+  ad_format: icon_text
+  name: subtitle
+  text: Subtitle

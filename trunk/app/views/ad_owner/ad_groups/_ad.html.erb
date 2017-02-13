@@ -1,0 +1,38 @@
+<tr id="<%= element_id(ad) %>">
+  <td><%= link_to ad.name, ad_owner_ad_group_advertisement_path(@ad_group, ad, :format=>:html) %></td>
+  <td class="status"><%= advertisement_status ad %></td>
+  <td><%= ad.ad_format.note %></td>
+  <td class="number"><%= ad.impression_count %>/<%= ad.click_count %></td>
+  <td class="number"><%= number_to_percentage ad.reach_rate, :precision=>1 %></td>
+  <td class="number"><%= format_money ad.used_budget %></td>
+  <td>
+    <div class="dropdown_menu">
+      <ul class="menu">
+	<% if ad.editable? %>
+	  <li><%= link_to '编辑', edit_ad_owner_ad_group_advertisement_path(@ad_group, ad, :format=>:html) %></li>
+	<% end -%>
+	<% if ad.waiting_submit_approve? -%>
+	  <li class='but_submit_approve'>
+	    <%= link_to '提交审核', submit_approve_ad_owner_ad_group_advertisement_path(@ad_group, ad, :format=>:js, :from=>'table'),
+					     :class=>'remote but_submit_approve', 'data-method'=>:post %>
+	  </li>
+	<% end -%>
+	<% if ad.running? %>
+		<li><%= link_to '撤回',revoke_ad_owner_ad_group_advertisement_path(@ad_group,ad,:format=>:js,:from=>'table'), :class=>'remote',
+           'data-method'=>:post,:id=>'but_revoke_approved'%></li>
+       <li><%= link_to '停止',stop_ad_owner_ad_group_advertisement_path(@ad_group,ad,:format=>:js,:from=>'table'),:class=>'remote',
+            'data-method'=>:post%></li>
+	<%end%>
+	<% if ad.paused? %>
+	   <li><%= link_to '撤回',revoke_ad_owner_ad_group_advertisement_path(@ad_group,ad,:format=>:js,:from=>'table'),:class=>'remote',
+           'data-method'=>:post,:id=>'but_revoke_stopped'%></li>
+       <li><%= link_to '执行', execute_ad_owner_ad_group_advertisement_path(@ad_group,ad,:format=>:js,:from=>'table'),:class=>'remote',
+            'data-method'=>:post%></li>
+	<% end %>
+	<% if ad.destroyable? -%>
+	  <li><%= link_to '删除', ad_owner_ad_group_advertisement_path(@ad_group, ad, :format=>:js), :class=>'delete'%></li>
+	<% end -%>
+	      </ul>
+	    </div>
+	  </td>
+	</tr>

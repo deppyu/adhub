@@ -1,0 +1,60 @@
+<% page_title '注册AdHub账号' -%>
+
+<% javascript_tag do -%>
+  $(function(){
+    $('#register_form').validate({
+      messages : {
+        'member[email]' : { remote : '电子邮件已被注册。' }
+      }
+    });
+  });
+<% end -%>
+
+<div class="aside">
+  <div class="head">
+    <h2>帮助信息</h2>
+  </div>
+
+  <div class="body">
+    <p>提示：如何做到精准投放广告？广告主用户创建广告时，可以填写投放目标信息，而开发者用户提交应用时会填写应用的相关信息，那么平台就会自动地将广告按照广告主制定的投放目标推送到跟该目标相符合的应用程序中，从而实现精准投放。</p>
+  </div>
+</div>
+
+<div class="form with_aside" id="register">
+  <div class="head">
+    <h2 class="beside_site_logo">注册AdHub</h2>
+  </div>
+  
+  <% form_for :member, @member, :url=>members_path(:format=>:html), 
+     :html=>{:id=>'register_form'} do |f| -%>
+  <div class="form_error">
+    <%= f.error_messages %>
+  </div>
+  <fieldset>
+    <%= f.label :email, :class=>'form-label' %>
+    <div class="group">
+      <%= f.text_field :email, :class=>'required email', :size=>30, 
+	  :remote=>check_email_members_path(:format=>:json) %>
+      <span class="help">请认证填写。这将是您的登录账户。</span>
+    </div>
+  </fieldset>
+  <fieldset>
+    <%= f.label :real_name, :class=>'form-label' %>
+    <%= f.text_field :real_name, :class=>'required', :size=>15 %>
+  </fieldset>
+  <fieldset>
+    <%= f.label :password, :class=>'form-label' %>
+    <%= f.password_field :password, :class=>'required', :size=>20, :minlength=>"6", :maxlength=>"16" %>
+  </fieldset>
+  <fieldset>
+    <%= label_tag :password_confirm, '密码确认', :class=>'form-label' %>
+    <%= password_field_tag :password_confirm, '', :size=>20, :class=>'required', :equalTo=>'#member_password' %>
+  </fieldset>
+
+  <p><%= check_box_tag :accept_term %><span>我已阅读并同意行程广告《服务协议》和《隐私声明》</span></p>
+  <div class="buttons">
+    <input type="submit" value="保存" class="primary_button"/>
+    <%= link_to '已经有帐号了？去登录吧。', new_session_path(:format=>:html), :class=>'secondary_button'%>
+  </div>
+<% end -%>
+</div>

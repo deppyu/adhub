@@ -1,0 +1,68 @@
+<%page_title '编辑广告活动'%>
+<% javascript_tag do %>
+$(function(){
+Fusion.use_feature(InitDatepicker);
+});
+<% end -%>
+
+<div class="aside">
+  <div class="head">
+    <h2>帮助信息</h2>
+  </div>
+  <div class="body">
+    
+  </div>
+</div>
+
+<div class="form with_aside">
+  <div class="head">
+    <h2>编辑广告活动</h2>
+  </div>
+    <%= form_for :campaign, @campaign, :url=>ad_owner_campaign_path(:format=>:js), :html=>{:class=>'validable',:method=>:put} do |f| %>
+      <fieldset>
+	<%= f.label :name, :class=>'form-label' %>
+	<div class="group">
+	  <%= f.text_field :name, :size=>40, :class=>'required', :maxlength=>40 %>
+	  <span class="help">不超过40个字</span>
+	</div>
+      </fieldset>
+      <fieldset>
+	<%= f.label :budget, :class=>'form-label' %>
+	<div class="group">
+	  <%= f.text_field :budget, :size=>15, :class=>'required number',:min=>(@campaign.used_budget >100 ? @campaign.used_budget : 100) %>
+	  <span class="help">最少100元</span>
+	</div>
+      </fieldset>
+      <fieldset>
+	<%= f.label :daily_budget, :class=>'form-label' %>
+	<div class="group">
+	  <%= f.text_field :daily_budget, :size=>15, :class=>'required number', :min=>10 %>
+	  <span class="help">最少10元</span>
+	</div>
+      </fieldset>
+      <fieldset>
+	<%= f.label :start_from, :class=>'form-label' %>
+	<%= f.text_field :start_from, :size=>15, :class=>'required date-field',
+	    'data-min-date' => "+0" %>
+      </fieldset>      
+      <fieldset>
+	<%= f.label :end_to, :class=>'form-label' %>
+	<div class="group">
+	<%= f.text_field :end_to, :size=>15, :class=>'date-field', 
+	    'data-min-date' => "+0" %>
+	<span class="help">可选</span>
+	</div>
+      </fieldset>
+      <fieldset>
+	<%= f.label :description, :class=>'form-label' %>
+	<%= f.text_area :description, :size=>'40x6' %>
+	<span class="help">不超过250个字</span>
+      </fieldset>
+      <div class="buttons">
+	<%= submit_tag '保存', :class=>'primary_button' %>
+	<%= link_to '取消', ad_owner_campaigns_path(:format=>:html), :class=>'secondary_button' %>
+      </div>
+
+    <% end -%>
+</div>
+

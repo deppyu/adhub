@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>AdHub: 获取动态密码</title>
+</head>
+<body>
+<p><%= @member.email %>您好：
+<p>您在AdHub上的银行帐号，这是您的银行账户信息：</p>
+<p>银行名称：<%= @bank_account.bank_name%></br>
+	银行户名：<%= @bank_account.account_name%></br>
+	银行帐号：<%= @bank_account.bank_serial%></br>
+</p>
+<p><h3>请确认这是您的银行帐号无误！如有问题请与我们联系！谢谢</h3></p>
+
+<p><%= link_to '点击这里登陆AdHub网站',new_session_path(:format=>:html) %></p>
+<br/>
+<br/>
+<br/>
+<p>AdHub</p>
+
+</body>
+</html>

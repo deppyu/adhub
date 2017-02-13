@@ -1,0 +1,3 @@
+page.alert "添加黑名单成功!"
+page.hide "bt_#{@black_list.black_member_type}"
+page.show "sp_#{@black_list.black_member_type}"

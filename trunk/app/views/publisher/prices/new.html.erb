@@ -1,0 +1,10 @@
+<div class="form">			
+  <%= form_for :price, @price,:url=>publisher_prices_path(:format=>:js),:method=>:post, :html=>{:class=>'validable'},
+               :remote=>true do |f| %>
+  <%= f.hidden_field :channel_id %>
+  <%= f.hidden_field :pay_method_id %>
+  <%= render :partial=>"f", :locals=>{:f=>f} %>
+<% end-%>
+</div>
+
+

@@ -1,0 +1,13 @@
+<tr id="<%= element_id (policy) %>">
+  <td>
+    <div class="<%= class_policy_exists_black_list(policy) %> hide">
+      <%= image_tag 'warn_bt.png' %>
+    </div>
+    <%= link_to policy.name, publisher_publish_policy_path(policy, :format=>:html) %>
+  </td>
+  <td><%= policy.channel.name if policy.channel %></td>
+  <td><%= policy.ad_containers.collect {|ac| ac.name}.join(",") if policy.ad_containers.count>0 %></td>
+  <td><%= policy.end_to %></td>
+  <td><%= policy.bid_price %></td>
+  <td><%= policy.advertisement.name if policy.advertisement %></td>
+</tr>

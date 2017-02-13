@@ -1,0 +1,54 @@
+<%page_title '管理业务伙伴'
+  side_bar 'admin_console'
+%>
+
+<%= javascript_tag do -%>
+$(function(){
+    $('#search_date').datepicker({ autoSize:true,
+                                    dateFormat :'yy-mm-dd'});
+});
+<% end -%>
+
+<h2>业务伙伴列表：</h2>
+
+<div style="width:600px">
+  <% form_tag admin_parties_path(:format=>:html),:method=>:get,:id=>"admin_party_form" do%>
+    <table>
+      <tr>
+        <td>名称：</td>
+        <td><%= text_field_tag :name, params[:name], :size=>10 %></td>
+        <td>类型：</td>
+        <td><%= select_tag :party_type, options_for_select(choice_for_party_type, :selected=>params[:party_type]), :include_blank=>true %></td>
+      </tr>
+      <tr>
+        <td>业务类型：</td>
+        <td><%= select_tag :contract_business_type, options_for_select(choice_for_contract_business_type, :selected=>params[:contract_business_type]), :include_blank=>true %></td>
+        <td>中止日期：</td>
+        <td>
+          <%= text_field_tag :expired_at, params[:expired_at], :id=>"search_date" %>
+          <%= check_box_tag :archived, 1,params[:archived], :class=>"ml10" %>
+          <span>包含已归档客户</span>
+          <%= submit_tag '查询', :class=>'primary_button ml10' %>
+        </td>
+      </tr>
+      <tr>
+        <td><%= Contract.human_attribute_name :fast_search  %>：</td>
+        <td><%= link_to (t "contract.fast_search.0"), admin_parties_path(:min_expired=>Time.now.to_date.advance(:months=>1).strftime("%Y-%m-%d"), :format=>:html) %></td>
+      </tr>
+    </table>
+<%end%>
+</div>
+<table id="admin_member_list" border="0" class="data_list stripped">
+  <tr>
+    <th width="*"><%= Party.human_attribute_name :name %></th>
+    <th width="15%"><%= Party.human_attribute_name :party_type %></th>
+    <th width="15%">发行商合约</th>
+    <th width="15%">代理商合约</th>
+    <th width="15%">广告主合约</th>
+    <th width="10%"><%= Party.human_attribute_name :archived %></th>
+    <th width="10%"><%= Party.human_attribute_name :admin_operate %></th>
+ </tr>
+ <%= render :partial=>'party',:collection=>@parties%>
+ 
+ <%= will_paginate @parties%>
+</table>

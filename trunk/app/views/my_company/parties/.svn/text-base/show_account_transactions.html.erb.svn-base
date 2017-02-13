@@ -1,0 +1,44 @@
+<%page_title '交易记录'
+  side_bar 'my_company'
+%>
+
+<%javascript_tag do%>
+$(function(){
+  $('#search_date').datepicker({ autoSize:true,
+                                    dateFormat :'yy-mm-dd'});
+  $('#search_date_over').datepicker({ autoSize:true,
+                                    dateFormat :'yy-mm-dd'});
+  $('#search_form').validate();                                  
+});
+                                    
+<%end%>
+
+<div class="section">
+	<div class="head">
+		<h2>交易记录</h2>
+	   <div class="search">
+	   	<%form_tag show_account_transactions_my_company_parties_path(:format=>:html),:method=>:get,:id=>'search_form' do %>
+			<span class="ml20">开始时间：</span> <%=text_field_tag 'start_time',params[:start_time],:id=>'search_date',:size=>10,:class=>'required'%>
+			<span class="ml20">结束时间：</span> <%=text_field_tag 'over_time',params[:over_time],:id=>'search_date_over',:size=>10,:class=>'required'%>
+		   <%= submit_tag '查询',:class=>'primary_button'%>
+		<%end%>
+		</div> 		
+	</div>
+	
+	
+	
+	<div class="body">
+		<h3><p align="right">当前账户余额：<%= format_money @party.account_balance%></p></h3>	
+		<table id="account_transactions_list" border="0" class="data_list stripped">
+	       <tr class="head">
+	       	  <th width="*">日期</th>
+	       	  <th width="20%">交易类型</th>	       	  
+	       	  <th width="35%">描述</th>
+	       	  <th width="20%" class="number">金额</th>
+	       </tr>
+	       
+	    <%=render :partial=>'ac',:collection=>@account_transactions%>   
+	   </table>
+	   <%= will_paginate @account_transactions%>
+	</div>
+</div>

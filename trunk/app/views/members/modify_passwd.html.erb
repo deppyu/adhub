@@ -1,0 +1,30 @@
+<%page_title '修改密码'
+  side_bar 'member_account'
+%>
+
+<div class="section">
+	<div class="head">
+		<h2>修改密码</h2>
+	</div>
+	
+	<div class="body">
+		<% form_tag update_passwd_member_path(@member,:format=>:js),:class=>'validable','data-method'=>:post,:remote=>true do %>
+		  <fieldset>
+		  	原来密码：<%= password_field_tag 'passwd',params[:passwd],:size=>20,:class=>'required'%>
+		  </fieldset>
+		  
+		  <fieldset>
+		  	&nbsp;&nbsp;新密码：<%= password_field_tag 'new_passwd',params[:new_passwd],:size=>20,:class=>'required',:minlength=>6,:maxlength=>16%>
+		  </fieldset>
+		  
+		  <fieldset>
+		  	确认密码：<%= password_field_tag 'confirm_passwd',params[:confirm_passwd],:size=>20,:class=>'required',:equalTo=>'#new_passwd',:minlength=>6,:maxlength=>16%>
+		  </fieldset>
+		  
+		  <div class="buttons">
+		  	<%= submit_tag '提交',:class=>'primary_button'%>
+		  	<%= submit_tag('取消',{:name=>'reset_button',:id=>'reset_button',:type=>'reset',:class=>'primary_button'})%>
+		  </div>
+		<%end%>
+	</div>
+</div>

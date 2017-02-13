@@ -1,0 +1,12 @@
+<%page_title 'SDKS列表'
+%>
+
+<div class="section">
+	<div class="head">
+		<h2>SDKS列表</h2>
+	</div>
+	
+	<ul class="data_list">
+		<%= render :partial=>'s',:collection=>@sdks%>
+	</ul>
+</div>

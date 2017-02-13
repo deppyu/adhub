@@ -1,0 +1,47 @@
+<fieldset>
+  <%= label_tag :icon, '图标', :class=>'form-label' %>
+  <input type="file" id="resource_file" name="resource_file" />
+  <span class="help">图标尺寸为80x80。文件大小不能超过50Kb。</span>
+</fieldset>
+
+<fieldset>
+  <%= label_tag 'text_resource[title]', '标题' , :class=>'form-label' %>
+  <div class="group">
+    <%= text_field_tag 'text_resource[title]', text_of_resource(@advertisement.resource_of_name('title')), :size=>40, :class=>'required text_resource', :maxlenth=>40,
+	'data-resource-name'=>'title' %>
+    <span class="help">不能超过40个字。</span>
+  </div>
+</fieldset>
+
+<fieldset>
+  <%= label_tag 'text_resource[subtitle]', '副标题' , :class=>'form-label' %>
+  <div class="group">
+    <%= text_field_tag 'text_resource[subtitle]', text_of_resource(@advertisement.resource_of_name('subtitle')), :size=>40, :class=>'required text_resource', :maxlenth=>50,
+	'data-resource-name'=>'subtitle' %>
+    <span class="help">不能超过40个字。</span>
+  </div>
+</fieldset>
+
+<% session_key_name = Rails.application.config.session_options[:key]
+   icon = @advertisement.resource_of_name('icon')%>
+<% javascript_tag do %>
+$(function(){
+uploadify_resource('#resource_file', 'icon_text', 'icon', '<%= session_key_name %>',
+'<%= cookies[session_key_name] %>', 51200); 
+<% if icon %>
+Resources.add({ resource_id: <%= icon.id %>, name: 'icon', url:'<%= icon.file.url%>' });
+<% end -%>
+});
+
+<% end -%>
+
+<h4>预览</h4>
+<div class="ad_preview icon_text">
+  <div class="icon">
+    <%= image_resource @advertisement.resource_of_name('icon'), :class=>'icon' %>
+  </div>
+  <p class="text_resource title"><%= text_of_resource @advertisement.resource_of_name('title') %></p>
+  <p class="text_resource subtitle"><%= text_of_resource @advertisement.resource_of_name('subtitle') %></p>
+</div>
+
+

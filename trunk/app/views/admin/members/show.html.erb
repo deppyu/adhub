@@ -1,0 +1,66 @@
+<%page_title '用户详细信息'
+  %>
+
+<%javascript_tag do%>
+   $(document).ready(function(){
+   	  <% if @member.status == Member::STATUS_LOCKED%>
+   	     $('#status_button').html("解锁用户");
+   	  <%else%>
+   	     $('#status_button').html("锁定用户");
+   	  <%end%>
+   });
+<%end%>
+
+<div class="section">
+	<div class="head">
+		<h2>用户所有信息：</h2>
+	</div>
+	
+	<div class="body">
+	<dl class="attributes">
+	  <dt>电子邮件：</dt><dd><%= @member.email if @member.email%></dd>
+	  <dt>用户姓名：</dt><dd><%= @member.real_name if @member.real_name%></dd>
+	  <dt>账户余额：</dt><dd><%= format_money @member.party.account_balance if @member.party %></dd>
+	  <dt>用户地址：</dt><dd><%= @member.party.address if @member.party and @member.party.address%></dd>
+	  <dt>邮政编码：</dt><dd><%= @member.party.post_code if @member.party and @member.party.post_code%></dd>
+	  <dt>联系方式：</dt><dd><%if @member.party and @member.party.phone_number%><%= @member.party.phone_number%><%end%></dd>
+	  <dt>是否是管理员：</dt><dd><%if @member.is_admin ==1 %>是<%else%>否<%end%></dd>
+	  
+	  <dt>当前状态：</dt><dd><span id="current_status"><%= member_status(@member)%></span></dd> 	
+     
+	</div>
+	<div class="buttons">
+		 <%= link_to '',locked_Or_unlocked_admin_member_path(:id=>@member.id,:format=>:js),:method=>:post,:class=>'button remote',:id=>'status_button'%>
+        <%= link_to '充值',faces_admin_member_path(:id=>@member.id,:format=>:html),:target=>"_bank",:class=>'button'%>
+	</div>
+</div>
+
+<div class="section">
+	<div class="body">
+		<h3>最近十条充值记录：</h3>
+		<table class="" border="0">
+		  <tr>
+		  	<th width="*">时间</th>
+		  	<th width="15%">操作人</th>
+		  	<th width="15%">操作</th>
+		  	<th width="15%">操作方式</th>
+		  	<th width="15%">金额</th>
+		  	<th widht="15%">变动后金额</th>
+		  </tr>
+		  
+		  <%for account_transaction in @account_transactions%>
+		  <tr>
+		    <td><%=format_time account_transaction.created_at%></td>
+		    <td><%= account_transaction.operator.name%></td>
+		    <td><%if account_transaction.operation == 0%>充值<%else%>提现<%end%></td>
+		    <td>银行转账</td>
+		    <td id="money"><%= format_money account_transaction.amount%></td>
+		    <td id="money"><%= format_money account_transaction.balance%></td>
+		  </tr>  		    
+		  <%end-%>
+		</table>
+		<div class="buttons">
+			<%= link_to '查看所有充值记录',show_records_admin_member_path(:id=>@member.id,:format=>:html),:target=>"_bank",:class=>'button'%>
+		</div>
+	</div>	
+</div>

@@ -1,0 +1,14 @@
+<ul class="menu">
+  <li>基本信息维护</li>
+  <li class="level_2"><%= link_to '查看基本信息', party_path(current_user.party, :format=>:html) %></li>
+  <li class="level_2"><%= link_to '编辑基本信息', edit_party_path(current_user.party, :format=>:html) %></li>
+  <% unless current_user.party.adhub_operator %>
+    <li><%= link_to "我的合约", contracts_path(:format=>:html) %></li>
+  <% end %>
+  <% if has_privilege(:manage_employee, current_user, current_user.party) %>
+    <li><%= link_to "员工管理", my_company_members_path(:format=>:html) %></li>
+  <% end %>
+  <li><%= link_to '交易记录',show_account_transactions_my_company_parties_path(:format=>:html)%></li>
+</ul>
+
+

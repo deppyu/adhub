@@ -1,0 +1,3 @@
+page.alert '提交成功！'
+page.hide 'flag'
+page.replace_html 'ad_co_status', (t "ad_container.status.#{AdContainer::STATUS_DISAPPROVED}")

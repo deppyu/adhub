@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>AdHub: 获取动态密码</title>
+</head>
+<body>
+<p><%= @member.email %>您好：
+<p>您在AdHub上新建银行帐号，这是您的动态密码：<%= @dynamic_pass%>,在新建页面的填入动态密码完成新建！</p>
+<p></p>
+<p><%= link_to '点击这里登陆AdHub网站',new_session_path(:format=>:html) %></p>
+<br/>
+<br/>
+<br/>
+<p>AdHub</p>
+
+</body>
+</html>

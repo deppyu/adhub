@@ -1,0 +1,80 @@
+<%page_title '编辑sdk'
+  side_bar 'admin_console'
+  include_js_file 'swfobject', 'jquery.uploadify'
+  include_css_file 'uploadify'
+%>
+
+<% session_key_name = Rails.application.config.session_options[:key] %>
+<%javascript_tag do%>
+
+ $(function(){
+  	uploadify_sdk('#resource_file',<%= @sdk.id%>,'<%= session_key_name %>','<%= cookies[session_key_name] %>',102400*1024);
+  });
+  
+  function upload_resource_error (e, id, file, error) {
+    alert('上传资源时发生错误:' + error.info);
+  }
+
+  function resource_uploaded(e, id, file, response, data) {
+	if (response == null){alert ('null');}
+	alert(response.message);
+   }
+
+  function uploadify_sdk(select,sdk,session_key_name, session_id,sizelimit){
+	
+	if(! sizelimit) sizelimit = 102400*1024;
+	
+	 var script_data = {};
+    script_data[session_key_name] = encodeURIComponent(encodeURIComponent(session_id));
+    var csrf_token = $('meta[name=csrf-token]').attr('content');
+    var csrf_param = $('meta[name=csrf-param]').attr('content');
+    script_data[csrf_param] = encodeURIComponent(encodeURIComponent(csrf_token));
+
+	$(select).uploadify({
+	buttonImg: '/images/select_file.png',
+	uploader: '/uploadify/uploadify.swf',
+	script: '/admin/sdks/' + sdk + '/upload_sdk.json',
+        cancelImg: '/uploadify/cancel.png',
+        folder: '/tmp/uploaded',
+	auto: true,
+	scriptData : script_data,
+	fileDataName: 'resource_file',
+	onError: upload_resource_error,
+	onComplete: resource_uploaded,
+	sizeLimit: sizelimit
+    });
+}
+
+<%end%>
+
+<%= error_messages_for @sdk%>
+<div class="form">
+	<%= form_for @sdk,:as=>:sdk,:url=>admin_sdk_path(:format=>:html),
+	                     :html=>{:class=>'validable',:enctype=>'multipart/form-data',:method=>:put} do |f|%>
+	                     
+	          <fieldset>
+		          	<%= f.label :os_type,:class=>'form-label'%>
+		          	<%= f.select :os_type,choice_sdk_os_type%>
+	          </fieldset>
+	          
+	          <fieldset>
+	          		<%= f.label :name,:class=>'form-label'%>
+	          		<%= f.text_field :name,:class=>'required',:size=>30%>
+	          </fieldset>
+	          <fieldset>
+	          		<%= f.label :version,:class=>'form-label'%>
+	          		<%= f.text_field :version,:class=>'required',:size=>30%>
+	          </fieldset>
+	          
+	          <fieldset>
+					<%= f.label :file,:class=>'form-label'%>
+					<div class="group">
+						<input type="file" id="resource_file" name="resource_file" />
+				       <p class="help">请上传sdk文件，文件大小不能超过100M。</p>
+					</div>
+		      </fieldset>           
+	         <div class="buttons">
+	          	  <%=f.submit  '提交',:class=>'primary_button'%>
+	         </div>
+	  <%end%>        
+</div>

@@ -1,0 +1,59 @@
+<%page_title '控制台'
+  side_bar 'agent'
+%>
+
+<div class="section">
+  <div class="head">
+    <h2>即将到期的客户</h2>    
+  </div>
+
+  <div class="body">
+    <table class="data_list">
+      <tr>
+	<th width="*">客户名称</th>
+	<th width="20%">账户金额</th>
+	<th width="20%">合约剩余天数</th>
+      </tr>
+      <%if session[:party]%>
+          <%if session[:party].expired_warn_parties%>
+	      <%= render :partial=>"c", :collection=>session[:party].expired_warn_parties.first(10) %>
+	      <%end%>     
+      <%else%>
+	      <%if current_user.party.expired_warn_parties%>
+	      <%= render :partial=>"c", :collection=>current_user.party.expired_warn_parties.first(10) %>
+	      <%end%>
+      <%end%>
+    </table>
+      <div class="buttons">
+        <%= link_to '更多', parties_path(:expired_at=>Time.now.to_date.advance(:months=>1).strftime("%Y-%m-%d"), :format=>:html),:class=>:button_%>
+      </div> 
+  </div>
+<br/>
+<br/>
+  <div class="head">
+    <h2>金额<<%= Contract::BALANCE_WARN %>的客户</h2>    
+  </div>
+
+  <div class="body">
+    <table class="data_list">
+      <tr>
+	<th width="*">客户名称</th>
+	<th width="20%">账户金额</th>
+	<th width="20%">合约剩余天数</th>
+      </tr>
+	  <%if session[:party]%>
+	  		  <%if session[:party].balance_warn_parties%>
+		      <%= render :partial=>"c", :collection=>session.balance_warn_parties.first(10) %>
+		      <%end%>  
+	  <%else%>
+		      <%if current_user.party.balance_warn_parties%>
+		      <%= render :partial=>"c", :collection=>current_user.party.balance_warn_parties.first(10) %>
+		      <%end%>
+      <%end%>
+    </table>
+      <div class="buttons">
+        <%= link_to '更多', parties_path(:account_max=> Contract::BALANCE_WARN,:format=>:html),:class=>:button_%>
+      </div>
+  </div>
+</div>
+

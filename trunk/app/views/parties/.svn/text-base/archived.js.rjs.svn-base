@@ -1,0 +1,3 @@
+page.replace_html "#arch_flag_#{@party.id}", "是"
+page.hide "archived_bt_#{@party.id}"
+page.alert "归档操作已完成!"

@@ -1,0 +1,26 @@
+<tr id="<%= element_id party %>">
+  <td><%=link_to party.name , admin_party_path(party, :format=>:html)%></td>
+  <td><%= get_party_type party.party_type %></td>
+  <td><% @publisher_contracts = party.contracts.where(:business_type=>Contract::BUSINESS_TYPE_PUBLISHER) %>
+    <%= @publisher_contracts.first.expired_at if @publisher_contracts.count > 0 %>
+    <%= "-" if @publisher_contracts.count == 0 %>
+  </td>
+  <td><% @agent_contracts = party.contracts.where(:business_type=>Contract::BUSINESS_TYPE_AGENT) %>
+    <%= @agent_contracts.first.expired_at if @agent_contracts.count > 0 %>
+    <%= "-" if @agent_contracts.count == 0 %>
+  </td>
+  <td><% @ad_owner_contracts = party.contracts.where(:business_type=>Contract::BUSINESS_TYPE_AD_OWNER) %>
+    <%= @ad_owner_contracts.first.expired_at if @ad_owner_contracts.count > 0 %>
+    <%= "-" if @ad_owner_contracts.count == 0 %>
+  </td>
+  <td id="arch_flag_<%= party.id %>">
+    <%= party.archived ? "是": "否" %>
+  </td>
+  <td>
+    <div class="dropdown_menu">
+      <ul class="menu">
+          <li><%= link_to (t "party.admin_operate.0"), archived_party_path(party, :format=>:js), :method=>:post, :class=>"remote", :id=>"archived_bt", :style=> (party.can_archived? ? 'display:block' : 'display:none' ) %></li>
+      </ul>
+    </div>
+  </td>
+</tr>

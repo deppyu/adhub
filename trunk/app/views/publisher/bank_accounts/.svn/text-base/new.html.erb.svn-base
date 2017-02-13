@@ -1,0 +1,40 @@
+<%page_title '新建提款账户'
+  side_bar 'publisher'
+%>
+
+<div class="form">
+	<div class="head">
+		<h2>新建提款账户</h2>
+	</div>
+	<%= error_messages_for :bank_account %>
+		<%=form_for @bank_account,:as=>:bank_account,:url=>publisher_bank_accounts_path(:format=>:html),
+		                              :html=>{:class=>'validable',:method=>:post} do |f|%>
+		      <fieldset>
+		      	<%= f.label :bank_name,:class=>'form-label'%>
+		      	<%= f.text_field :bank_name,:size=>20,:class=>'required'%>
+		      </fieldset>
+		      <fieldset>
+		      	<%= f.label :account_name,:class=>'form-label'%>
+		      	<%= f.text_field :account_name,:size=>20,:class=>'required'%>
+		      </fieldset>
+		      <fieldset>
+		      	<%= f.label :bank_serial,:class=>'form-label'%>
+		      	<%= f.text_field :bank_serial,:size=>20,:class=>'required'%>
+		     </fieldset>
+		      <fieldset>
+		      	<%= label_tag :bank_serial_confirm, '银行账号(确认)', :class=>'form-label'%>
+		      	<%= text_field_tag :bank_serial_confirm,'', :size=>20,:class=>'required', :equalTo=>'#bank_account_bank_serial'%>
+		     </fieldset>
+		     <fieldset>
+		     	<%= label_tag :dynamic_pass,'动态口令',:class=>'form-label'%>
+		     	<%= text_field_tag :dynamic_pass,'', :size=>20,:class=>'required'%>
+		     	
+		     	<%= link_to "获取动态口令",send_dynamic_pass_publisher_bank_accounts_path(:format=>:js),:method=>:post,:class=>'remote button'%>
+		     	
+		     </fieldset>
+		     <div class="buttons">
+		     	<%= f.submit '提交',:class=>'primary_button'%>
+		     </div>
+		 <%end%>                            
+	
+</div>

@@ -1,0 +1,2 @@
+module MyCompany::MyCompanyHelper
+end

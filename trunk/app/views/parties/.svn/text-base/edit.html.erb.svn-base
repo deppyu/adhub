@@ -1,0 +1,58 @@
+<% if current_user.party==@party
+       page_title '编辑基本信息'
+       side_bar 'my_company'
+   else
+       page_title '编辑广告客户信息' if current_user.party.is_valid_agent?
+       side_bar 'agent'
+       include_js_file 'jquery.AutoComplete'
+   end
+ -%>
+
+<% javascript_tag do -%>
+  $(function(){
+    $('#new_form').validate();
+  });
+<% end -%>
+
+<div class="section">
+  <div class="head">
+    <h2 class="beside_site_logo">
+        <% if current_user.party==@party %>
+            编辑基本信息
+        <%else
+            if current_user.party.is_valid_agent?%>
+                编辑广告客户信息
+           <% end
+        end%>
+    </h2>
+  </div>
+  <div class="form">
+  <% form_for :party, @party, :url=>party_path(@party, :format=>:html), 
+     :html=>{:id=>'new_form', :method=>:put} do |f| -%>
+  <%= render :partial=>'f', :locals=> {:f=>f} %>
+  <fieldset>
+  <% if current_user.party!=@party and current_user.party.is_valid_agent? %>
+    <%= f.label :sales, :class=>'form-label' %>
+    <% sales_email = Member.find(@party.sales_id).email if @party and @party.sales_id %>
+    <%= text_field_tag :sales_email, sales_email, :class=>'txt_w', :size=>30 %>
+  <% end %>
+  </fieldset>
+  
+  <%if @party.is_valid_ad_owner?%>
+    <fieldset>
+    	<%=f.label :ad_maintained_by,:class=>"form-label"%>
+    	<%=f.select :ad_maintained_by,choice_ad_maintained_by%>
+    </fieldset>
+  <%end%>
+  <div class="buttons">
+    <input type="submit" value="修改" class="primary_button"/>
+  </div>
+  <% end -%>
+  </div>
+</div>
+
+<% javascript_tag do -%>
+$(".txt_w").autocomplete({
+  source: '/parties/autocomplete_search.json'
+});
+<% end -%>

@@ -1,0 +1,25 @@
+pp_ad_icon1:
+  id: 1
+  campaign_id: 1
+  advertisement_id: 1
+  start_from: '2012-01-01'
+  pay_method_id: 1
+  channel_id: 1
+  bid_price: 17
+  daily_budget: 100
+  name: Publish ad_icon_1 to mobile apps.
+  call_to_action: 'url'
+  status: 3
+
+pp_ad_icon3:
+  id: 2
+  campaign_id: 1
+  advertisement_id: 3
+  start_from: '2012-01-01'
+  pay_method_id: 1
+  channel_id: 1
+  bid_price: 17
+  daily_budget: 100
+  name: Publish ad_icon_1 to mobile apps.
+  call_to_action: 'url'
+  status: 1

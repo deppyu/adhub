@@ -1,0 +1,21 @@
+<div class="form_error">
+    <%= f.error_messages %>
+</div>
+<fieldset>
+  <%= f.label :email, :class=>'form-label' %>
+  <%= f.text_field :email, :class=>'required email remote', :size=>30, :remote=>check_email_members_path(:id=>@member, :formart=>:json) %>
+</fieldset>
+<fieldset>
+  <%= f.label :real_name, :class=>'form-label' %>
+  <%= f.text_field :real_name, :class=>'required', :size=>15 %>
+</fieldset>
+
+<% javascript_tag do -%>
+  $(function(){
+    $('#member_form').validate({
+      messages : {
+        'member[email]' : { remote : '电子邮件已被注册。' }
+      }
+    });
+  });
+<% end -%>

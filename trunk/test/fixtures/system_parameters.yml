@@ -1,0 +1,5 @@
+publisher_share_rate:
+  id: 1
+  name: publisher_share_rate
+  value_type: 1
+  float_value: 0.6

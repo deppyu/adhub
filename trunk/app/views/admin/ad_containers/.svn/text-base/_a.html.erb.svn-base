@@ -1,0 +1,11 @@
+<tr id="<%= element_id a%>">
+	<td><%= link_to a.name,admin_ad_container_path(a,:format=>:html)%></td>
+	<td><%= a.url if a.url%></td>
+	<td><%= a.party.name if a.party or a.party.name%></td>
+	<td><%= case a.status when Application::STATUS_EDITING then '编辑中'
+  	                    when Application::STATUS_ACTIVE then '审核通过'
+  	                   when Application::STATUS_LOCKED then '被锁定'
+  	                  when Application::STATUS_DISAPPROVED then '审核未通过'
+  	                  end%></td>
+	<td><%= case a.os_type when Application::OS_ANDROID then 'Android应用' end%></td>
+</tr>

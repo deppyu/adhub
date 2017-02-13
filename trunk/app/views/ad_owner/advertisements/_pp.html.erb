@@ -1,0 +1,31 @@
+ <tr id="<%= element_id pp%>">
+         <td><%=link_to pp.name,ad_owner_advertisement_publish_policy_path(pp.advertisement,pp,:format=>:html)%></td>
+         <td><%= pp.pay_method.note%></td>
+         <td><%= pp.daily_budget%></td>
+         <td><%=format_date pp.start_from %></td>
+         <td><%=format_date pp.end_to%></td>
+         <td><%=publsh_policy_status(pp)%></td>
+         <td>
+          <div class="dropdown_menu">
+            <ul class="menu">
+            <%if pp.stopped? or pp.status == PublishPolicy::STATUS_CREATED%>
+             <%if pp.advertisement.party.has_enough_balance_to_run_ad%>
+              <li><%= link_to '执行',execute_ad_owner_advertisement_publish_policy_path(pp.advertisement,pp,:format=>:js,:from=>'table'),:class=>'remote',
+              	              'data-method'=>:post%></li>
+             <%end%> 	              
+            <%end%>
+            <%if pp.running? %>
+              <li><%= link_to '停止',stop_ad_owner_advertisement_publish_policy_path(pp.advertisement,pp,:format=>:js,:from=>'table'),:class=>'remote',
+              	              'data-method'=>:post%></li>
+            <%end%>
+            <%if pp.status == PublishPolicy::STATUS_CREATING %>
+              <li><%=link_to '设置',if pp.step == 1 
+              	                        step_2_ad_owner_advertisement_publish_policy_path(pp.advertisement,pp,:format=>:html,:from=>'table')
+              	                      elsif pp.step == 2
+              	                        step_3_ad_owner_advertisement_publish_policy_path(pp.advertisement,pp,:format=>:html,:from=>'table') 
+              	                      end%></li>
+            <%end%>
+            </ul>
+          </div>
+         </td>	 
+</tr>

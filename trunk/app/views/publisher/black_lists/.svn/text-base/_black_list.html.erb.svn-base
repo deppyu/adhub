@@ -1,0 +1,16 @@
+<tr id="<%=element_id black_list %>">
+  <td>
+    <% if black_list.black_member.class == Party %>
+      <%= black_list.black_member.name %>
+    <% end %>
+    <% if black_list.black_member.class == Advertisement %>
+      <%= link_to black_list.black_member.name, 
+        publisher_black_list_path(black_list, 
+        :format=>:html) %>
+    <% end %>
+  </td>
+  <td><%= black_list.black_member.class.human_name %></td>
+  <td>
+    <%= link_to '移除', publisher_black_list_path(black_list ,:format=>:js), :class=>'delete' %>
+  </td>
+</tr>

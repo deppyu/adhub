@@ -1,0 +1,104 @@
+<% page_title '统计报表——逐日走势' 
+   side_bar 'ad_owner' -%>
+
+<% javascript_tag do -%>
+var default_end_date = '<%= (Date.today - 1).to_formatted_s(:db) %>';
+  $(function(){
+    Fusion.use_feature(InitDatepicker);
+    
+    $('a.set_date').click(function(e){
+      e.preventDefault();
+      $('#begin_date').val($(this).attr('data-date'));
+      $('#end_date').val(default_end_date);
+    });
+  });
+<% end -%>
+
+<div class="form">
+  <div class="head">
+    <h2>统计报表——逐日走势</h2>
+  </div>
+
+    <%= form_tag daily_ad_owner_report_path(:format=>:html), :method=>:get do %>
+      <fieldset>
+	<label class="form-label">日期范围</label>
+	<div class="group">
+	  <%= text_field_tag :begin_date, @begin_date, :size=>12, :class=>'required date-field' %> —— 
+	  <%= text_field_tag :end_date, @end_date, :size=>12, :class=>'date-field' %>
+	</div>
+      </fieldset>
+      <fieldset>
+	<label class="form-label">最近</label>
+	<div class="group">
+	  <%= link_to '7天', '', :class=>'set_date', 'data-date'=>(Date.today - 7).to_formatted_s(:db) %>&nbsp;&nbsp;
+	  <%= link_to '30天', '', :class=>'set_date', 'data-date'=>(Date.today - 30).to_formatted_s(:db) %>&nbsp;&nbsp;
+	  <%= link_to '90天', '', :class=>'set_date', 'data-date'=>(Date.today - 90).to_formatted_s(:db) %>
+	</div>
+      </fieldset>
+      <% if @scope_obj.nil?
+	   items = current_user.party.campaigns 
+	   next_scope_class = Campaign
+	 
+	 else 
+	   items = []
+	 end -%>
+
+	<% unless items.empty? %>
+	  <fieldset>
+	    <label class="form-label">统计范围</label>
+	    <%= hidden_field_tag :scope_class, next_scope_class.name.underscore %>
+	    <%= select_tag :scope_id, options_for_select(items.collect { |item| [item.name, item.id ]}), :include_blank=>true %>
+	  </fieldset>
+	<% end -%>
+      <div class="buttons">
+	<%= link_to '统计', '', :class=>'submit primary_button' %>
+      </div>
+    <% end -%>    
+</div>
+
+<div class="section">
+  <div class="head">
+    <h2>统计结果</h2>
+  </div>
+
+  <div class="body">
+    <p class="navigation_bar">
+      <% items = []
+	 obj = @scope_obj 
+	 while obj 
+	   items << link_to(obj.name, daily_ad_owner_report_path(:scope_class=>obj.class.name.underscore, :scope_id=>obj.id,
+								   :begin_date=>@begin_date, :end_date=>@end_date,
+								   :format=>:html))
+	   if obj.is_a?(AdGroup) 
+	     obj = obj.campaign
+	   elsif obj.is_a?(Advertisement)
+	     obj = obj.ad_group
+	   else
+	     obj = nil
+	   end
+	 end
+	 items << link_to('所有活动', daily_ad_owner_report_path( :begin_date=>@begin_date, :end_date=>@end_date,
+								   :format=>:html)) -%>
+      <%= raw items.reverse.join('&nbsp;>&nbsp;') %>
+    </p>
+
+    <table class="data_list">
+      <tr>
+	<th width="*">日期</th>
+	<th width="20%" class="number">显示次数</th>
+	<th width="20%" class="number">点击次数</th>
+	<th width="20%" class="number">到达率</th>	
+	<th width="20%" class="number">广告费</th>
+      </tr>
+      <% for row in @rows -%>
+	<tr>
+	    <td><%= row[0] %></td>
+	    <td class="number"><%= row[1] %></td>
+	    <td class="number"><%= row[2] %></td>
+	    <td class="number"><%= number_to_percentage(row[2].to_f * 100 / row[1].to_f, :precision=>1) %></td>
+	    <td class="number"><%= format_money row[3] %></td>	  
+	  </tr>
+	<% end -%>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+<h3>预览</h3>
+<div class="ad_preview image">
+  <% for ad_res in @advertisement.ad_resources -%>
+    <div class="<%= ad_res.size_code %>">
+      <%= image_tag ad_res.file.url %>
+    </div>
+  <% end -%>
+</div>

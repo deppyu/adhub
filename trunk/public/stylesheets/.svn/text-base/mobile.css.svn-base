@@ -1,0 +1,121 @@
+body {
+    background-color: #F8F8F1;
+    color: black;
+    font: 16px/24px sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+article#page_content {
+}
+
+section {
+    margin: 16px;
+    border: 1px solid #CCC;
+    padding: 8px 16px;
+    box-shadow: 5px 5px 10px 5px #DADADA;
+    -webkit-box-shadow: 5px 5px 10px 5px #DADADA;
+}
+
+section header h2 {
+    color: #BE2129;
+    font-weight: bold;
+    font-size: 1.2em;
+    border-bottom: 1px solid #CCC;
+    padding-bottom: 8px;
+    margin-top: 0px;
+    margin-bottom: 8px;
+}
+
+fieldset { border: none; margin: 0px; padding: 0px; }
+
+fieldset ul { margin: 0px; padding: 0px; }
+
+fieldset ul li { list-style: none; clear: left; margin-bottom: 8px; }
+
+fieldset ul li label { display: block; line-height: 32px; font-size: 16px; }
+
+fieldset ul li input { display: block; font-size: 16px; }
+
+input[type=checkbox] { display: inline; }
+
+input[type=text],
+input[type=password],
+input[type=email] { border: 1px solid #CCC; border-radius: 6px; }
+
+section.form li.buttons button {
+    display: block;
+    float: left;
+    margin: 8px 8px 0 0;
+    background-color: #BE2129;
+    color: white;
+    text-align: center;
+    font-size: 16px;
+    line-heigth: 32px; 
+    padding: 8px 24px; 
+    border: none;
+    cursor: point;
+    font-weight: bold;
+}
+
+table.item_value {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table.item_value td {
+     font-size: 16px;
+    line-height: 32px; 
+}
+
+caption { color: #BE2129; font-size: 1.2em; line-height: 36px; font-weight: bold; text-align: left; margin-left: 16px; }
+
+table.item_value td { border-bottom: 1px solid #F8F8F1; }
+
+table.item_value td.item { background-color: #ADA797; text-align: right; color: white; padding: 0 5px; }
+
+table.item_value td.value { background-color: #EBEAE6; padding: 0 5px;}
+
+td.number {text-align: right; }
+
+section.campaign_list { margin: 16px 0px; border: none; padding: 0px; box-shadow: none; -webkit-box-shadow: none; }
+
+section.campaign_list h2 { margin-left: 12px; border-bottom: none; margin-bottom: 0px; }
+
+ul.campaigns { margin: 0; padding: 0; }
+
+ul.campaigns li {
+    list-style: none;
+    padding: 10px; 
+    border-top: 1px solid white;
+    border-bottom: 1px solid #CCC;
+}
+
+ul.campaigns li .status {
+    float: right;
+}
+
+ul.campaigns li p.name { 
+    font-size: 16px; 
+    line-height: 52px;
+    margin: 0px 50px 0px 0px;
+}
+
+ul.campaigns li p.name a {
+    color: black;
+    text-decoration: none;
+}
+
+ul.campaigns li p.counts { 
+    font-size: 12px;
+    line-heigth: 18px;
+    margin: 0px 50px 0px 0px;
+}
+
+ul.campaigns li p.counts span {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 0 10px;
+    border: 1px solid #CCC;
+    border-radius: 12px;
+}

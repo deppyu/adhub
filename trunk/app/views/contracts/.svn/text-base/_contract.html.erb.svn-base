@@ -1,0 +1,8 @@
+<tr id="<%=element_id contract %>">
+	<td><%= contract.contact_person %></td>
+        <td><%= t "contract.business_type.#{contract.business_type}" %></td>
+	<td><%= contract.mobile_phone %></td>
+	<td><%= contract.start_from %></td>
+	<td><%= contract.expired_at %></td>
+	<td><%= contract.expiration_processed ? "是" :"否" %></td>
+</tr>

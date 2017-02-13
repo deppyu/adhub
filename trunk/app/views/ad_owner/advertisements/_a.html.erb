@@ -1,0 +1,43 @@
+<tr id="<%= element_id a%>">
+   <td><%=link_to a.name,ad_owner_advertisement_path(a,:format=>:html),'data-method'=>:get%></td>
+   <td><%if a.ad_format%><%= a.ad_format.note%><%end%></td>
+   <td><%= advertisement_status(a)%></td>
+   <td class="number"><%= a.impression_count %>/<%= a.click_count%></td>
+   <td class="number"><%= number_to_percentage a.reach_rate%>
+   	<td class="number"><%= a.used_budget%></td>
+   	<td>
+   		<div class="dropdown_menu">
+      <ul class="menu">
+	<% if a.editable? %>
+	  <li><%= link_to '编辑', edit_ad_owner_advertisement_path(a, :format=>:html) %></li>
+	<% end -%>
+	<% if a.waiting_submit_approve? -%>
+	  <li class='but_submit_approve'>
+	    <%= link_to '提交审核', submit_approve_ad_owner_advertisement_path(a, :format=>:js, :from=>'table'),
+					     :class=>'remote but_submit_approve', 'data-method'=>:post %>
+	  </li>
+	<% end -%>
+	<% if a.running? %>
+	<li><%= link_to '撤回',revoke_ad_owner_advertisement_path(a,:format=>:js,:from=>'table'), :class=>'remote',
+           'data-method'=>:post,:id=>'but_revoke_approved'%></li>
+    <li><%= link_to '停止',stop_ad_owner_advertisement_path(a,:format=>:js,:from=>'table'),:class=>'remote',
+            'data-method'=>:post%></li>	
+    <%end%>
+    <% if a.runnable%>
+     <li><%= link_to '撤回',revoke_ad_owner_advertisement_path(a,:format=>:js,:from=>'table'),:class=>'remote',
+           'data-method'=>:post,:id=>'but_revoke_stopped'%></li>
+      <%if a.party.has_enough_balance_to_run_ad%>     
+	      <li><%= link_to '执行', execute_ad_owner_advertisement_path(a,:format=>:js,:from=>'table'),:class=>'remote',
+	            'data-method'=>:post%></li>
+      <%end%>      
+    <%end%>        
+	<% if a.destroyable? -%>
+	  <li><%= link_to '删除', ad_owner_advertisement_path(a, :format=>:js,:from=>'table'), :class=>'delete'%></li>
+	<% end -%>
+	<%if a.status == Advertisement::STATUS_APPROVED%>
+	 <li><%=link_to '发布',new_ad_owner_advertisement_publish_policy_path(a,:format=>:html)%></li>
+	<%end%>
+	      </ul>
+	    </div>
+   	</td>
+</tr>

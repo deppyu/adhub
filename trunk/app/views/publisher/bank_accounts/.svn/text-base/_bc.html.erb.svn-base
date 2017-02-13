@@ -1,0 +1,9 @@
+<tr id="<%=element_id bc%>">
+	<td><%= bc.bank_name%></td>
+	<td><%= bc.account_name%></td>
+	<td><%= bc.bank_serial%></td>
+	<td>
+	  <%= link_to '编辑',edit_publisher_bank_account_path(bc,:format=>:html)%>
+	  <%= link_to '删除',publisher_bank_account_path(bc,:format=>:js),:class=>'delete'%>
+	</td>
+</tr>

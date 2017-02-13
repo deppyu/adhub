@@ -1,0 +1,36 @@
+<%page_title '用户管理'
+  side_bar 'admin_console'
+%>
+
+<h2>用户列表：</h2>
+
+<div style="width:600px">
+	<%form_tag admin_members_path(:format=>:html),:method=>:get,:id=>"admin_member_form" do%>
+	<p><span>姓名：</span><%= text_field_tag 'name','',:size=>20%>
+		<span>是否为管理员：</span>
+			<select name="is_admin">
+		       <%= options_for_select choice_for_is_admin%>
+	       </select>
+		<span>当前状态：</span>
+		     <select name="status">
+		     	<option value="">请选择</option>
+		     	<%= options_for_select choices_member_status%>
+		     </select>  
+		<%=submit_tag '查找',:class=>'primary_button'%>             
+	</p>
+	<%end%>
+</div>
+<table id="admin_member_list" border="0" class="data_list stripped">
+ <tr>
+ 	<th width="*">姓名</th>
+    <th width="25%">合作伙伴</th>
+ 	<th width="15%">用户名称</th>
+ 	<th width="15%">管理员</th>
+ 	<th width="15%">当前状态</th>
+ 		
+ </tr>
+ <%= render :partial=>'m',:collection=>@members%>
+ 
+ <%= will_paginate @members%>
+</table>
+

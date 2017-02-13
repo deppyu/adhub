@@ -1,0 +1,8 @@
+<tr id="<%=element_id ac%>">
+	<td><%=ac.member.name if ac.member and ac.member.name%></td>
+	<td><%= format_time ac.created_at%></td>
+	<td><%= ac.operation == 0 ? '收入' : '支出'%></td>
+	<td><%= ac.note if ac.note%></td>
+	<td><%= account_transaction_operation(ac)%></td>
+	<td><%= format_money ac.amount%></td>
+</tr>

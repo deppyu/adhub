@@ -1,0 +1,45 @@
+<% page_title "编辑广告创意#{@advertisement.name}" 
+   include_js_file 'swfobject', 'jquery.uploadify', 'ad_editor' 
+   include_css_file 'uploadify', 'ad_editor' -%>
+
+<% javascript_tag do -%>
+  var AD_FORMAT_NAME = '<%= @advertisement.ad_format.name %>';
+<% end -%>
+
+<div class="form">
+  <div class="head">
+    <h2>编辑广告创意</h2>
+  </div>
+
+  <%= form_for :advertisement, @advertisement, :url=>ad_owner_advertisement_path(@advertisement, :format=>:html),
+      :html=>{:class=>'validable', :method=>:put, :id=>'advertisement_form'} do |f| %>
+  <%= hidden_field_tag 'resource_ids', '' %>
+  <fieldset>
+    <%= f.label :name, :class=>'form-label' %>
+    <div class="group">
+      <%= f.text_field :name, :size=>40, :class=>'required', :maxlength=>40 %>
+      <span class="help">不多于40个字。</span>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <label class="form-label">点击响应方式</label>
+    <div class="group">
+      <%= @ad_group.call_to_action.note %>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <label class="form-label">广告格式</label>
+    <div class="group"><%= @advertisement.ad_format.note %></div>
+  </fieldset>
+  <h3>创意资源</h3>
+
+  <%= render :partial=>"/ad_owner/ad_resources/edit_#{@advertisement.ad_format.name}" %>
+  <div class="buttons">
+    <%= link_to '保存', '', :class=>'submit primary_button' %>
+    <%= link_to '取消', ad_owner_advertisement_path(@advertisement, :format=>:html), :class=>'secondary_button' %>
+  </div>
+<% end -%>
+
+</div>

@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>AdHub: 充值通知</title>
+</head>
+<body>
+<p><%= @member.email %>您好：
+<p>您在<h2>AdHub</h2>上通过银行转帐的方式，进行了充值，充值金额：<h2><%=@account_transaction.amount %></h2>。时间是：<%= l @account_transaction.created_at.localtime,:format=>:long%></p>
+<p></p>
+<p><%= link_to '点击这里登陆AdHub网站',new_session_path(:format=>:html) %></p>
+<br/>
+<br/>
+<br/>
+<p>AdHub</p>
+
+</body>
+</html>

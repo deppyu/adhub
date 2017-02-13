@@ -1,0 +1,2 @@
+page.remove element_id(@ad_group)
+page << 'Fusion.use_feature(StrippedTable)'

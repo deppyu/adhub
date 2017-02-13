@@ -1,0 +1,47 @@
+<%page_title "#{@publish_policy.name}策略详细页面"
+  side_bar 'ad_owner'
+%>
+
+<div class="section">
+	<div class="head">
+		<h2><%= @publish_policy.name %>策略详细页面</h2>
+	</div>
+	
+	<dl class="attributes">
+		<dt>名称：</dt>
+		<dd><%= @publish_policy.name%></dd>
+		<dt>活动：</dt>
+		<dd><%if @publish_policy.channel.name%><%= link_to @publish_policy.channel.name,ad_owner_campaign_path(@publish_policy.channel,:format=>:html)%><%end%></dd>
+		<dt>状态：</dt>
+		<dd><%=publsh_policy_status(@publish_policy)%></dd>
+		<dt>每日预算：</dt>
+		<dd><%=format_money @publish_policy.daily_budget%>&nbsp;&nbsp;(今日已用：<%=format_money @publish_policy.used_daily_budget%>)</dd>
+		<dt>开始日期：</dt>
+		<dd><%=format_date @publish_policy.start_from%></dd>
+		<dt>结束日期：</dt>
+		<dd><%=format_date @publish_policy.end_to%></dd>
+		<dt>渠道：</dt>
+		<dd><%if @publish_policy.channel%><%=@publish_policy.channel.name %><%end%></dd>
+		<dt>发布目标：</dt>
+		<dd>
+			<%if @publish_policy.ad_containers.size > 0%>
+			<ul class="data_list">
+			  <%for ad in @publish_policy.ad_containers%>
+			    <li><%= ad.name%></li>
+			  <%end%>
+			</ul>
+			<%else%>
+			  没有目标设置
+			<%end%> 	
+	    </dd>
+	    <dt>出价：</dt>
+	    <dd>
+	    	<%if @publish_policy.bid_price%>
+	    	  <%= format_money @publish_policy.bid_price %>
+	    	<%end%>
+	    </dd>		
+	</dl>
+	<div class="buttons">
+		<%= link_to '返回',ad_owner_advertisement_path(@advertisement,:format=>:html),:class=>'primary_button'%>
+	</div>
+</div>

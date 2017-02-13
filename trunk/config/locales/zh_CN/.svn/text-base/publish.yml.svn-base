@@ -1,0 +1,59 @@
+zh-CN:
+  activerecord:
+    models:
+      cash_claim: 提现请求 
+      ad_container: 广告容器
+      black_list: 黑名单
+      price: 价格
+    attributes:
+      cash_claim:
+        amount: 提现金额
+        bank_name: 银行名称
+        account_no: 银行账号
+        account_name: 户名
+        result: 结果
+      ad_container:
+        name: 容器名称
+        party: 所属人
+        url: 链接地址
+        channel: 渠道
+        os_type: 操作系统类型
+        identity: APP ID
+        description: 说明
+        status: 状态
+        request_count: 请求次数
+        show_count: 显示次数
+        click_count: 单击次数
+        income: 收入
+        content_categories: 所属内容分类
+        created_at: 创建时间
+        updated_at: 修改时间
+        operate: 操作
+      black_list:
+        black_member_name: 名称
+        black_member_type: 类型
+        operate: 操作
+      price:
+        page_title_content: 设定价格
+        channel: 渠道
+        pay_method: 计价方式
+        base_price: 底价
+        reference_price: 平台参考价格
+        operate: 操作
+  cash_claim:
+    result:
+      "0": 待处理
+      "1": 成功
+      "2": 失败
+  ad_container:
+    status:
+      "0": 编辑中
+      "1": 审核通过
+      "2": 被锁定
+      "3": 提交审核
+  price:
+    operate:
+      "0": 设定底价
+      "1": 编辑
+      "2": 删除
+      "3": 编辑底价

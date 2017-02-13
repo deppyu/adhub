@@ -1,0 +1,19 @@
+<div class="section">
+	<div class="head">
+		<h2>审核日志</h2>
+	</div>
+	
+   <div class="body">
+      <table class="data_list stripped">
+         <tr class="head">
+	         <th width="*" align="center">操作人</th>
+	         <th width="12%" align="center">审核结果</th>
+	         <th width="30%" align="center">审核时间</th>
+	         <th width="40%" align="center">审核意见</th>
+         </tr>
+         
+         <%= render :partial=>'a',:collection=>@approve_logs%>
+      </table>
+       
+   </div>
+</div>

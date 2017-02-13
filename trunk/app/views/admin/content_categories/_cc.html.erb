@@ -1,0 +1,9 @@
+<tr id="<%= element_id cc%>">
+	<td><%= cc.name%></td>
+	<td><%if cc.for_ad_container and cc.for_advertisement%>活动和广告<%elsif cc.for_ad_container and cc.for_advertisement==false%>活动
+		<%elsif cc.for_ad_container == false and cc.for_advertisement%>广告<%end%></td>
+	<td>
+		<%= link_to '编辑',edit_admin_content_category_path(cc,:format=>:html)%>
+		<%= link_to '删除',admin_content_category_path(cc,:format=>:js),:class=>'delete'%>
+	</td>	
+</tr>

@@ -1,0 +1,36 @@
+<% page_title (t "member.operate.4")
+   @member = Member.new if @member.nil?
+   side_bar 'my_company'%>
+
+<div class="section">
+    <div class="head">
+        <h2><%= t "member.operate.4" %></h2>
+    </div>
+	
+    <div class="body">
+        <div class="form">			
+            <%= form_for :member, @member,:url=>my_company_members_path(:format=>:html),:method=>:post, :html=>{:id=>"member_form"} do |f| %>
+            <%= render :partial=>"f", :locals=>{:f=>f} %>
+            <fieldset>
+	      <label class="form-label">角色</label>
+	      <div class="group">
+		<ul>
+		  <% current_user.party.available_roles.each do |role| %>
+		    <li>
+                      <%= check_box_tag "member[role_ids][]", role.id, @member.roles.include?(role)  %>
+                      <%= role.name %>
+		    </li>
+		  <% end %>
+		</ul>
+	      </div>
+            </fieldset>
+            <div class='buttons'>
+                <%= f.submit '保存',:class=>'primary_button'%>
+		<%= link_to '取消', my_company_members_path(:format=>:html), :class=>'secondary_button' %>
+            </div>
+            <% end-%>
+        </div>
+    </div>
+</div>
+
+ 

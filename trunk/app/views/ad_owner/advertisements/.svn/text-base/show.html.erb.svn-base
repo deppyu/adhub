@@ -1,0 +1,102 @@
+<% page_title @advertisement.name
+   side_bar 'ad_owner'  
+   include_css_file 'ad_editor' -%>
+
+<% javascript_tag do -%>
+
+$(function(){
+	var url = "<%= approve_logs_path(:target_type=>class_name_for_url(@advertisement), :target_id=>@advertisement.id, :format=>:html) %>";
+    $('div .block').load(url);
+});
+
+
+function submitted_to_approve (ad_id) {
+$('#but_submit_approve').remove();
+$('#ad_status').html('等待审核');
+}
+ 
+<% end -%>
+
+<% navigation_bar [link_to('广告主', '/ad_owner'), link_to('广告活动', ad_owner_campaigns_path(:format=>:html)),
+	       @advertisement.name,
+	       if @campaign
+		    link_to(@campaign.name, ad_owner_campaign_path(@campaign, :format=>:html))
+		   end
+		   ] -%>
+
+<div class="section">
+  <div class="head">
+    <div class="buttons">
+    <% if @advertisement.running?%>
+      <%= link_to '撤回',revoke_ad_owner_advertisement_path(@advertisement, :format=>:html),
+           :class=>'button remote','data-method'=>:post, :id=>'but_revoke_approved'%>
+       <%= link_to '停止',stop_ad_owner_advertisement_path(@advertisement,:format=>:html),
+            :class=>'button remote','data-method'=>:post %>    
+    <% elsif @advertisement.stoped?%>
+      <%= link_to '撤回',revoke_ad_owner_advertisement_path(@advertisement, :format=>:html),
+           :class=>'button remote','data-method'=>:post,:id=>'but_revoke_stopped'%>
+       <%if @advertisement.party.has_enough_balance_to_run_ad%>    
+	       <%= link_to '执行',execute_ad_owner_advertisement_path(@advertisement,:format=>:html),
+	            :class=>'button remote','data-method'=>:post%>
+       <%end%>         
+    <% end %>              
+      <%= link_to '提交审核', submit_approve_ad_owner_advertisement_path(@advertisement, :format=>:js),
+	  :class=>'remote button','data-method'=>:post, :id=>'but_submit_approve' if @advertisement.waiting_submit_approve? %>
+      <%= link_to '编辑', edit_ad_owner_advertisement_path(@advertisement, :format=>:html),:id=>'but_to_edit',
+	  :class=>'button' if @advertisement.editable? %>
+    </div>
+    <h2><%= @advertisement.name %></h2>
+  </div>
+
+  <div class="body">
+    <table class="data_list">
+      <tr>
+	<th width="10%">状态</th>
+	<th width="*">类型</th>
+	<th width="15%" class="number">显示次数</th>
+	<th width="15%" class="number">点击次数</th>
+	<th width="15%" class="number">到达率</th>
+	<th width="15%" class="number">使用资金</th>
+      </tr>
+      <tr>
+	  <td id="ad_status"><%= advertisement_status @advertisement %></td>
+	  <td><%if @advertisement.ad_format%><%= @advertisement.ad_format.note %><%end%></td>
+	  <td class="number"><%= @advertisement.impression_count %></td>
+	  <td class="number"><%= @advertisement.click_count %></td>
+	  <td class="number"><%= number_to_percentage @advertisement.reach_rate, :precision=>1 %></td>
+	  <td class="number"><%= format_money @advertisement.used_budget %></td>
+      </tr>
+    </table>
+
+    <h3>创意资源</h3>
+    <% if @advertisement.ad_format %> 
+    <%= render :partial=>"show_#{@advertisement.ad_format.name}" %>
+    <%end%>
+  </div>
+</div>
+
+<div class="section">
+	<div class="head">
+		<div class="buttons">
+			<%= link_to '新建发布策略',new_ad_owner_advertisement_publish_policy_path(@advertisement,:format=>:html),:class=>'button'%>
+		</div>
+		<h2>发布策略</h2>
+	</div>
+  	
+  	<table class="data_list">
+     <tr>
+        <td width="*" class="">名称</td>
+        <td width="15%" class="">付费方式</td>
+        <td width="10%" class="">每日预算</td>
+        <td width="15%" class="">开始时间</td>
+        <td width="15%" class="">结束时间</td>
+        <td width="10%" class="">状态</td>
+        <td width="10%" class="">操作</td>
+     </tr>
+     <%= render :partial=>'pp',:collection=>@advertisement.publish_policies%>
+    </table>
+  </div>
+
+<div class="block">
+	
+</div>

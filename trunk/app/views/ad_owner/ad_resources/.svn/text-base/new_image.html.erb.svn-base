@@ -1,0 +1,22 @@
+<fieldset>
+  <%= label_tag :icon, '图片', :class=>'form-label' %>
+  <div class="group">
+    <input type="file" id="resource_file" name="resource_file" />
+    <p class="help">请上传尺寸为"640x100"、"800x75"、"400x400"的jpeg、png或gif图片。文件大小不能超过100Kb.</p>
+  </div>
+</fieldset>
+
+<% session_key_name = Rails.application.config.session_options[:key] %>
+<% javascript_tag do %>
+uploadify_resource('#resource_file', 'image', 'image', '<%= session_key_name %>',
+'<%= cookies[session_key_name] %>', 102400);
+<% end -%>
+
+<h4>预览</h4>
+<div class="ad_preview image">
+
+  <div class="template">
+    <img></img>
+    <%= link_to '删除', '', :class=>'delete_ad_resource' %>  </div>  
+</div>
+

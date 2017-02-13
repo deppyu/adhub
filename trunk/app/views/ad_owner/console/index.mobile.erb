@@ -1,0 +1,45 @@
+<% page_title '广告主控制台' -%>
+
+<table class="item_value">
+  <caption>账户情况</caption>
+  <tr>
+    <td width="35%" class="item">余额</td>
+    <td width="*" class="value number"><%= format_money current_user.account_balance %></td>
+  </tr>
+  <tr>
+    <td width="35%" class="item">广告总数</td>
+    <td width="*" class="value number"><%= ad_count %></td>
+  </tr>
+  <tr>
+    <td width="35%" class="item">投放广告数</td>
+    <td width="*" class="value number"><%= effective_ad_count %></td>
+  </tr>
+  <tr>
+    <td width="35%" class="item">显示次数</td>
+    <td width="*" class="value number"><%= impression_count  %></td>
+  </tr>
+  <tr>
+    <td width="35%" class="item">点击次数</td>
+    <td width="*" class="value number"><%= click_count  %></td>
+  </tr>
+</table>
+
+<section class="campaign_list">
+  <header>
+    <h2>活动列表</h2>
+  </header>
+
+  <ul class="campaigns">
+    <% for campaign in current_user.campaigns -%>
+      <li>
+	<div class="status">
+	  <%= campaign_status_icon campaign -%>
+	</div>
+	<p class="name"><%= link_to campaign.name, ad_owner_campaign_path(campaign, :format=>:mobile) %></p>
+	<p class="counts">
+	  <span class="budget">剩余预算: <%= campaign.remain_budget %></span>
+	</p>
+      </li>
+    <% end -%>
+  </ul>
+</section>

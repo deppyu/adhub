@@ -1,0 +1,34 @@
+<%page_title "查看基本信息"
+  side_bar 'my_company'
+%>
+
+<div class="section">
+  <div class="head">    
+    <h2>查看基本信息</h2>		
+  </div>	
+  
+  <div class="body">
+    <table>
+      <tr>
+        <td class="content"><%= Party.human_attribute_name :name %>:</td>
+        <td class="content"><%= current_user.party.name %></td>
+      </tr>
+      <tr>
+        <td class="content"><%= Party.human_attribute_name :party_type %>:</td>
+        <td class="content"><%= get_party_type current_user.party.party_type %></td>
+      </tr>
+      <tr>
+        <td class="content"><%= Party.human_attribute_name :address %>:</td>
+        <td class="content"><%= current_user.party.address %></td>
+      </tr>
+      <tr>
+        <td class="content"><%= Party.human_attribute_name :phone_number %>:</td>
+        <td class="content"><%= current_user.party.phone_number %></td>
+      </tr>
+      <tr>
+        <td class="content"><%= Party.human_attribute_name :post_code %>:</td>
+        <td class="content"><%= current_user.party.post_code %></td>
+      </tr>
+    </table>
+  </div>
+</div>

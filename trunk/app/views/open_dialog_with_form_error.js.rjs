@@ -1,0 +1,2 @@
+page << "$('#dialog .form_error').html('#{error_messages_for(@model_name)}')"
+page << "$('#dialog').dialog('open')"

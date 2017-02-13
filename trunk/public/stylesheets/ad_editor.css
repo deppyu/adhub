@@ -1,0 +1,52 @@
+div.ad_preview {
+    border: 1px solid #333;
+    position: relative;
+}
+
+div.ad_preview.icon_text {
+    width: 480px;
+    height: 75px;
+}
+
+div.ad_preview.icon_text div.icon {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+}
+
+div.ad_preview.icon_text div.icon img {
+    width: 65px;
+    height: 65px;
+}
+
+div.ad_preview p.text_resource {
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+}
+
+div.ad_preview.icon_text p.title {
+    position: absolute;
+    left: 75px;
+    top: 10px;
+    line-height: 24px;
+    font-size: 16px;
+    right: 5px;
+    height: 24px;
+}
+
+div.ad_preview.icon_text p.subtitle {
+    position: absolute;
+    left: 75px;
+    bottom: 5px;
+    right: 5px;
+    height: 22px;
+    line-height: 22px;
+    font-size: 14px;
+}
+
+div.ad_preview.image { border: none; }
+
+div.ad_preview.image .m_banner_l img {
+    width: 640px;
+}

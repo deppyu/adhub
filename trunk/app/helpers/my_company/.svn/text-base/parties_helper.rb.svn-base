@@ -1,0 +1,2 @@
+module MyCompany::PartiesHelper
+end

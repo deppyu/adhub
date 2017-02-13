@@ -1,0 +1,30 @@
+<%page_title '控制台'
+  side_bar 'publisher'
+%>
+
+<div class="section">
+  <div class="head">
+    <h2>控制台</h2>    
+  </div>
+
+  <div class="body">
+    <table class="data_list">
+      <tr>
+	<th width="*" class="number">应用数量</th>
+	<th width="20%" class="number">账户余额</th>
+	<th width="20%" class="number">今日请求数</th>
+	<th width="20%" class="number">今日显示数</th>
+	<th width="15%" class="number">今日点击数</th>
+	<th width="15%" class="number">今日收入</th>
+      </tr>
+      <tr>
+	<td class="number"><%= current_user.party.ad_containers.count %></th>
+	<td class="number"><%= format_money current_user.party.account.balance if current_user.party.account%></th>
+	<td class="number"><%= AdRequest.daily_request_count_of_publisher(current_user.party) %></th>
+	<td class="number"><%= AdRequest.daily_shown_count_of_publisher(current_user.party) %></th>
+	<td class="number"><%= AdRequest.daily_click_count_of_publisher(current_user.party) %></th>
+	<td class="number"><%= AdRequest.daily_income_of_publisher(current_user.party) %></th>
+      </tr>
+    </table>
+  </div>
+</div>

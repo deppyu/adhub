@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta id="viewport" name="viewport"
+	  content="width=320; initial-scale=1.0; maximum-scale=1.0; user-scalable=0; " />
+    <%= page_title_tag %>
+    <%= javascript_include_tag 'jquery', 'jrails', 'fusion', 'application' %>
+    <%= javascript_include_tag @js_files.flatten unless @js_files.nil? %>
+    <%= stylesheet_link_tag 'mobile' %>
+    <%= stylesheet_link_tag @css_files.flatten unless @css_files.nil? %>
+    <%= csrf_meta_tag %>
+  </head>
+
+  <body>
+    <header id="page_header">
+      <div id="logo">
+	<%= image_tag 'site_logo.png', :alt=>'Ad Hub', :title=>'Ad Hub', :id=>"site_logo" %>
+      </div>
+    </header>
+
+    <article id="page_content">
+      <%= yield %>
+    </article>
+  </body>
+</html>

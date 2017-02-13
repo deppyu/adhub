@@ -1,0 +1,11 @@
+<tr id="<%= element_id s%>">
+	<td><%= sdk_os_type(s)%></td>
+	<td><%= sdk_status(s)%></td>
+	<td><%= s.name%></td>
+	<td><%= s.version%></td>
+	<td>
+		<%= link_to '编辑',edit_admin_sdk_path(s,:format=>:html)%>
+		<%= link_to '删除',admin_sdk_path(s,:format=>:js),:class=>'delete'%>
+		<%if s.file and s.file.url%><%= link_to '下载',s.file.url%><%end%>
+	</td>
+</tr>

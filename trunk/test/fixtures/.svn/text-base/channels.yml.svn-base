@@ -1,0 +1,8 @@
+mobile_app:
+  id: 1
+  name: Mobile App
+  ad_container_name: Mobile App Banner
+
+subway:
+  name: Subway
+  ad_container_name: subway egg

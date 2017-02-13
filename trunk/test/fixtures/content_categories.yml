@@ -1,0 +1,17 @@
+movie:
+  id: 1
+  name: Movie
+  for_ad_container: true
+  for_advertisement: true
+
+music:
+  id: 2
+  name: Music
+  for_ad_container: true
+  for_advertisement: true
+
+education:
+  id: 3
+  name: Education
+  for_ad_container: ture
+  for_advertisement: true

@@ -1,0 +1,28 @@
+admin:
+  id: 1
+  code: admin
+  name: Party Admin
+  
+publisher:
+  id: 2
+  code: publisher
+  name: Publisher
+  required_contract_type: 0
+
+ad_owner:
+  id: 3
+  code: ad_owner
+  name: Ad Owner
+  required_contract_type: 2
+
+agent:
+  id: 4
+  code: agent
+  name: Agent
+  required_contract_type: 1
+
+sales:
+  id: 5
+  code: sales
+  name: Sales
+  required_contract_type: 1

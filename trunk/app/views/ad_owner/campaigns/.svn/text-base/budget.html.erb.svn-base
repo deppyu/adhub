@@ -1,0 +1,65 @@
+<% page_title '设定广告活动的预算' 
+   include_js_file 'ad_editor' -%>
+
+<% navigation_bar [link_to('广告主', '/ad_owner'), link_to('广告活动', ad_owner_campaigns_path(:format=>:html)),
+		   link_to('预算', budgets_ad_owner_campaigns_path(:format=>:html)),
+		   link_to(@campaign.name, ad_owner_campaign_path(@campaign, :format=>:html)),
+		   '设定预算' ] -%>
+
+<div class="form">
+  <div class="head">
+    <h2>设定广告活动“<%= @campaign.name %>”的预算</h2>
+  </div>
+  <%= form_for :campaign, @campaign, :url=>set_budget_ad_owner_campaign_path(@campaign, :format=>:html),
+      :html=>{:class=>'validable', id=>'budget_form' } do |f| -%>
+    <table class="data_list">
+      <tr>
+	<th width="25%">当前总预算</th>
+	<th width="25%">总预算设定为</th>
+	<th width="25%">当前每日预算</th>
+	<th width="25%">每日预算设定为</th>
+      </tr>
+      <tr>
+	<td><%= @campaign.budget %></td>
+	<td><%= f.text_field :budget, :size=>15, :class=>'required number', :min=>0 %></td>
+	<td><%= @campaign.daily_budget %></td>
+	<td><%= f.text_field :daily_budget, :size=>15, :class=>'required number', :min=>100 %></td>
+      </tr>
+    </table>
+    <table class="data_list">
+      <tr>
+	<td width="*">广告组</td>
+	<td width="10%">计费方式</td>
+	<td width="12%" class="number">价格</td>
+	<td width="12%" class="number">每日预算</td>
+	<td width="20%" class="number">期望效果</td>
+	<td width="8%" class="number">投放天数</td>
+	<td width="12%" class="number">总预算</td>
+      </tr>
+
+      <% for publish_policy in @campaign.publish_policies.created -%>
+	<tr>
+	  <td><%= link_to publish_policy.name, ad_owner_campaign_publish_policy_path(@campaign, publish_policy, :format=>:html), :target=>'_blank' %></td>
+	  <td><%= publish_policy.pay_method.name %></td>
+	  <td class="number"><%= text_field_tag "publish_policies[#{publish_policy.id}][bid_price]", publish_policy.bid_price, :class=>'required number bid_price', :size=>10, 'data-id'=>publish_policy.id, 'data-unit'=>publish_policy.pay_method.unit %></td>
+	  <td class="number"><%= text_field_tag "publish_policies[#{publish_policy.id}][daily_budget]", publish_policy.daily_budget, :class=>'required number daily_budget', :size=>10, 'data-id'=>publish_policy.id, :min=>publish_policy.determine_base_price %></td>
+	  <td class="number">每日<%= publish_policy.pay_method.effect_string %>
+	    <%= text_field_tag "publish_policies[#{publish_policy.id}]_effect", publish_policy.expect_effect, :class=>'required number effect', :size=>10, 'data-id'=>publish_policy.id, 'data-unit'=>publish_policy.pay_method.unit %>
+</td>
+	  <td class="number" id='<%= "publish_policy_#{publish_policy.id}_day_number" %>'><%= publish_policy.day_number %></td>
+	  <td id='<%= "publish_policy_#{publish_policy.id}_total_budget"%>' class="number ag_total_budget" %><%= publish_policy.total_budget %></td>
+	</tr>
+      <% end -%>
+      <tr>
+	<td colspan="3">小计</td>
+	<td id="total_daily_budget" class="number"><%= @campaign.total_daily_budget_of_publish_policies %></td>
+	<td colspan="2"></td>
+	<td id="total_budget" class="number"><%= @campaign.total_budget_for_publish_policies %></td>
+      </tr>
+    </table>
+
+    <div class="buttons">
+      <%= link_to '提交', '', :class=>'submit primary_button' %>
+    </div>
+  <% end -%>
+</div>

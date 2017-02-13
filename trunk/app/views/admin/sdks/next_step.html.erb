@@ -1,0 +1,64 @@
+<%page_title '上传sdk文件'
+  side_bar 'admin_console'
+  include_js_file 'swfobject', 'jquery.uploadify'
+  include_css_file 'uploadify'
+%>
+
+<% session_key_name = Rails.application.config.session_options[:key] %>
+<%javascript_tag do%>
+  $(function(){
+  	uploadify_sdk('#resource_file',<%= @sdk.id%>,'<%= session_key_name %>','<%= cookies[session_key_name] %>',102400*1024);
+  });
+  
+  function upload_resource_error (e, id, file, error) {
+    alert('上传资源时发生错误:' + error.info);
+  }
+
+ function resource_uploaded(e, id, file, response, data) {
+		res = $.parseJSON(response);
+		alert(res.message);
+ }
+
+  function uploadify_sdk(select,sdk,session_key_name, session_id,sizelimit){
+	
+	if(! sizelimit) sizelimit = 102400*1024;
+	
+	 var script_data = {};
+    script_data[session_key_name] = encodeURIComponent(encodeURIComponent(session_id));
+    var csrf_token = $('meta[name=csrf-token]').attr('content');
+    var csrf_param = $('meta[name=csrf-param]').attr('content');
+    script_data[csrf_param] = encodeURIComponent(encodeURIComponent(csrf_token));
+
+	$(select).uploadify({
+	buttonImg: '/images/select_file.png',
+	uploader: '/uploadify/uploadify.swf',
+	script: '/admin/sdks/' + sdk + '/upload_sdk.json',
+        cancelImg: '/uploadify/cancel.png',
+        folder: '/tmp/uploaded',
+	auto: true,
+	scriptData : script_data,
+	fileDataName: 'resource_file',
+	onError: upload_resource_error,
+	onComplete: resource_uploaded,
+	sizeLimit: sizelimit
+    });
+}
+<%end%>
+
+
+<div class="form">
+<%= form_for @sdk,:as=>:sdk,:url=>'',
+                    :html=>{:class=>'validable',:enctype=>'multipart/form-data',:method=>:post} do |f|%>
+<fieldset>
+	<%= f.label :file,:class=>'form-label'%>
+	<div class="group">
+		<input type="file" id="resource_file" name="resource_file" />
+       <p class="help">请上传sdk文件，文件大小不能超过100M。</p>
+	</div>
+</fieldset>
+
+<div class="buttons">
+	<%= link_to '返回列表页面',admin_sdks_path(:format=>:html),:class=>'button'%>
+</div>
+<%end%>
+</div>

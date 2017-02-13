@@ -1,0 +1,41 @@
+<%page_title "出价设置"
+  side_bar "ad_owner"
+%>
+<%javascript_tag do%>
+$(function(){
+  $('#publish_policy_form').validate();
+  
+  $('input#base_pri').change(function(){	
+	var price = $(this).val();
+  	$.post("<%= notice_to_price_ad_owner_advertisement_publish_policy_path(@advertisement,@publish_policy,:format=>:json)%>",
+  	       add_csrf_param({b_price:price}),
+  	       function(response){
+  	       	 $('#notice').html(response.result);
+  	       });
+ });
+});
+
+
+<%end%>
+
+<div class="section">
+	<div class="head">
+		<h2>出价设置</h2>
+	</div>
+	<h3>您在同一渠道的发布策略中，您的出价越高，获胜的几率就越大</h3>
+	<%= form_for @publish_policy,:as=>:publish_policy,:url=>save_step_3_ad_owner_advertisement_publish_policy_path(@advertisement,@publish_policy,:format=>:html),
+	                          :html=>{:class=>'valiable',:method=>:post,:id=>"publish_policy_form"} do |f|%>
+	<fieldset>
+		<%= f.label :bid_price,:class=>"form-label"%>
+		<div class="group">
+		<%= f.text_field :bid_price,:class=>"required number",:size=>25,:id=>'base_pri'%>
+		<span class="help" id="notice">
+			出价不能小于<%= @publish_policy.determine_base_price%>
+		</span>
+		</div>
+	</fieldset>
+	<div class="buttons">
+		<%= f.submit "提交",:class=>'primary_button'%>
+	</div>
+	<%end%>
+</div>

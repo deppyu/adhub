@@ -1,0 +1,23 @@
+<%page_title "#{@member.name}所有充值记录"%>
+
+<div class="section">
+	<div class="body">
+		<h2><%=@member.name%>所有充值记录</h2>
+	</div>
+
+<table class="" border="0" class="data_list stripped">
+		  <tr>
+		  	<th width="*">时间</th>
+		  	<th width="15%">操作人</th>
+		  	<th width="15%">操作</th>
+		  	<th width="15%">操作方式</th>
+		  	<th width="15%">金额</th>
+		  	<th widht="15%">变动后金额</th>
+		  </tr>
+		  <%= render :partial=>'a',:collection=>@account_transactions%>
+		  
+		  <%= will_paginate @account_transactions %>
+</table>
+
+
+</div>

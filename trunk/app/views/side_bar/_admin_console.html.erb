@@ -1,0 +1,11 @@
+<ul class="menu">
+  <li><%= link_to '管理用户', admin_members_path(:format=>:html) %></li>
+  <li><%= link_to "管理业务伙伴", admin_parties_path(:format=>:html) %></li>
+  <li><%= link_to '管理广告创意', admin_advertisements_path(:format=>:html) %></li>
+  <li><%= link_to '管理应用',admin_ad_containers_path(:format=>:html)%></li>
+  <li><%= link_to '管理内容分类',admin_content_categories_path(:format=>:html)%></li>
+  <li><%= link_to '管理sdks',admin_sdks_path(:format=>:html)%></li>
+  <li>财务管理</li>
+  <li class="level_2"><%= link_to '提现请求', admin_cash_claims_path(:format=>:html) %></li>
+  <li class="level_2"><%= link_to '交易记录',admin_account_transactions_path(:format=>:html)%></li>
+</ul>

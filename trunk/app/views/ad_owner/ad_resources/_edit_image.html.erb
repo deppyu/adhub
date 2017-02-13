@@ -1,0 +1,34 @@
+<fieldset>
+  <%= label_tag :icon, '图片', :class=>'form-label' %>
+  <div class="group">
+    <input type="file" id="resource_file" name="resource_file" />
+    <p class="help">请上传尺寸为"640x100"、"800x100"的jpeg、png或gif图片。文件大小不能超过100Kb。</p>
+  </div>
+</fieldset>
+
+<% session_key_name = Rails.application.config.session_options[:key] %>
+<% javascript_tag do %>
+  $(function(){
+  uploadify_resource('#resource_file', 'image', 'image', '<%= session_key_name %>',
+  '<%= cookies[session_key_name] %>');
+  <% for ad_res in @advertisement.ad_resources -%>
+    Resources.add({ resource_id: <%= ad_res.id %>, name: 'image', format: '<%= ad_res.ad_format.name %>',
+    size: '<%= ad_res.size_code %>'}, 102400);
+  <% end -%>
+  });
+<% end -%>
+
+<h4>预览</h4>
+<div class="ad_preview image">
+  <% for ad_res in @advertisement.ad_resources -%>
+    <div class="<%= ad_res.size_code %>" id="<%= "resource_#{ad_res.id}"%>">
+      <%= image_tag ad_res.file.url %>
+    <%= link_to '删除', ad_owner_ad_resource_path(ad_res, :format=>:js), :class=>'delete_ad_resource',
+	'data-id' => ad_res.id %>
+    </div>
+  <% end -%>
+
+  <div class="template">
+    <img></img>
+    <%= link_to '删除', '', :class=>'delete_ad_resource' %>  </div>  
+</div>

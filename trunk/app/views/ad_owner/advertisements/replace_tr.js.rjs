@@ -1,0 +1,1 @@
+page.replace element_id(@advertisement), :partial=>'/ad_owner/advertisements/a', :object=>@advertisement

@@ -1,0 +1,48 @@
+<div id="top_menu">
+  <ul>
+    <li><%= link_to '首页', '/' %></li>
+  </ul>
+</div>
+<div id="page_head">
+  <div class="body">
+    <%= image_tag 'site_logo.png', :alt=>'Ad Hub', :title=>'Ad Hub', :id=>'site_logo' %>
+    
+    <% unless authenticated? -%>
+      <div id="login_form">
+	<%= form_tag session_path(:format=>:html), :class=>'validable' do -%>
+	  <label>电子邮件:</label><%= text_field_tag :email, '', :size=>25 %>
+	  <label>口令</label><%= password_field_tag :password, '', :size=>15 %>
+	  <%= link_to '登录', '', :class=>'submit button' %>
+	  <%= link_to '注册', new_member_path(:format=>:html), :class=>'button' %>
+	  <%= submit_tag 'login', :class=>'hidden' %>
+	<% end -%>
+      </div>
+    <% else -%>
+      <ul class="menu" id="main_menu">
+	<% for menu in main_menu -%>
+	  <li class="<%= @active_menu == menu[:name] ? 'selected' : '' %>">
+	    <%= link_to menu[:label], menu[:url] %>
+	  </li>
+	<% end -%>
+      </ul>
+    <% end -%>    
+  </div>
+  <% if authenticated? -%>
+    <div id="welcome">
+      <div class="content">
+        <% unless current_user.party.nil? %>
+            <span id="current_party"><%= current_user.party.name %>
+                  [<%= link_to '管理', edit_party_path(current_user.party, :format=>:html) %>]
+            </span>
+        <% else %>
+            <span id="current_party">
+                  [<%= link_to '补充公司信息', new_party_path(:format=>:html) %>]
+            </span>
+        <% end %>
+	<span id="welcome_message">欢迎: <%= current_user.email %>&nbsp;&nbsp;&nbsp;&nbsp;
+	  账户余额: <%= format_money current_user.party.account.balance if current_user.party and current_user.party.account %>&nbsp;&nbsp;&nbsp;&nbsp;
+	  <%= link_to '退出', session_path(:format=>:js), :class=>'delete', 'data-noconfirm'=>true %></span>
+      </div>
+    </div>
+  <% end -%>
+</div>

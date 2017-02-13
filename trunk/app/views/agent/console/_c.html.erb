@@ -1,0 +1,5 @@
+<tr id="<%= element_id c %>">
+  <td><%= c.name %></td>
+  <td><%= c.account_balance %></td>
+  <td><%= c.contracts.where(:business_type=>Contract::BUSINESS_TYPE_AD_OWNER).first.expired_at - Time.now.to_date %></td>
+</tr>

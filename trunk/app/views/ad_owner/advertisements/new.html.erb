@@ -1,0 +1,57 @@
+<% page_title '新建广告创意'
+   include_js_file 'swfobject', 'jquery.uploadify', 'ad_editor' 
+   include_css_file 'uploadify', 'ad_editor' -%>
+
+<% javascript_tag do -%>
+var AD_FORMAT_NAME = '';
+$(function() {
+  AD_FORMAT_NAME = $('#advertisement_ad_format').val();
+
+  $('#resource_editor').load('/ad_owner/ad_resources/' + AD_FORMAT_NAME + '/new.html');
+
+  $('#advertisement_ad_format').change(function(event) {
+    Resources.clear();
+    AD_FORMAT_NAME = $(this).val();
+    $('#resource_editor').load('/ad_owner/ad_resources/' + AD_FORMAT_NAME + '/new.html');
+  });
+});
+
+
+<% end -%>
+
+
+
+<div class="form">
+  <div class="head">
+    <h2>新建广告创意</h2>
+  </div>
+
+  <%= form_for :advertisement, @advertisement, :url=>ad_owner_advertisements_path( :format=>:html),
+      :html=>{ :id=>'advertisement_form' } do |f| %>
+  <%= hidden_field_tag 'resource_ids', '' %>
+  <fieldset>
+    <%= f.label :name, :class=>'form-label' %>
+    <div class="group">
+      <%= f.text_field :name, :size=>40, :class=>'required', :maxlength=>40 %>
+      <span class="help">不多于40个字。</span>
+    </div>
+  </fieldset>
+  <fieldset>
+    <%= f.label :content_url, :class=>'form-label' %>
+    <%= f.text_field :content_url, :size=>80, :class=>'required url', :maxlength=>255 %>
+  </fieldset>
+    <fieldset>
+    <%= f.label :ad_format, :class=>'form-label' %>
+    <%= ad_format_select f, :ad_format %>
+  </fieldset>
+
+    <h3>创意资源</h3>
+    <div id="resource_editor">
+      
+    </div>
+    
+    <div class="buttons">
+      <%= link_to '提交', '', :class=>'submit primary_button' %>
+    </div>
+  <% end -%>
+</div>

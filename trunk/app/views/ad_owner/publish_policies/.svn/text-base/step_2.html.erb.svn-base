@@ -1,0 +1,48 @@
+<%page_title "发布广告创意"
+  side_bar 'ad_owner'
+%>
+
+<%javascript_tag do%>
+$(function(){
+  $('.block_02_load').load("/ad_owner/advertisements/"+<%= @advertisement.id%>+"/publish_policies/"+<%=@publish_policy.id%>+"/search.html?layout=false");	
+});
+
+<%end -%>
+
+<div class="section">
+	<div class="head">
+		<h2>请在渠道<%= @advertisement.name%>中指定具体发布目标</h2>
+    </div>
+    
+	 
+    <table>
+        <tr>       	
+       <td width="160px">
+          <h3>已选中的发布目标：</h3>
+          <ul class="data_list" id="ad_containers_ex_list" style="float: right">
+           	<%= render :partial=>'ad_ex',:collection=>@ad_containers_ex%>
+          </ul>                		
+       </td>
+       <td width="180px"></td>   
+       <td class="block_02" width="180px">
+       	
+		<div class="search">
+	   	<%form_tag search_ad_owner_advertisement_publish_policy_path(@advertisement,@publish_policy,:format=>:html),
+	   		:method=>:get,:id=>'search_form',:remote=>true,
+	   		'data-update'=>'#search_result' do %>
+			名称：<%= text_field_tag :name,params[:name],:size=>'4'%>
+		   <%= submit_tag '查询',:class=>'primary_button',:style=>'width:50px'%>
+		<%end%>
+		</div>				
+	   
+	   <h3>请选择发布目标：</h3>
+       <div class="block_02_load" id="search_result">
+       	     	      
+       </div>
+       </td>
+       </tr>
+    </table>
+    <div class="buttons">
+       <%= link_to '下一步',judge_successful_step_2_ad_owner_advertisement_publish_policy_path(@advertisement,@publish_policy,:format=>:html),:class=>'primary_button'%>
+    </div>    
+</div>

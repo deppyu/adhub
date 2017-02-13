@@ -1,0 +1,63 @@
+<% page_title '首页' 
+   body_class 'home_page'
+   include_css_file 'home_page'
+   include_js_file 'slide' -%>
+
+<% javascript_tag do -%>
+  $(function() {
+    $('div#slides').slide();
+    setInterval("$('div#slides').slide('next')", 5000);
+  });
+<% end -%>
+<div id="advantage">
+  <div id="slides">
+    <div class="slide hidden" id="ad" >
+      <%= image_tag 'AD02.png', :class=>'pic' %>
+      <%= image_tag 'home_advantage.png', :alt=>'广告优势', :class=>'title' %>
+      <p>提供优质的品牌推广方案和高效益的解决方案。</p>
+      <ul>
+	<li>丰富的展现形式和点击效果。</li>
+	<li>先进的广告投放技术。</li>
+	<li>全面的广告数据分析。</li>
+	<li>海量的优质媒体资源。</li>
+      </ul>
+      <%= link_to image_tag('reg_now.png', :alt=>'立即注册'), new_member_path(:format=>:html) %>
+    </div>
+
+    <div class="slide hidden" id="ad" >
+      <%= image_tag 'AD01.png', :class=>'pic' %>
+      <%= image_tag 'home_publisher.png', :alt=>'发行商', :class=>'title' %>
+      <p>我们提供优质的广告资源，确保您获得最大收益。</p>
+      <ul>
+	<li>易于安装——在数分钟内即可开始盈利。</li>
+	<li>仅显示关联型最强的广告。</li>
+	<li>通过多种付款方式快速付款。</li>
+	<li>用于将您的收入转变为广告费用用以发展业务。</li>
+      </ul>
+      <%= link_to image_tag('reg_now.png', :alt=>'立即注册'), new_member_path(:format=>:html) %>
+    </div>
+
+    <div class="slide hidden" id="ad" >
+      <%= image_tag 'AD03.png', :class=>'pic' %>
+      <%= image_tag 'home_developer.png', :alt=>'应用开发者', :class=>'title' %>
+      <p>您在赚取广告收入的同时收获更多用户。</p>
+      <ul>
+	<li>轻松集成、具有多个安装选项。</li>
+	<li>实时报告机制、用于监视您的收入情况。</li>
+	<li>用于将您的收入转变为推广自有应用。</li>
+	<li>专业的运营团队实时为您服务。</li>
+      </ul>
+      <%= link_to image_tag('download_sdk.png', :alt=>'下载SDK'), sdks_path(:format=>:html) %>
+    </div>
+
+  </div>
+
+  <div id="links">
+    <ul>
+      <li>广泛的投放平台</li>
+      <li>精准的投放策略</li>
+      <li>丰富的广告形式</li>
+      <li>详尽的分析报告</li>
+    </ul>
+  </div>
+</div>

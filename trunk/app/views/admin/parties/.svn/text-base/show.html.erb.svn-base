@@ -1,0 +1,85 @@
+<%page_title "“#{@party.name}”详细信息"
+  side_bar 'admin_console'
+%>
+
+<div class="section">
+  <div class="head">    
+    <h2>基本信息</h2>		
+  </div>	
+  
+  <div class="body">
+    <table>
+      <tr>
+        <td class="content"><%= Party.human_attribute_name :name %>:</td>
+        <td class="content"><%= @party.name %></td>
+      </tr>
+      <tr>
+        <td class="content"><%= Party.human_attribute_name :party_type %>:</td>
+        <td class="content"><%= get_party_type @party.party_type %></td>
+      </tr>
+      <tr>
+        <td class="content"><%= Party.human_attribute_name :address %>:</td>
+        <td class="content"><%= @party.address %></td>
+      </tr>
+      <tr>
+        <td class="content"><%= Party.human_attribute_name :phone_number %>:</td>
+        <td class="content"><%= @party.phone_number %></td>
+      </tr>
+      <tr>
+        <td class="content"><%= Party.human_attribute_name :post_code %>:</td>
+        <td class="content"><%= @party.post_code %></td>
+      </tr>
+      <tr>
+        <td class="content"><%= Party.human_attribute_name :archived %>:</td>
+        <td class="content" id="arch_flag_<%= @party.id %>"><%= @party.archived ? "是": "否" %></td>
+      </tr>
+    </table>
+<%= link_to (t "party.admin_operate.0"), archived_party_path(@party,:format=>:js),:method=>:post, :class=>'button remote', :id=>"archived_bt_#{@party.id}", :style=> (@party.can_archived? ? 'display:block' : 'display:none' ) %>
+  </div>
+<br/>
+<br/>
+  <div class="head">    
+    <h2>合约信息</h2>		
+  </div>
+
+  <table class="data_list stripped">
+      <tr class="head">
+	<th width="*"><%= Contract.human_attribute_name :business_type %></th>
+	<th width="15%"><%= Contract.human_attribute_name :contact_person %></th>
+	<th width="12%"><%= Contract.human_attribute_name :mobile_phone %></th>
+	<th width="18%"><%= Contract.human_attribute_name :start_from %></th>
+	<th width="18%"><%= Contract.human_attribute_name :expired_at %></th>
+	<th width="12%"><%= Contract.human_attribute_name :expiration_processed %></th>
+	<th width="12%"><%= Contract.human_attribute_name :operate %></th>
+      </tr>
+      
+    <% Contract::ALL_BUSINESS_TYPE.each do |bt| 
+       contract = @party.contracts.where(:business_type=>bt)
+         if contract.nil? or contract.count == 0 
+           c = nil 
+         else
+           c = contract.first 
+         end %>
+         <%= render :partial=>'contract',:locals=>{:contract=>c, :bt=>bt}%>
+    <% end %>
+  </table>
+</div>
+
+<div class="section">
+  <div class="head">
+      <h2>账户信息</h2>
+  </div>
+  
+  <ul class="attributes">
+      <li>账户余额：<%=format_money @party.account.balance%></li>
+      <%if @party.archived == false%>
+      <li>
+      	<%form_tag save_account_admin_party_path(@party,:format=>:html),'data-method'=>:post, 
+      	:class=>'valiable',:id=>'account_form' do %>
+      	  充值金额：<%=text_field_tag 'amount',nil,:class=>'required number',:size=>15 %>      	  
+      	   <%=submit_tag '充值',:class=>"primary_button"%>     	  
+      	<%end%>
+      </li>
+      <%end%>
+  </ul>
+</div>

@@ -1,0 +1,2 @@
+module Admin::AdContainersHelper
+end

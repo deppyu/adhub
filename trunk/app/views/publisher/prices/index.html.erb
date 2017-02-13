@@ -1,0 +1,58 @@
+<%
+  page_title Price.human_attribute_name :page_title_content
+  use_remote_form_dialog
+  @channels = Channel.all
+  @pay_methods = PayMethod.all
+  side_bar 'publisher'%>
+
+<div class="section">
+  <div class="head">
+    <h2><%= Price.human_attribute_name :page_title_content %></h2>
+  </div>
+  
+  <div class="body">
+    <table class="data_list stripped">
+      <tr class="head">
+	<th width="*"><%= Price.human_attribute_name :channel %></th>
+	<th width="20%"><%= Price.human_attribute_name :pay_method %></th>
+	<th width="25%"><%= Price.human_attribute_name :base_price %></th>
+	<th width="20%"><%= Price.human_attribute_name :reference_price %></th>
+      </tr>
+      
+      <%#= render :partial=>'price',:collection=>@prices%>
+      <% if @channels.count > 0 
+         @channels.each do |c|
+           if @pay_methods.count > 0 
+             @pay_methods.each do |p| %>
+               <tr>
+                 <td><%= c.name %></td>
+                 <td><%= p.name %></td>
+                 <td><%= link_to_set_price c, p %></td>
+                  <td>
+                    <% reference_price = Party.adhub_operator.prices.where(:pay_method_id=>p.id, :channel_id=>c.id) %>
+                    <%= reference_price.first.base_price if reference_price.count > 0 %>
+                    <%= "-" if reference_price.count == 0 %>
+		  </td>
+	       </tr>
+          <% end
+           end 
+         end
+         end %>
+         <% if @pay_methods.count > 0
+              @pay_methods.each do |p| %>
+                <tr>
+                  <td>所有渠道</td>
+                  <td><%= p.name %></td>
+                  <td><%= link_to_set_price nil, p %>
+		  </td>
+                  <td>
+                    <% reference_price = Party.adhub_operator.prices.where(:pay_method_id=>p.id, :channel_id=>nil) %>
+                    <%= reference_price.first.base_price if reference_price.count > 0 %>
+                    <%= "-" if reference_price.count == 0 %>
+		  </td>
+                </tr>
+         <% end
+              end%>
+    </table>
+  </div>
+</div>

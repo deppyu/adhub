@@ -1,0 +1,9 @@
+zh-CN:
+  activerecord:
+    models:
+      bank_account: 提款账户
+    attributes:
+      bank_account:
+        bank_name: 银行名称
+        account_name: 户名
+        bank_serial: 银行帐号 

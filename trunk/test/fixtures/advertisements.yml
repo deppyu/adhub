@@ -1,0 +1,31 @@
+ad_icon_1:
+  id: 1
+  party_id: 3
+  status: 2
+  ad_format: icon_text
+  name: Ad 1
+  used_budget: 0
+
+ad_icon_2:
+  id: 2
+  party_id: 3
+  status: 2
+  ad_format: icon_text
+  name: Ad 2
+  used_budget: 0
+
+ad_icon_3:
+  id: 3
+  party_id: 3
+  status: 2
+  ad_format: icon_text
+  name: Ad 3
+  used_budget: 0
+
+ad_c2_g1_1:
+  id: 4
+  party_id: 4
+  status: 2
+  ad_format: icon_text
+  name: C2, G1, Ad1
+  used_budget: 0

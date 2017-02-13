@@ -1,0 +1,41 @@
+<%page_title '应用清单'
+  side_bar 'admin_console'
+%>
+
+
+<div class="section">
+	<div class="head">
+		<h2>应用清单</h2>
+	</div>
+	
+	<%form_tag admin_ad_containers_path(:format=>:html),:method=>:get,:id=>"admin_container_form" do%>
+      <p><span>
+      	  名称：<%= text_field_tag :name,params[:name],:size=>15%>
+        </span>
+        <span>
+          所属人：<%= text_field_tag :party,params[:party],:size=>15%>
+        </span>
+        <span>
+        	状态：<select name="status">
+        		  <option value="">请选择</option>
+        		  <%=options_for_select choice_for_status,params[:status]%>
+        	     </select>
+        </span>
+        <%=submit_tag '查找',:class=>'primary_button'%>
+      </p> 
+    <%end%>	
+	
+	<div class="body">
+		<table class="data_list">
+			<tr class="head">
+				<th width="*">名称</th>
+				<th width="25%">url</th>
+				<th width="15%">所属人</th>
+				<th width="15%">状态</th>
+				<th width="15%">操作系统分类</th>
+			</tr>
+			
+			<%= render :partial=>'a',:collection=>@applications%>
+		</table>
+	</div>
+</div>

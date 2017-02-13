@@ -1,0 +1,29 @@
+<% null_value = "-" if contract.nil? %>
+<tr id="<%= element_id(contract) if contract %>">
+  <td><%= t "contract.business_type.#{bt}" %></td>
+  <td><%= contract.contact_person if contract %><%= null_value %></td>
+  <td><%= contract.mobile_phone if contract %><%= null_value %></td>
+  <td><%= contract.start_from if contract %><%= null_value %></td>
+  <td><%= contract.expired_at if contract %><%= null_value %></td>
+  <td id="flag_<%= contract.nil? ? 0 : contract.id %>">
+    <%  if contract %>
+      <%= contract.expiration_processed ? "是" :"否" %>
+    <% end %><%= null_value %>
+  </td>
+  <td>
+    <div class="dropdown_menu">
+      <ul class="menu">
+          <% if contract.nil? %>
+            <li><%= link_to "创建合约", new_admin_party_contract_path(:party_id=>@party.id, :business_type=>bt, :format=>:html) %></li>
+          <% else %>
+            <li><%= link_to (t "contract.operate.1"), admin_contract_path(contract, :format=>:html) %></li>
+            <% if !contract.expiration_processed %>
+              <li>
+                <%= link_to (t "contract.operate.0"), stop_admin_contract_path(contract,:format=>:js),:method=>:post, :class=>'remote', :id=>"stop_bt" %>
+              </li>
+            <% end %>
+          <% end %>
+      </ul>
+    </div>
+  </td>
+</tr>

@@ -1,0 +1,67 @@
+<%page_title '员工管理'
+  side_bar 'my_company'
+%>
+
+<div class="section">
+  <div class="head">
+    <div class="buttons">
+      <%= link_to (t "member.operate.4"), new_my_company_member_path(:format=>:html), :class=>"button long" %>
+    </div>
+    <h2>员工列表：</h2>
+
+<div class="search">
+	<%form_tag my_company_members_path(:format=>:html),:method=>:get,:id=>"member_form" do%>
+	<p><span><%= Member.human_attribute_name :email %>：</span><%= text_field_tag 'email', params[:email],:size=>8 %>
+		<span><%= Member.human_attribute_name :real_name %>：</span>
+		<%= text_field_tag "real_name", params[:real_name], :size=>8 %>
+		<span><%= Member.human_attribute_name :role %>：</span>
+                     <%= select_tag :role_id, options_for_select(choice_for_role, :selected=>params[:role_id]), :include_blank=>true %>
+		<%=submit_tag '查找',:class=>'primary_button'%>             
+	</p>
+	<%end%>
+</div>
+  </div>
+
+<table id="member_list" border="0" class="data_list stripped">
+ <tr>
+ 	<th width="*"><%= Member.human_attribute_name :email %></th>
+ 	<th width="15%"><%= Member.human_attribute_name :real_name %></th>
+ 	<th width="15%"><%= Member.human_attribute_name :role %></th>
+ 	<th width="15%"><%= Member.human_attribute_name :status %></th>
+        <th width="15%"><%= t "member.operate.2" %></th>
+ 	<th width="15%"><%= Member.human_attribute_name :operate %></th>
+  </tr>
+ <%= render :partial=>'member',:collection=>@members%>
+ 
+ <%= will_paginate @members%>
+</table>
+
+</div>
+<% javascript_tag do -%>
+  $('.lock_flag').click(function(event){
+    var l_id = "status_" + this.value;
+    var obj = document.getElementById(l_id);
+    if (this.checked) {
+      $.post("/my_company/members/lock", add_csrf_param({id: this.value }), function(data){
+        if (data == "success") {
+          obj.innerHTML = '<%= t "member.status.#{Member::STATUS_LOCKED}" %>'
+        } else {
+          alert("员工帐号锁定失败！");
+        }
+      });
+    } else {
+      $.post("/my_company/members/unlock", add_csrf_param({id: this.value }), function(data){
+        if (data == 'fail') {
+          alert("员工帐号解锁失败！");
+        } else {
+          if (data == '<%= Member::STATUS_REGISTERED %>') {
+            obj.innerHTML = '<%= t "member.status.#{Member::STATUS_REGISTERED}" %>';
+          }
+          if (data == '<%= Member::STATUS_ACTIVE %>') {
+            obj.innerHTML = '<%= t "member.status.#{Member::STATUS_ACTIVE}" %>';
+          }
+        }
+      });
+    }
+  });
+<% end -%>

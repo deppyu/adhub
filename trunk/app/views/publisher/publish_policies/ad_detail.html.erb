@@ -1,0 +1,15 @@
+<div class="head">
+  <h2><%= @advertisement.name %></h2>
+</div> <!-- div head -->
+
+<dl class="attributes">
+  <dt><%= Advertisement.human_attribute_name :name %>:</dt>
+  <dd><%= @advertisement.name %></dd>
+  <dt><%= Advertisement.human_attribute_name :content_url %>:</dt>
+  <dd><%= @advertisement.content_url %></dd>
+</dl>
+
+<h3>创意资源</h3>
+<% if @advertisement.ad_format %> 
+  <%= render :partial=>"/ad_owner/advertisements/show_#{@advertisement.ad_format.name}" %>
+<% end %>

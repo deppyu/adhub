@@ -1,0 +1,33 @@
+<% page_title '首页' -%>
+
+<section class="form">
+  <header>
+    <h2>登录</h2>
+  </header>
+  
+  <%= form_tag session_path(:format=>:mobile) do -%>
+    <fieldset>
+      <ul>
+	<li>
+	  <%= label_tag :email, '电子邮件', :class=>'form-label' %>
+	  <%= email_field_tag 'email', params[:email], :class=>'required', :size=>20, :autofocus=>true %>
+	</li>
+	<li>
+	  <%= label_tag :password, '口令', :class=>'form-label' %>
+	  <%= password_field_tag :password, '', :class=>'required', :size=>20 %>
+	</li>
+	<li>
+	  <%= check_box_tag :remember_me %><span>记住我，下次自动登录</span></br>
+	</li>
+	<li>
+	  <label class="form-label">验证码</label>
+	  <div class="group">
+	    <%= show_simple_captcha %>
+	  </div>
+	</li>
+	<li class="buttons"><button type="submit" class="primary">登录</button></li>
+      </ul>
+    </fieldset>
+  <% end -%>
+</section>
+

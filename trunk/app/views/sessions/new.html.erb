@@ -1,0 +1,72 @@
+<% page_title '登录AdHub' -%>
+
+<%= javascript_tag do %>
+   $(function(){
+   	  $('#resend_mail_li').click(function(e){
+   	  	e.preventDefault();
+   	  	var email = $('input#login_email').val();
+   	  	// alert('+++++++++++++++++++++++++'+email);
+   	  	if (email != null && email != ''){
+   	  		$.post('/members/resend_active_email.js',
+   	  		        add_csrf_param({email : email}));
+   	  	}else{
+   	  		alert('邮件不能为空！');
+   	  	}
+   	  });
+   	  
+   	  $('#find_pw').click(function(e){
+   	  	e.preventDefault();
+   	  	var email = $('input#login_email').val();
+   	  	if (email != null && email != ''){
+   	  		$.post('/members/forget_password_form.js',
+   	  		       add_csrf_param({email : email}));
+   	  	}else{
+   	  		alert('邮件不能为空！');
+   	  	}
+   	  });
+   });  
+<%end%>
+
+<div class="aside">
+  <div class="head">
+    <h2>帮助信息</h2>
+  </div>
+  <div class="body">
+    <p>提示：如何做到精准投放广告？<br/><br/>
+广告主用户创建广告时，可以填写投放目标信息，而开发者用户提交应用时会填写应用的相关信息，那么平台就会自动地将广告按照广告主制定的投放目标推送到跟该目标相符合的应用程序中，从而实现精准投放。</p>
+  </div>
+</div>
+
+<div class="form with_aside">
+  <div class="head">
+    <h2>用户登录</h2>
+  </div>
+
+  <%= form_tag session_path(:format=>:html), :id=>'login_form', :class=>'validable' do -%>
+  <%= hidden_field_tag :forward_to, @forward_to if @forward_to %>
+  <fieldset>
+    <%= label_tag :email, '电子邮件', :class=>'form-label' %>
+    <%= text_field_tag :email, params[:email], :size=>30, :class=>'required', :id=>'login_email'%>
+  </fieldset>
+  <fieldset>
+    <%= label_tag :password, '口令', :class=>'form-label' %>
+    <%= password_field_tag :password, '', :size=>30, :class=>'required'  %>
+  </fieldset>
+  <fieldset>
+    <label class="form-label">验证码</label>
+    <div class="group">
+      <%= show_simple_captcha %>
+    </div>
+  </fieldset>
+  <fieldset>
+    <div class="group">
+      <%= check_box_tag :remember_me %><span>记住我，下次自动登录</span></br>
+      <%= link_to '重新发送验证邮件!',nil,'data-method'=>:post,:id=>'resend_mail_li' %>     
+    </div>
+  </fieldset>
+  <div class="buttons">
+    <%= submit_tag '登录', :class=>'primary_button', :id=>'btn_login' %>
+    <%= link_to '忘记密码',nil,'data-method'=>:post,:id=>'find_pw', :class=>'dialog_trigger secondary_button' %>
+  </div>
+  <% end -%>
+</div>

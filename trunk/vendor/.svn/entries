@@ -1,0 +1,31 @@
+10
+
+dir
+5408
+svn://svn.shinerad.com/adhub/webapp/trunk/vendor
+svn://svn.shinerad.com
+
+
+
+2012-03-07T12:48:44.116123Z
+5044
+guxf
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+f072bba4-7beb-4405-955d-6f99f87615b6
+
+plugins
+dir
+

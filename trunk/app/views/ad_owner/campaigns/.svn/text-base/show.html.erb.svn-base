@@ -1,0 +1,68 @@
+<% page_title @campaign.name 
+   side_bar 'ad_owner' -%>
+
+<% navigation_bar [link_to('广告主', '/ad_owner'), link_to('广告活动', ad_owner_campaigns_path(:format=>:html)),
+		  @campaign.name ] -%>
+
+<div class="section">
+  <div class="head">
+  	<div class="buttons">
+	<%= link_to '预算', budget_ad_owner_campaign_path(@campaign, :format=>:html), :class=>:button %>
+    	<%= link_to '编辑',edit_ad_owner_campaign_path(@campaign,:format=>:html),:class=>:button%>
+	<%= link_to '删除', ad_owner_campaign_path(@campaign, :format=>:js), :class=>'delete button' if @campaign.destroyable? %>
+	<% if @campaign.paused? and @campaign.party.has_enough_balance_to_run_ad-%>
+    	  <%= link_to '执行', execute_ad_owner_campaign_path(@campaign,:format=>:js),:class=>'button remote', 'data-method'=>:post %>
+	<% end -%>
+	<% if @campaign.running? -%>
+    	  <%= link_to '停止', stop_ad_owner_campaign_path(@campaign,:format=>:js),:class=>'button remote', 'data-method'=>:post %>
+	<% end -%>
+	<% if @campaign.waiting_submit_approve? -%>
+    	  <%= link_to '提交审核', submit_ad_owner_campaign_path(@campaign,:format=>:js),:class=>'button remote', 'data-method'=>:post %>
+	<% end -%>
+	<%= link_to '报表', summary_ad_owner_report_path(:scope_class=>'campaign', :scope_id=>@campaign.id, :format=>:html), :class=>:button %>
+    </div>
+    <h2><%= @campaign.name %></h2>
+    <h3><%= format_date @campaign.start_from %>&nbsp;-&nbsp;<%= format_date @campaign.end_to %></h3>
+    
+  </div>
+
+  <div class="body">
+    <table class="data_list">
+      <tr>
+	<th width="25%" class="number">广告总数/正常显示广告数</th>
+	<th width="25%" class="number">总预算/已使用</th>
+	<th width="25%" class="number">每日预算/当日已使用</th>
+	<th width="25%" class="number">显示次数/点击次数</th>
+      </tr>
+      <tr>
+	<td class="number"><%= @campaign.total_ad_count %>/<%= @campaign.effective_ad_count %></td>
+	<td class="number"><%= format_money @campaign.budget %>/<%= format_money @campaign.used_budget %></td>
+	<td class="number"><%= format_money @campaign.daily_budget%>/<%= format_money @campaign.used_daily_budget %></td>
+	<td class="number"><%= @campaign.impression_count %>/<%= @campaign.click_count %></td>
+      </tr>
+    </table>
+  </div>
+</div>
+  
+  <div class="section">
+  	<div class="head">
+  	     <h2>发布策略</h2>
+  	</div>
+  	<table class="data_list">
+     <tr>
+        <td width="*" class="">名称</td>
+        <td width="15%" class="">付费方式</td>
+        <td width="10%" class="">每日预算</td>
+        <td width="15%" class="">开始时间</td>
+        <td width="15%" class="">结束时间</td>
+        <td width="10%" class="">状态</td>
+        <td width="10%" class="">操作</td>
+     </tr>
+     
+     <%= render :partial=>'pp',:collection=>@campaign.publish_policies%>
+    </table>
+  </div>
+  
+  </div>
+</div>
+

@@ -1,0 +1,33 @@
+zh-CN:
+     activerecord:
+       models:
+         party: 业务伙伴
+       attributes:
+           party:
+             party_type: 类型
+             name: 名称
+             address: 地址
+             phone_number: 联系电话
+             post_code: 邮政编码
+             sales: 业务员
+             ad_maintained_by: 广告由谁维护
+             archived: 是否已归档
+             agent_operate: 操作
+             admin_operate: 操作
+     party:
+       party_type:
+         "0" : 公司
+         "1" : 个人
+       ad_maintained_by:
+         "0": 客户自行维护
+         "1": 由业务员维护
+         "2": 由管理员维护
+       agent_operate:
+         "0": 添加广告客户
+         "1": 编辑
+         "2": 编辑广告客户信息
+         "3": 删除
+         "4": 归档
+       admin_operate:
+         "0": 归档
+            

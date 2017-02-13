@@ -1,0 +1,9 @@
+<tr id="<%= element_id a%>">
+           <td><%=format_time a.created_at%></td>
+		    <td><%= a.operator.name%></td>
+		    <td><%if a.operation == 0%>充值<%else%>提现<%end%></td>
+		    <td>银行转账</td>
+		    <td id="money"><%= format_money a.amount%></td>
+		    <td id="money"><%= format_money a.balance%></td>	
+</tr>		    
+		    

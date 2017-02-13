@@ -1,0 +1,87 @@
+<%page_title '应用详细'
+  side_bar 'admin_console'
+  %>
+
+<%javascript_tag do%>
+$(function(){
+  $('#reject_reason').hide();
+
+  $('select').change(function(){
+    if($(this).val() == 0){
+      $('#reject_reason').show();
+    } else{
+      $('#reject_reason').hide();
+    }
+  }).trigger('change');
+
+  var url = "<%= approve_logs_path(:target_type=>class_name_for_url(@application), :target_id=>@application.id, :format=>:html) %>";
+  $('div .block').load(url);
+});
+
+
+<% end %>
+
+<div class="section">
+  <div class="head">
+    <h2>应用详细</h2>
+  </div>
+  
+  <div class="body">
+    <dl class="attributes">
+      <dt>应用名称：</dt>
+      <dd><%= @application.name if @application.name%></dd>
+      <dt>url：</dt>
+      <dd><%= @application.url if @application.url%></dd>
+      <dt>所属人：</dt>
+      <dd><%= @application.party.name if @application.party or @application.party.name%></dd>
+      <dt>状态：</dt>
+      <dd><%= case @application.status when Application::STATUS_EDITING then '编辑中'
+  	                    when Application::STATUS_ACTIVE then '审核通过'
+  	                   when Application::STATUS_LOCKED then '被锁定'
+  	                  when Application::STATUS_DISAPPROVED then '审核未通过'
+  	                  end%></dd>
+      <dt>操作系统分类：</dt>
+      <dd><%= case @application.os_type when Application::OS_ANDROID then 'Android应用' end%></dd>
+      
+      <dt>所属内容分类：</dt>
+       	<dd><%for cc in @application.content_categories%>
+       	      <%= cc.name%></br> 
+       	<%end%></dd>    
+    </dl>
+  </div>
+</div>
+<%if @application.status == Application::STATUS_DISAPPROVED%>  
+  <div class="section">
+    <div class="head">
+      <h2>应用审核</h2>
+    </div>
+    
+    <div class="body">
+      <div class="form">
+	<%= error_messages_for :approve_log %>
+  	<% form_tag approve_admin_ad_container_path(@application,:format=>:html),:method=>:post do %>
+	  <fieldset>
+	    <label class="form-label">审核结果</label>
+	    <%= approve_option_select_tag :result, params[:result] %>
+	  </fieldset>
+	  <fieldset>
+	    <%= label_tag :opinion, '审批意见', :class=>'form-label' %>
+  	    <div class="group" id="reject_reason">	
+  	      <%= text_area_tag 'opinion', params[:opinion] ,:size=>'40X4', :maxlength=>100 %>
+  	      <span class="help">
+  		少于100字	
+  	      </span>
+  	    </div>		    
+	  </fieldset>
+  	  
+  	  <div class="buttons">
+  	    <%= submit_tag '提交',:class=>'submit primary_button'%>
+  	  </div>
+  	  <%end%>
+      </div>
+    </div>
+  </div>
+  <%end%>
+  <div class="block">
+    
+  </div>

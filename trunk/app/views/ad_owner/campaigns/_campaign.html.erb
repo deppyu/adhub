@@ -1,0 +1,36 @@
+<tr id="<%= element_id campaign %>">
+  <td><%= link_to campaign.name, ad_owner_campaign_path(campaign, :format=>:html) %></td>
+  <td><%= format_date campaign.start_from, :short %> ——
+    <%= format_date campaign.end_to, :short if campaign.end_to %>
+
+  <td class="number">
+    <% if campaign.ended? -%>
+      已结束
+    <% else -%>
+      <%= campaign.total_ad_count %>/<%= campaign.effective_ad_count %>
+    <% end -%>
+  </td>
+  <td class="money"><%= format_money campaign.budget %>/<%= format_money campaign.remain_budget %></td>
+  <td>
+    <div class="dropdown_menu">
+      <ul class="menu">
+	<li><%= link_to '编辑', edit_ad_owner_campaign_path(campaign, :format=>:html) %></li>
+	<% if (! campaign.ended?) and campaign.paused? -%>
+    	  <li><%= link_to '执行', execute_ad_owner_campaign_path(campaign,:from=>'table', :format=>:js),:class=>'remote', 'data-method'=>:post %></li>
+	<% end -%>
+	<% if campaign.running? -%>
+    	  <li><%= link_to '停止', stop_ad_owner_campaign_path(campaign,:from=>'table', :format=>:js),:class=>'remote', 'data-method'=>:post %></li>
+	<% end -%>
+	<% if campaign.waiting_submit_approve? -%>
+    	  <li><%= link_to '提交审核', submit_ad_owner_campaign_path(campaign,:from=>'table', :format=>:js),:class=>'remote', 'data-method'=>:post %></li>
+	<% end -%>
+
+	<% if campaign.destroyable? -%>
+	  <li><%= link_to '删除', ad_owner_campaign_path(campaign, :from=>'table', :format=>:js), :class=>'delete' %></li>
+	<% end -%>
+	<li><%= link_to '报表', summary_ad_owner_report_path(:scope_class=>'campaign', :scope_id=>campaign.id, :format=>:html) %></li>
+	</li>
+      </ul>
+    </div>
+  </td>
+</tr>

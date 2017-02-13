@@ -1,0 +1,24 @@
+adhub_op:
+  id: 1
+  name: Adhub Operator
+  adhub_operator: true
+    
+publisher:
+  id: 2
+  name: Publisher
+
+ad_owner:
+  id: 3
+  name: Ad Owner
+
+agent:
+  id: 4
+  name: Agent
+
+ad_owner_w_agent:
+  id: 5
+  agent_id: 4
+  name: Ad Owner with Agent
+  sales_id: 6
+  
+  

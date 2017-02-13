@@ -1,0 +1,42 @@
+<%
+  page_title PublishPolicy.human_attribute_name :publisher_admin_title
+  side_bar "publisher"
+%>
+
+<div class="section">
+  <div class="head">
+    <h2><%= PublishPolicy.human_attribute_name :publisher_admin_title %></h2>
+  </div> <!-- div head -->
+
+  <div class="search">
+    <%= form_tag publisher_publish_policies_path(:format=>:html), :method=>:get, :id=>"search_form" do %>
+      <table>
+        <tr>
+          <td><%= PublishPolicy.human_attribute_name :name %>:</td>
+          <td><%= text_field_tag 'name', params[:name], :size=>8, :class=>"ml10" %></td>
+          <td><%= PublishPolicy.human_attribute_name :channel_id %>:</td>
+          <td><%= select_tag :channel_id, options_from_collection_for_select(Channel.find(:all), "id", "name", params[:channel_id]), :include_blank=>true, :class=>"ml10" %></td>
+          <td><%= PublishPolicy.human_attribute_name :advertisement_id %>:</td>
+          <td><%= text_field_tag 'advertisement', params[:advertisement], :size=>8, :class=>"ml10" %></td>
+          <td><%= submit_tag '查询', :class=>'primary_button ml10' %></td>
+        </tr>
+      </table>
+    <% end %>
+  </div> <!-- div search -->
+  
+  <div class="body">
+    <table class="data_list stripped">
+      <tr class="head">
+	<th width="*"><%= PublishPolicy.human_attribute_name :name %></th>
+        <th width="10%"><%= PublishPolicy.human_attribute_name :channel_id %></th>
+	<th width="20%"><%= PublishPolicy.human_attribute_name :ad_containers %></th>
+	<th width="15%"><%= PublishPolicy.human_attribute_name :end_to %></th>
+	<th width="10%"><%= PublishPolicy.human_attribute_name :bid_price %></th>
+	<th width="15%"><%= PublishPolicy.human_attribute_name :advertisement_id %></th>
+      </tr>
+      <%= render :partial=>'policy', :collection=>@publish_policies %>
+    </table> <!-- table data_list -->
+  <%= will_paginate @publish_policies %>
+    警告:请注意蓝色标记的策略所属的广告创意或广告主，是您加入黑名单的成员。
+  </div> <!-- div body -->
+</div> <!-- div section -->

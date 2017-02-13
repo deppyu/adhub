@@ -1,0 +1,6 @@
+<tr id="<%= element_id a%>">
+	<td align="center"><%= a.party.name %></td>
+	<td align="center"><%= a.result == 0 ?'审核通过':'审核未通过'%></td>
+	<td align="center"><%= format_time a.updated_at%></td>
+	<td align="center"><%= a.opinion if a.opinion%></td>
+</tr>

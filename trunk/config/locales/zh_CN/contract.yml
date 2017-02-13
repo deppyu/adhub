@@ -1,0 +1,27 @@
+zh-CN:
+     activerecord:
+       models:
+         contract: 合约
+       attributes:
+           contract:
+             page_title_content: 合约管理
+             business_type: 合约类型
+             expiration_processed: 合约是否中止
+             start_from: 开始日期
+             expired_at: 结束日期
+             contact_person: 联系人
+             mobile_phone: 手机号码
+             operate: 操作
+             fast_search: 快捷查询
+     contract:
+       business_type:
+         "0" : 发行商
+         "1" : 代理商
+         "2" : 广告主
+       operate:
+         "0": 中止合约
+         "1": 续约
+       fast_search:
+         "0": 即将到期客户
+         "1": 金额不足100元客户
+            

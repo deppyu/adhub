@@ -1,0 +1,2 @@
+page.alert '合约续约成功！'
+page.show 'stop_bt'

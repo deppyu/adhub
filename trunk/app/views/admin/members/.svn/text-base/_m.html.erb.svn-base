@@ -1,0 +1,7 @@
+<tr id="<%= element_id m%>">
+	<td><%=link_to m.real_name ,admin_member_path(m,:format=>:html)%></td>
+	<td><%= m.party.name if m.party %></td>
+	<td><%= m.real_name if m and m.real_name%></td>
+	<td><%= (m.is_admin == true ? '是' : '否') %></td>
+	<td><%= member_status(m)%></td>
+</tr>

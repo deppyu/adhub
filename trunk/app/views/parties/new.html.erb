@@ -1,0 +1,75 @@
+<% if current_user.party.nil?
+       page_title '补充信息'
+   else
+       if current_user.party.is_valid_agent?
+           page_title '添加广告客户'
+       end
+   end
+ -%>
+
+<% javascript_tag do -%>
+  $(function(){
+    $('#new_form').validate();
+    Fusion.use_feature(InitDatepicker);
+  });
+<% end -%>
+
+<div class="aside">
+  <div class="head">
+    <h2>帮助信息</h2>
+  </div>
+
+  <div class="body">
+    <p>首次登录的普通用户,系统提示输入补充“业务伙伴”信息。只有输入“业务伙伴”信息后才能签订各类业务合约,开着业务活动。"代理商"可以任意添加自己的“广告客户（业务伙伴）”。</p>
+  </div>
+</div>
+
+<div class="form with_aside" id="new">
+  <div class="head">
+    <h2 class="beside_site_logo">
+        <% if current_user.party.nil? %>
+            补充信息
+        <%else
+            if current_user.party.is_valid_agent?%>
+                添加广告客户
+           <% end
+        end%>
+    </h2>
+  </div>
+
+  <%= error_messages_for :party %>
+  <%= error_messages_for :contract if @contract %>
+  
+  <% form_for :party, @party, :url=>parties_path(:format=>:html), 
+     :html=>{:id=>'new_form'} do |f| -%>
+  
+   <%= render :partial=>'f', :locals=> {:f=>f} %>
+
+<% if current_user.party and current_user.party.is_valid_agent? %>
+   <div class="head">
+    <h2 class="beside_site_logo">合约信息 </h2>
+   </div>
+   <%= fields_for :contract, @contract, :id=>'contract_field' do |c| -%>
+     <fieldset>
+       <%= c.label :contact_person, :class=>'form-label' %>
+       <%= c.text_field :contact_person, :size=>20, :maxlength=>30, :class=>'required' %>
+     </fieldset>
+     <fieldset>
+       <%= c.label :mobile_phone, :class=>'form-label' %>
+       <%= c.text_field :mobile_phone, :size=>11, :maxlength=>11, :class=>'required number' %>
+     </fieldset>
+     <fieldset>
+       <%= c.label :start_from, :class=>'form-label' %>
+       <%= c.text_field :start_from, :size=>20, :class=>'date-field' %>
+     </fieldset>
+     <fieldset>
+       <%= c.label :expired_at, :class=>'form-label' %>
+       <%= c.text_field :expired_at, :size=>20, :class=>'date-field' %>
+     </fieldset>
+   <% end -%>
+<% end %>
+  <div class="buttons">
+    <input type="submit" value="保存" class="primary_button"/>
+  </div>
+<% end -%>
+</div>

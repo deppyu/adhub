@@ -1,0 +1,3 @@
+page.alert @message
+page.replace element_id(@ad_group),:partial=>'/ad_owner/campaigns/a',:object=>@ad_group
+page <<  'Fusion.use_feature(StrippedTable);'

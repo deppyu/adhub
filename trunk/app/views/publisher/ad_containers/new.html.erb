@@ -1,0 +1,41 @@
+<% page_title '新建广告容器'
+   @ad_container = AdContainer.new if @ad_container.nil?
+   side_bar 'publisher'%>
+  
+<%javascript_tag do%>
+
+    $(function(){
+        $('input.cb_content_category').change(function(e){
+            if (this.checked) {
+                var count = $('input.cb_content_category.checked').size();
+                if (count >= 3) {
+                    alert('最多选择三个内容条目');
+                    this.checked = false;
+                } else {
+                    $(this).addClass('checked');
+                }	
+            } else {
+  	        $(this).removeClass('checked');
+            }
+        });
+    });
+<% end %> 
+
+<div class="section">
+    <div class="head">
+        <h2>新建广告容器</h2>
+    </div>
+	
+    <div class="body">
+        <div class="form">			
+            <%= form_for :ad_container, @ad_container,:url=>publisher_ad_containers_path(:format=>:html),:method=>:post, :html=>{:class=>'validable'} do |f| %>
+            <%= render :partial=>"f", :locals=>{:f=>f} %>
+            <div class='buttons'>
+                <%= f.submit '保存',:class=>'primary_button'%>
+            </div>
+            <% end-%>
+        </div>
+    </div>
+</div>
+
+ 

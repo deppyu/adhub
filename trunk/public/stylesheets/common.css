@@ -1,0 +1,379 @@
+body {
+    font: 12px/18px "Hiragino Sans GB", 宋体, arial, sans-serif;
+    background-color: #F8F8F1;
+    color: #333;
+    margin: 0; 
+    padding: 0;
+    text-align: center;
+    z-index: 0;
+}
+
+h2 { font-size: 18px; margin: 0px 0px 18px 0px; color: #BE2129; border-bottom: 1px solid #ccc; padding-bottom: 5px; }
+
+h3 { font-size: 14px; line-height: 18px; margin: 0px 0px 18px 0px; }
+
+h4 {font-size: 12px; line-height: 18px; margin: 6px 0px 0px 0px; }
+
+ul { margin: 0px; padding: 0px;}
+
+li {
+    list-style: none;
+    line-height: 18px;
+    font-size: 12px;
+}
+
+ul.list li {
+    list-style: circle inside;
+}
+
+input { border: 1px solid #CCC; }
+
+input[type=text], input[type=password], input[type=file] { height: 20px; }
+
+label.form-label { line-height: 20px; }
+
+.clearfix:after{content:"\20";display:block;height:0;clear:both;}
+.clearfix{zoom:1;}
+
+.hidden, .template {display: none;}
+
+div#page_head div.body { width: 960px; margin: 0 auto;}
+
+#side_bar { float: left; width: 210px; }
+#side_bar2 { float: left ; margin-left: 10px;  width: 222px; }
+
+body.column_2 #side_function { width: 730px; margin-left: 10px; float: left; display: inline;  }
+body.column_2b #side_function { width: 725px; float: left; display: inline;  }
+body.column_3 #side_function { width: 505px; float: left; margin-left: 10px; display: inline; }
+
+.clearfix:after{content:"\20";display:block;height:0;clear:both;}
+.clearfix{zoom:1;}
+
+div#main_wrapper {
+    text-align: left;
+}
+
+div#page_head {  border-bottom: 3px solid #BE2129; }
+
+div#page_head div.body { width: 960px; margin: 0 auto; position: relative; height: 80px; padding: 10px;}
+
+div#top_menu { background-color: #E1DCCC; border-bottom: 1px solid white; clear: both; }
+
+div#top_menu ul { margin: 0; padding: 0; width: 960px; margin: 0 auto; height: 24px;}
+
+div#top_menu ul li { float: right; line-height: 24px; margin-left: 15px; color: #666; text-align: left }
+
+div#top_menu ul li a { color: #333; text-decoration: none; }
+
+div#page_head div#login_form { position: absolute; right: 0px; top: 35px; }
+
+div#page_head div#login_form label { display: inline-block, margin-left: 18px;}
+
+div#page_head div#welcome {background-color: #BE2129;} 
+
+div#page_head div#welcome div.content {width: 960px; margin: 0 auto; padding-top: 3px; color: white; height: 18px;}
+
+div#page_head #main_menu {position: absolute; left: 215px; bottom: 18px; height: 30px; margin: 0; padding: 0;}
+div#page_head #main_menu li {display: inline-block; border-top: 1px solid #EDEDED; border-bottom: 1px solid #929292; line-height: 30px; width: 120px; text-align: center; color: white; font-size: 14px; height: 30px;
+background: #ACACAC url('../images/white_arrow.png') no-repeat 15px center; }
+
+div#page_head #main_menu li.selected {background-color: #BE2129; border-top: 1px solid #FFA0A3; border-bottom: 1px solid #392426;}
+
+div#page_head #main_menu li a { no-repeat; color: white; text-decoration: none; line-height: 30px;}
+
+#current_party a {color: white;}
+
+#welcome_message {float: right; }
+
+#welcome_message a {color: white;}
+
+div#page_foot { clear: both; background-color: #979675; border-bottom: 1px solid #CDCEB2; border-top: 1px solid #6B6A4A; margin-top: 20px;}
+
+div#page_foot div.body {width: 960px; margin: 0 auto; padding: 20px; 0px; text-align: center; color: white;}
+
+div#page_content { width: 960px; margin: 0 auto; padding-top: 10px; min-height: 350px; }
+
+div.aside {
+    float: right;
+    width: 230px;
+    padding: 18px 18px;
+    border: 1px solid #CCC;
+    background-color: white;
+}
+
+div.aside p { line-height: 24px; }
+
+label.error  { 
+    display: inline-block;
+    color: red;
+    font-size: 11px;
+    text-align: left;
+ }
+
+form fieldset {
+    display: block;
+    border: none;
+    position: relative;
+    margin-bottom: 18px;
+    padding: 0px 0px ;
+}
+
+div.form, div.section { padding: 18px; background-color: white; border: 1px solid #CCC; padding: 18px; margin-bottom: 18px; }
+
+div.section div.head div.buttons {
+    float: right; 
+}
+
+div.section div.head div.buttons a.button { height: 22px; font-size: 12px; width: 70px;}
+
+div.section div.head div.buttons a.button.long { height: 22px; font-size: 12px; width: 100px;}
+
+div.form.with_aside { margin-right: 284px; }
+
+form fieldset label.form-label,
+form fieldset .field_with_errors:first-child {
+    display: block;
+    font-weight: bold;
+    color: #4A4A4A;
+    float: left;
+    width: 100px;
+    text-align: right;
+    padding-right: 10px;
+    margin-left: 0px;
+}
+
+form fieldset .group,
+form fieldset .field_with_errors {
+    display: block;
+    margin-left: 120px;
+    text-align: left;
+    position: relative;
+    font-size: 12px;
+}
+
+.field_with_errors input {
+    border: 1px solid red;
+}
+
+form fieldset .field_with_errors:first-child label { color: red; }
+
+form fieldset .group label.error {
+    margin-left: 0px;
+    padding: 0px;
+    width: auto;
+    font-size: 11px;
+}
+
+form fieldset > input,
+form fieldset > textarea,
+form fieldset > select,
+form fieldset > input.file,
+form fieldset > object {
+    display: block;
+    color: #444;
+    margin-left: 120px;
+}
+
+form fieldset > span.help {
+    display: block;
+    margin-left: 120px;
+}
+
+table.data_list { width: 100%;	line-height: 18px; margin: 9px 0px; border-collapse: collapse;}
+table.data_list th {background-color: #ADA797; border-bottom: 1px solid white; padding: 4.5px 3px; margin: 0px 1px; color: white;}
+table.data_list td { padding: 4.5px 3px; background-color: #EBEAE6; margin-left:1px;}
+table.data_list tr.even td {background-color: #C6C2B8;}
+
+table.data_list .number, 
+table.data_list .money {
+    text-align: right
+}
+
+ul.items {
+    margin: 0px;
+    padding: 0px;
+}
+
+ul.items li {
+    list-style: none;
+    line-height: 18px;
+    margin-bottom: 9px;
+}
+
+ul.wizard_steps {
+    margin: 9px 0px;
+    padding: 0px;
+}
+
+ul.wizard_steps li {
+    float: left;
+    list-style: none;
+}
+
+ul.wizard_steps li.step {
+    line-height: 60px;
+    text-align: center;
+    padding: 0 25px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+ul.wizard_steps li.step.selected {
+    background-color: #ADA797;
+    color: white;
+}
+
+ul.wizard_steps li.arrow {
+    background: url("../images/red_arrow.png") no-repeat scroll center center transparent;
+    height: 60px; width: 40px;
+}
+
+div.navigation_bar {
+    padding-left: 15px;
+    line-height: 18px;
+    margin-bottom: 9px;
+}
+
+div#side_bar {
+    border: 1px solid #E1DCCC;
+}
+
+div#side_bar ul.menu {
+    padding: 0px;
+    margin: 0px;
+}
+
+div#side_bar ul.menu li {
+    background-color: #E1DCCC;
+    margin-top: 1px;
+    padding-left: 25px;
+    line-height: 32px;
+    font-size: 14px;
+}
+
+div#side_bar ul.menu li:first-child {
+    margin-top: 0px;
+}
+
+div#side_bar ul.menu li a {
+    color: #BE2129;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+div#side_bar ul.menu li.level_2 {
+   padding-left: 46px;
+   font-size: 12px;
+   background-color: #fcfaf6;
+   border-top: 1px solid #dbdbdb;
+   color: #999;
+}
+
+div#side_bar ul.menu li.level_2 a {
+    font-size: 12px;
+}
+
+div#side_bar div.section {
+    border : none;
+}
+
+div#side_bar div.section div.head h2 {
+    font-size: 14px;
+}
+
+a.button,
+.primary_button { background-color: #BE2129; border: 1px solid #842328; color: white; text-decoration: none; height: 25px; width: 86px; display: inline-block; text-align: center; line-height: 25px; font-size: 14px;}
+
+ul.steps { margin: 9px 0px; padding: 0px; }
+
+ul.steps li { float: left; position: relative; }
+
+ul.steps li.step { width: 158px; height: 161px; padding: 10px; padding-top: 0px; background: url('../images/step_bg.png') no-repeat; }
+
+ul.steps p.head { line-height: 30px; margin: 0px;}
+
+ul.steps p.name {color: #BE2129; font-size: 16px; }
+
+ul.steps li.step a.button {position: absolute; bottom: 10px; right: 10px; width: 96px; }
+
+ul.steps li.arrow { background: url('../images/red_arrow.png') no-repeat center center; height: 158px; width: 50px; }
+
+div.form div.buttons {
+    margin-top: 18px;
+    min-height: 30px;
+    position: relative;
+    padding-left: 120px;
+}
+
+form div.buttons .secondary_button { display: inline-block; margin-left: 18px; border-left: 1px solid #CCC; padding-left: 18px; 
+font-size: 14px; }
+
+dl.attributes {font-size: 14px;position: relative;}
+dl.attributes dt { display: inline-left; float: left; width: 140px; text-align: right; line-height: 21px; }
+dl.attributes dd { margin-left: 150px; margin-bottom: 15px; line-height: 21px; min-height: 21px; }
+
+div.dropdown_menu {
+    position: relative;
+}
+
+table.data_list div.dropdown_menu {
+    height: 20px;
+}
+
+div.dropdown_menu ul.menu {
+    margin: 0px;
+    padding: 0px;
+    position: absolute;
+    top: 0px; left: 0px;
+    width: 100%;
+    v-index: 10;
+    overflow: hidden;
+}
+
+table.data_list div.dropdown_menu ul.menu {
+    height: 24px;
+}
+
+div.dropdown_menu ul.menu:hover ,
+table.data_list div.dropdown_menu ul.menu:hover { 
+    height: auto; background-color: #EBEAE6; z-index: 20; 
+    border: 1px solid #C6C2B8;
+}
+
+div.dropdown_menu ul.menu li {
+    line-height: 20px;
+    height: 20px;
+    margin-bottom: 6px;
+    padding-left: 5px;
+}
+
+span.required_mark { display: inline-block; font-size: 12px; color: #BE2129; margin: 0px 3px; }
+
+div.errorExplanation { border: 1px solid #CCC; background-color: #F8F8F1; padding: 18px; margin-bottom: 18px; }
+
+div.errorExplanation h2 {color: red; font-size: 14px; border-bottom: none; }
+
+div.errorExplanation ul {margin-left: 18px; }
+
+.content { font-size: 14px; padding-right: 10px; line-height: 20px; }
+
+.ml10 { margin-left: 10px; }
+.ml50 { margin-left: 50px; }
+
+.mh35 { min-height: 35px; }
+
+table.data_list .bl_warn_image {
+  display: inline;
+}
+
+table.data_list .bl_warn_image img {
+  width: 20px;
+  height: 20px;
+  float: left;
+  margin-left: -20px;
+}
+
+.hide {
+  display: none;
+}

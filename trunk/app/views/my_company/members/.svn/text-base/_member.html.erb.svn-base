@@ -1,0 +1,15 @@
+<tr id="<%= element_id member %>">
+  <td><%= member.email %></td>
+  <td><%= member.real_name if member and member.real_name%></td>
+  <td><%= (member.roles.collect {|r| r.name }).join("，") %></td>
+  <td id="status_<%= member.id %>"><%= member_status(member)%></td>
+  <td><%= check_box_tag "status[]", member.id, member.status == Member::STATUS_LOCKED, :class=>"lock_flag"  %></td>
+  <td>
+    <div class="dropdown_menu">
+      <ul class="menu">
+        <li><%= link_to (t "member.operate.1"), edit_my_company_member_path(member, :format=>:html) %></li>
+        <li><%= link_to (t "member.operate.3"), reset_passwd_my_company_members_path(:id=>member.id, :format=>:js), :method=>:post, :class=>"remote" %></li>
+      </ul>
+    </div>
+  </td>
+</tr>

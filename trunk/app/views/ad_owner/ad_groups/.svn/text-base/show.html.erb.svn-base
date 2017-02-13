@@ -1,0 +1,89 @@
+<% page_title @ad_group.name
+   side_bar 'ad_owner' -%>
+
+<% javascript_tag do -%>
+  function submitted_to_approve(ad_id) {
+    $('tr#ele_Advertisement_' + ad_id + ' td.status').html('提交审核');
+    $('tr#ele_Advertisement_' + ad_id + ' li.but_submit_approve').remove();
+  }
+<% end -%>
+
+
+<% navigation_bar [link_to('广告主', '/ad_owner'), link_to('广告活动', ad_owner_campaigns_path(:format=>:html)),
+		   link_to(@campaign.name, ad_owner_campaign_path(@campaign, :format=>:html)),
+		   @ad_group.name ] -%>
+
+<div class="section">
+  <div class="head">
+    <div class="buttons">
+      <%= link_to '修改', edit_ad_owner_campaign_ad_group_path(@campaign, @ad_group, :format=>:html), :class=>:button %>
+      <%  if @ad_group.destroyable? %>
+	<%= link_to '删除', ad_owner_campaign_ad_group_path(@campaign, @ad_group, :format=>:js), :class=>'delete button' %>
+      <% end -%>
+
+      <% unless @ad_group.advertisements.empty? %>
+       <%= link_to '执行',execute_ad_owner_campaign_ad_group_path(@campaign,@ad_group, :format=>:html),:class=>'button remote',
+          'data-method'=>:post if @ad_group.paused? %>
+       <%= link_to '停止',stop_ad_owner_campaign_ad_group_path(@campaign,@ad_group, :format=>:html),:class=>'button remote',
+          'data-method'=>:post if @ad_group.running? %>
+       <%= link_to '提交审核',submit_ad_owner_campaign_ad_group_path(@campaign,@ad_group, :format=>:html),:class=>'button remote',
+          'data-method'=>:post if @ad_group.waiting_submit_approve? %>
+       
+      <% end %>
+    </div>
+    <h2><%= @ad_group.name %></h2>
+  </div>
+
+  <div class="body">
+    <table class="data_list">
+      <tr>
+	<th width="25%" class="number">广告总数/正常显示广告数</th>
+	<th width="20%" class="number">价格</th>
+	<th width="20%" class="number">每日预算/当日已使用</th>
+	<th width="20%" class="number">显示次数/点击次数</th>
+	<th width="15%" class="number">到达率</th>
+      </tr>
+      <tr>
+	<td class="number"><%= @ad_group.advertisements.count %>/<%= @ad_group.effective_ad_count %></td>
+	<td class="number"><%= @ad_group.pay_method.name %>/<%= @ad_group.bid_price %></td>
+	<td class="number"><%= format_money @ad_group.daily_budget%>/<%= format_money @ad_group.used_daily_budget %></td>
+	<td class="number"><%= @ad_group.impression_count %>/<%= @ad_group.click_count %></td>
+	<td class="number"><%= number_to_percentage @ad_group.reach_rate %></td>
+      </tr>
+    </table>
+    
+    <dl class="attributes">
+     <dt>所属内容分类：</dt>
+       	<dd><%for cc in @ad_group.content_categories%>
+       	      <%= cc.name%></br> 
+       	<%end%></dd>    
+   </dl>
+   
+  </div>
+  
+  
+</div>
+
+<div class="section">
+  <div class="head">
+    <div class="buttons">
+      <%= link_to '新建广告创意', new_ad_owner_ad_group_advertisement_path(@ad_group, :format=>:html), :class=>'button long' %>
+    </div>
+    <h2>广告创意</h2>
+  </div>
+
+  <div class="body">
+    <table class="data_list">
+      <tr>
+	<th width="*">广告创意名称</th>
+	<th width="12%">状态</th>
+	<th width="12%">类型</th>
+	<th width="20%" class="number">展示次数/点击次数</th>
+	<th width="10%" class="number">到达率</th>
+	<th width="15%" class="number">已用资金</th>
+	<th width="12%">操作</th>
+      </tr>
+      <%= render :partial=>'ad', :collection=>@ad_group.advertisements %>
+    </table>
+  </div>
+</div>

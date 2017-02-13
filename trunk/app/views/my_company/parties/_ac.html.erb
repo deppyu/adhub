@@ -1,0 +1,6 @@
+<tr id="<%=element_id ac%>">
+	<td><%= format_time ac.created_at%></td>
+	<td><%= ac.operation == 0 ? '收入' : '支出'%></td>
+	<td><%= ac.note if ac.note%></td>
+	<td><%= format_money ac.amount%></td>
+</tr>

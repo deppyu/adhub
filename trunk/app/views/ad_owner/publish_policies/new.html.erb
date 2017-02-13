@@ -1,0 +1,80 @@
+<%page_title '发布广告创意'
+  side_bar 'ad_owner'
+%>
+
+<% javascript_tag do %>
+$(function(){
+Fusion.use_feature(InitDatepicker);
+});
+<% end -%>
+
+<div class="form">
+	<div class="head">
+		<h2>发布广告创意</h2>
+	</div>
+	
+	<%= error_messages_for :publish_policy %>	
+	<%= form_for @publish_policy,:as=>:publish_policy,:url=>ad_owner_advertisement_publish_policies_path(@advertisement,@publish_policy,:format=>:html),
+		           :html=>{:class=>'valiable',:method=>:post, :id=>'publish_policy_form'} do |f|%>
+		<fieldset>
+			<%= f.label :name,:class=>'form-label'%>
+			<%= f.text_field :name,:size=>30,:class=>'required'%>
+		</fieldset>
+		<fieldset>
+		 <%= f.label :campaign_id,:class=>'form-label'%>
+		 <select name="publish_policy[campaign_id]">
+		 <%if @campaigns %>
+		   <%for campaign in @campaigns%>
+		     <option value=<%=campaign.id%>><%= campaign.name%></option>
+		   <%end%>
+		 <%end%>
+		 </select>
+		</fieldset>
+		<fieldset>
+		   <%= f.label :channel_id,:class=>"form-label"%>
+		   <select name="publish_policy[channel_id]">
+		   	<%if @channels%>
+		   	<%for channel in @channels%>
+		      <option value=<%= channel.id%>><%= channel.name%></option>
+		    <%end%>
+		    <%end%>	
+		   </select>
+		</fieldset>
+		<fieldset>
+	       <%= f.label :start_from,:class=>'form-label'%>
+	       <%= f.text_field :start_from,:value=>"#{@publish_policy.start_from}",:size=>30,:class=>'required date-field'%>		
+		</fieldset>
+		<fieldset>
+			<%=f.label :end_to,:class=>'form-label'%>
+			<div class="group">
+			<%=f.text_field :end_to,:size=>30,:class=>'date-field'%>
+			<span class="help">可选</span>
+			</div>
+		</fieldset>
+		<fieldset>
+		  <%= f.label :pay_method_id,:class=>'form-label'%>
+		  <select name="publish_policy[pay_method_id]" class="required">
+		  	<%if @pay_methods%>
+		  	<%for pay_method in @pay_methods%>
+		  	  <option value=<%= pay_method.id%>><%= pay_method.note%></option>
+		  	<%end%>
+		  	<%end%>
+		  </select>
+		</fieldset>
+		<fieldset>
+		    <%= f.label :daily_budget,:class=>'form-label'%>
+		    <div class="group">
+		    <%= f.text_field :daily_budget,:class=>'number',:min=>0%>
+		    <span class="help">可选</span>
+		    </div>
+		 </fieldset>
+		
+		<fieldset>
+			<%= f.label :call_to_action,:class=>'form-label'%>
+			<%= call_to_action_select f, :call_to_action %>
+		</fieldset>
+		<div class="buttons">
+		<%= f.submit "下一步",:class=>'primary_button'%>  
+		</div>      
+	<%end%>
+</div>

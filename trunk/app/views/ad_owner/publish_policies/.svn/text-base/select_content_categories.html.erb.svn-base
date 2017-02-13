@@ -1,0 +1,20 @@
+<%page_title '选择内容条目'
+  side_bar 'ad_owner'
+%>
+
+<div class="section">
+	<div class="head">
+		<h2>选择内容条目</h2>
+	</div>
+	
+	<div class="form">
+	   <h3>内容条目：</h3>
+	   <%= form_tag save_content_categories_ad_owner_advertisement_publish_policy_path(@advertisement,@publish_policy,:format=>:html),'data-method'=>:post%>	
+	   <%for cc in @content_categories%>
+	     <%= check_box_tag "content_categories[#{cc.id}]"%><%= cc.name%> 
+	   <%end%>
+	   <div class="buttons">
+	     <%= submit_tag '下一步',:class=>'primary_button'%>
+	   </div>
+	</div>
+</div>

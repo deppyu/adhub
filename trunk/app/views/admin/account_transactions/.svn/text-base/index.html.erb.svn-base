@@ -1,0 +1,50 @@
+<%page_title '交易记录'
+  side_bar 'admin_console'
+%>
+
+<%javascript_tag do%>
+$(function(){
+  $('#search_date').datepicker({ autoSize:true,
+                                    dateFormat :'yy-mm-dd'});
+  $('#search_date_over').datepicker({ autoSize:true,
+                                    dateFormat :'yy-mm-dd'});
+  $('#search_form').validate();                                  
+                               
+});
+                                    
+<%end%>
+
+<div class="section">
+	<div class="head">
+		<h2>交易记录</h2>
+	   <div class="search">
+	   	<%form_tag admin_account_transactions_path(:format=>:html),:method=>:get,:id=>'search_form' do %>
+			<span class="ml20">开始时间：</span> <%=text_field_tag 'start_time',params[:start_time],:id=>'search_date',:size=>10,:class=>'required'%>
+			<span class="ml20">结束时间：</span> <%=text_field_tag 'over_time',params[:over_time],:id=>'search_date_over',:size=>10,:class=>'required'%>
+			<span>操作类型：</span><select name="operation">
+				<option value="">请选择</option>
+				<%=options_for_select choices_account_transaction_operation%>
+			</select>
+		   <%= submit_tag '查询',:class=>'primary_button'%>
+		<%end%>
+		</div> 		
+	</div>
+	
+	
+	
+	<div class="body">
+		<table id="account_transactions_list" border="0" class="data_list stripped">
+	       <tr class="head">
+	       	  <th width="*">用户名称</th>
+	       	  <th width="20%">日期</th>
+	       	  <th width="10%">交易类型</th>	       	  
+	       	  <th width="25%">描述</th>
+	       	  <th width="10%">操作类型</th>
+	       	  <th width="10%" class="number">金额</th>
+	       </tr>
+	       
+	    <%=render :partial=>'ac',:collection=>@account_transactions%>   
+	   </table>
+	   <%= will_paginate @account_transactions%>
+	</div>
+</div>

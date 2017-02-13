@@ -1,0 +1,88 @@
+<% page_title '提款'
+   side_bar 'publisher' -%>
+
+<div class="form">
+  <div class="head">
+    <h2>提现</h2>
+  </div>
+
+  <%= form_for :cash_claim, @cash_claim, :url=>publisher_cash_claims_path(:format=>:html),
+      :html=>{:class=>'validable' } do |f| -%>
+    <fieldset>
+      <label class="form-label">当前余额</label>
+      <div class="group"><%= format_money current_user.party.account.balance %></div>
+    </fieldset>
+    <fieldset>
+      <%= f.label :amount, :class=>'form-label' %>
+      <div class="group">
+	<%= f.text_field :amount, :size=>10, :class=>'required number', :min=>@low_limit %>
+	<span class="help">每次提现不能低于<%= @low_limit %>元。</span>
+      </div>
+    </fieldset>
+    <fieldset>
+      <label class="form-label">银行账号</label>
+      <div class="group">
+	<ul>
+	  <% for account in current_user.party.bank_accounts -%>
+	    <li><%= radio_button_tag :bank_account_id, account.id, 
+		    (params[:bank_account_id] and params[:bank_account_id].to_i == account.id ), :class=>'required' %>
+	      <%= account.bank_name %>
+	      <%= account.bank_serial %>
+	      <%= account.account_name %>
+	    </li>
+	  <% end  -%>
+	</ul>
+	<p><%= link_to '设置银行账号', publisher_bank_accounts_path(:format=>:html) %>
+
+      </div>
+    </fieldset>
+    <div class="buttons">
+      <%= link_to '提交', '', :class=>'submit primary_button' %>
+    </div>
+  <% end -%>
+
+</div>
+
+<div class="section">
+	<div class="head">
+	  <div class="buttons">
+	    <%= link_to '提现', new_publisher_cash_claim_path(:format=>:html), :class=>:button %>
+	  </div> 
+	   <h2>提现记录</h2>	
+	</div>
+	
+	<div class="body">
+	  <table class="data_list stripped">
+	    <tr class="head">
+	      <th width="16%">日期</th>
+	      <th width="*">银行账号</th>	       	  
+	      <th width="15%" class="number">金额</th>
+	      <th width="10%">结果</th>
+	      <th width="20%">银行回单号/失败原因</th>
+	    </tr>
+            
+            <% for claim in current_user.party.account.cash_claims.order('created_at desc').limit(10) %>
+              <tr>
+		<td><%= format_time claim.created_at, :short%></td>
+		<td><%= claim.bank_name %>
+		  <%= claim.account_no %>
+		  <%= claim.account_name %>
+		</td>
+		<td class="number"><%= format_money claim.amount %></td>
+		<td><%= cash_claim_result claim %></td>
+		<td><% case claim.result
+		       when CashClaim::SUCCEED -%>
+		  <%= claim.bill_no %>
+		  <%   when CashClaim::FAILED -%>
+		  <%= claim.fail_reason %>
+		  <% end -%>
+		</td>
+              </tr> 
+            <% end %>
+	  </table>
+   
+   <div class="buttons">
+   	  <%= link_to '更多',show_account_transactions_my_company_parties_path(:format=>:html),:class=>:button_%>
+   </div>  	
+  </div>
+</div>

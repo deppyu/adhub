@@ -1,0 +1,29 @@
+<%page_title 'sdk列表'
+  side_bar 'admin_console'
+%>
+
+
+<div class="section">
+	<div class="head">
+		<div class="buttons">
+			<%= link_to '添加新sdk',new_admin_sdk_path(:format=>:html),:class=>'button'%>
+		</div>
+		<h2>sdk列表</h2>
+	</div>
+	
+	<div class="body">
+		<table class="data_list">
+		 <tr class="head">
+		   <th width="*">操作系统</th>
+		   <th width="20%">是否活动</th>
+		   <th width="20%">名称</th>
+		   <th width="20%">版本</th>
+		   <th width="20%">操作</th>
+		 </tr>
+		 
+		 <%= render :partial=>'s',:collection=>@sdks %>
+		</table>
+		
+		<%= will_paginate @sdks%>
+	</div>
+</div>

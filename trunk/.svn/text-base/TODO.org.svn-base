@@ -1,0 +1,33 @@
+* 后台管理
+
+** 业务伙伴管理
+*** DONE 创建"广告客户"合约后，将业务伙伴的agent_id设为平台运营商。
+    CLOSED: [2012-02-17 Fri 17:55]
+
+* 发行商管理
+
+** 设定价格
+*** TODO 设定价格改为用弹出框。
+
+* 代理商
+** 广告客户管理
+*** TODO 增加广告客户状态: 合约有效、合约过期
+*** TODO 合约过期后能重新签约
+*** TODO 选中"广告客户"后查询未能正确显示。
+*** TODO 显示客户详细信息: 基本信息、合约信息、账户信息
+*** TODO 编辑合约信息: 联系人、手机号
+
+* 广告主
+** 广告发布
+*** DONE 设定价格时确定竞价底价
+    CLOSED: [2012-03-01 Thu 15:37]
+*** TODO 修改发布策略
+
+** 设定预算
+*** DONE 在设定预算页面中增加对发布策略的设定。
+    CLOSED: [2012-03-01 Thu 16:55]
+
+** 统计
+*** TODO 在publish_policy中增加impression_count和click_count
+*** TODO campaign的impression_count和click_count应该统计publish_policy的。
+

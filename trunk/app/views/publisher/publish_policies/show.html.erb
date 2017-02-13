@@ -1,0 +1,76 @@
+<%
+  page_title (t "publish_policy.publisher_admin_title.0")
+  side_bar "publisher"
+%>
+
+<% javascript_tag do -%>
+$(function(){
+  $('#ad_detail').load('ad_detail.html?advertisement_id=<%= @publish_policy.advertisement_id %>')
+});
+<% end -%>
+
+<div class="section">
+  <div class="head">
+    <h2><%= t "publish_policy.publisher_admin_title.0" %></h2>
+  </div> <!-- div head -->
+
+  
+  <div class="body">
+    <dl class="attributes">
+      <dt><%= PublishPolicy.human_attribute_name :name %>:</dt>
+      <dd><%= @publish_policy.name %></dd>
+      <dt><%= PublishPolicy.human_attribute_name :campaign_id %>:</dt>
+      <dd><%= @publish_policy.campaign.name if @publish_policy.campaign %></dd>
+      <dt><%= PublishPolicy.human_attribute_name :channel_id %>:</dt>
+      <dd><%= @publish_policy.channel.name if @publish_policy.channel %></dd>
+      <dt><%= PublishPolicy.human_attribute_name :advertisement_id %>:</dt>
+      <dd>
+        <% if @publish_policy.advertisement %>
+        <%= @publish_policy.advertisement.name %>
+        <%= link_to "加入黑名单", publisher_black_lists_path(
+          "black_list[black_member_id]"=>@publish_policy.advertisement.id, 
+          "black_list[black_member_type]"=>@publish_policy.advertisement.class, 
+          :format=>:js), :method=>:post, 
+          :class=>"remote button ml10", :id=>"bt_#{@publish_policy.advertisement.class}", 
+          :style=>"#{style_add_black_list_button_show?(@publish_policy.advertisement)}" %>
+        <span id="sp_<%= @publish_policy.advertisement.class %>"
+          style="<%= style_warn_exists_black_list_show?(@publish_policy.advertisement) %>">
+          [已加入黑名单]</span>
+        <% end %>
+      </dd>
+      <dt><%= PublishPolicy.human_attribute_name :ad_containers %>:</dt>
+      <dd><%= @publish_policy.ad_containers.collect {|ac| ac.name }.join(",") if @publish_policy.ad_containers.count>0 %></dd>
+      <dt><%= PublishPolicy.human_attribute_name :ad_owner %>:</dt>
+      <dd>
+        <% if @publish_policy.advertisement and @publish_policy.advertisement.party %>
+        <%= @publish_policy.advertisement.party.name %>
+        <%= link_to "加入黑名单", publisher_black_lists_path(
+          "black_list[black_member_id]"=>@publish_policy.advertisement.party.id,
+          "black_list[black_member_type]"=>@publish_policy.advertisement.party.class, 
+          :format=>:js), :method=>:post, 
+          :class=>"remote button ml10", :id=>"bt_#{@publish_policy.advertisement.party.class}", 
+          :style=>"#{style_add_black_list_button_show?(@publish_policy.advertisement.party)}"%>
+        <span id="sp_<%= @publish_policy.advertisement.party.class %>"
+          style="<%= style_warn_exists_black_list_show?(@publish_policy.advertisement.party) %>">
+          [已加入黑名单]</span>
+        <% end %>
+      </dd>
+      <dt><%= PublishPolicy.human_attribute_name :start_from %>:</dt>
+      <dd><%= @publish_policy.start_from %></dd>
+      <dt><%= PublishPolicy.human_attribute_name :end_to %>:</dt>
+      <dd><%= @publish_policy.end_to %></dd>
+      <dt><%= PublishPolicy.human_attribute_name :pay_method_id %>:</dt>
+      <dd><%= @publish_policy.pay_method.name if @publish_policy.pay_method %></dd>
+      <dt><%= PublishPolicy.human_attribute_name :daily_budget %>:</dt>
+      <dd><%= @publish_policy.daily_budget %></dd>
+      <dt><%= PublishPolicy.human_attribute_name :call_to_action %>:</dt>
+      <dd><%= @publish_policy.call_to_action.note %></dd>
+      <dt><%= PublishPolicy.human_attribute_name :bid_price %>:</dt>
+      <dd><%= @publish_policy.bid_price %></dd>
+    </dl>
+
+    <div id="ad_detail">
+
+    </div>
+  </div> <!-- div body -->
+</div> <!-- div section -->

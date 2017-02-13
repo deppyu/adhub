@@ -1,0 +1,9 @@
+publisher_account:
+  id: 1
+  party_id: 2
+  balance: 0
+
+ad_owner_account:
+  id: 2
+  party_id: 3
+  balance: 0

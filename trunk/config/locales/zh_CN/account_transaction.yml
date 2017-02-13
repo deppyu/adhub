@@ -1,0 +1,17 @@
+zh-CN:
+  activerecord:
+    models:
+      account_transaction : 交易记录
+    attributes:
+      account_transaction:
+        operation: 操作方式
+        op_way: 交易方式
+        amount: 交易金额
+        balance: 账户余额
+        
+  account_transaction:
+    operation:
+      "0" : 充值
+      "1" : 广告费支出
+      "2" : 广告费收入
+      "3" : 取现    

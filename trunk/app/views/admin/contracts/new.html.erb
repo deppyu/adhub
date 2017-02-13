@@ -1,0 +1,39 @@
+<% page_title "创建合约"
+   side_bar 'admin_console'
+ %>
+
+<% javascript_tag do -%>
+  $(function(){
+    Fusion.use_feature(InitDatepicker);
+  });
+<% end -%>
+
+<div class="form">
+  <div class="head">
+    <h2 class="beside_site_logo">创建合约 </h2>
+  </div>
+  <% form_for :contract, @contract, :url=>admin_party_contracts_path(@party, :format=>:html), 
+     :html=>{:id=>'new_form', :class=>'validable' } do |c| -%>
+  <%= c.hidden_field :business_type, :value=>params[:business_type] %>
+  <fieldset>
+    <%= c.label :contact_person, :class=>'form-label' %>
+    <%= c.text_field :contact_person, :size=>20, :maxlength=>30, :class=>'required' %>
+  </fieldset>
+  <fieldset>
+    <%= c.label :mobile_phone, :class=>'form-label' %>
+    <%= c.text_field :mobile_phone, :size=>11, :maxlength=>11, :class=>'required number' %>
+  </fieldset>
+  <fieldset>
+    <%= c.label :start_from, :class=>'form-label' %>
+    <%= c.text_field :start_from, :size=>20, :class=>'required date-field', :id=>'search_date' %>
+  </fieldset>
+  <fieldset>
+    <%= c.label :expired_at, :class=>'form-label' %>
+    <%= c.text_field :expired_at, :size=>20, :class=>'required date-field', :id=>'search_date_over' %>
+  </fieldset>
+  <div class="buttons">
+    <input type="submit" value="保存" class="primary_button"/>
+    <%= link_to '取消', admin_party_path(@party, :format=>:html), :class=>'secondary_button' %>
+  </div>
+<% end %>
+</div>

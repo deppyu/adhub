@@ -1,0 +1,9 @@
+<%page_title (t "price.operate.3")
+  side_bar 'publisher'%>
+ 
+<div class="form">
+  <%= form_for :price, @price, :url=>publisher_price_path(@price,:format=>:js), :html=>{:class=>'validable', :method=>:put},
+      :remote=>true do |f|%>
+  <%= render :partial=>'f', :locals=>{:f=>f} %>
+  <%end%>
+</div>

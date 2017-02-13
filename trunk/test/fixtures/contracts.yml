@@ -1,0 +1,35 @@
+publisher:
+  id: 1
+  business_type: 0
+  party_id: 2
+  contact_person: Tom
+  mobile_phone: 111111111
+  start_from: '2012-01-01'
+  expired_at: '2022-12-30'
+
+agent:
+  id: 2
+  business_type: 1
+  party_id: 4
+  contact_person: Tom
+  mobile_phone: 111111111
+  start_from: '2012-01-01'
+  expired_at: '2022-12-30'
+  share_rate_1: 0.2
+  share_rate_2: 0.1
+
+ad_owner_w_agent:
+  id: 3
+  business_type: 2
+  party_id: 5
+  start_from: '2012-01-01'
+  expired_at: '2022-12-30'
+
+ad_owner:
+  id: 4
+  business_type: 2
+  party_id: 3
+  contact_person: Tom
+  mobile_phone: 111111111
+  start_from: '2012-01-01'
+  expired_at: '2022-12-30'

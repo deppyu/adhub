@@ -1,0 +1,81 @@
+<% page_title '新建广告组' -%>
+
+<% javascript_tag do %>
+  $(function(){
+  Fusion.use_feature(InitDatepicker);
+  });
+<% end -%>
+
+
+<% navigation_bar [link_to('广告主', '/ad_owner'), link_to('广告活动', ad_owner_campaigns_path(:format=>:html)),
+		   link_to(@campaign.name, ad_owner_campaign_path(@campaign, :format=>:html)),
+		   '创建广告组'] -%>
+
+<ul class="wizard_steps clearfix">
+  <li class="selected step">1. 定义广告组</li>
+  <li class="arrow">&nbsp;</li>
+  <li class="step">2. 投放目标及价格</li>
+</ul>
+
+<div class="aside">
+  <div class="head">
+    <h2>帮助信息</h2>
+  </div>
+
+  <div class="body">
+    
+  </div>
+</div>
+
+<div class="form with_aside">
+  <div class="head">
+    <h2>新建广告组</h2>
+  </div>
+
+  <%= form_for :ad_group, @ad_group, :url=>ad_owner_campaign_ad_groups_path(@campaign, :format=>:html),
+      :html=>{:class=>'validable'} do |f| -%>
+  <fieldset>
+    <%= f.label :name, :class=>'form-label' %>
+    <div class="group">
+      <%= f.text_field :name, :size=>40, :class=>'required', :maxlength=>40 %>
+      <span class="help">不超过40个字。</span>
+    </div>
+  </fieldset>
+  <fieldset>
+    <%= f.label :call_to_action, :class=>'form-label' %>
+    <div class="group">
+      <%= call_to_action_select f, :call_to_action %>
+      <span class="help">选后将不能修改。</span>
+    </div>
+  </fieldset>
+  <fieldset>
+    <%= f.label :start_from, :class=>'form-label' %>
+    <%= f.text_field :start_from, :size=>15, :class=>'required date-field',
+	'data-min-date' => "+0", 
+	'data-max-date' => (@campaign.end_to ? @campaign.end_to.to_formatted_s(:db) : '') %>
+  </fieldset>      
+  <fieldset>
+    <%= f.label :end_to, :class=>'form-label' %>
+    <div class="group">
+      <%= f.text_field :end_to, :size=>15, :class=>'date-field', 
+	  'data-min-date' => "+0",
+	  'data-max-date' => (@campaign.end_to ? @campaign.end_to.to_formatted_s(:db) : '') %>
+      <span class="help">可选</span>
+    </div>
+  </fieldset>
+  <fieldset>
+    <%= f.label :pay_method_id, :class=>'form-label' %>
+    <div class="group">
+      <ul class="items">
+	<% for pay_method in PayMethod.all %>
+	  <li><%= f.radio_button :pay_method_id, pay_method.id %><%= "#{pay_method.name}(#{pay_method.note})" %></li>
+	<% end -%>
+    </div>
+  </fieldset>
+
+  <div class="buttons">
+    <%= submit_tag '下一步', :class=>'primary_button' %>
+    <%= link_to '取消', ad_owner_campaign_path(@campaign, :format=>:html), :class=>'secondary_button' %>
+  </div>
+<% end -%>
+</div>

@@ -1,0 +1,40 @@
+zh-CN:
+  activerecord:
+    models:
+      campaign: 广告活动
+      ad_group: 广告组
+      advertisement: 广告创意
+    attributes:
+      campaign:
+        name: 活动名称
+        budget: 总体预算
+        daily_budget: 每日预算
+        start_from: 开始日期
+        end_to: 结束日期
+        description: 描述
+      ad_group:
+        name: 广告组名称
+        call_to_action: 点击响应方式
+        daily_budget: 每日预算
+        start_from: 开始日期
+        end_to: 结束日期
+        description: 描述
+        pay_method_id: 付费方式
+        bid_price: 出价
+      advertisement:
+        name: 广告名称
+        ad_format: 广告格式
+        content_url: 链接地址
+
+  advertisement:
+    status:
+      "0": 编辑中
+      "1": 提交审核
+      "2": 审核通过
+      "3": 审核未通过
+      "4": 停止
+  compare_price_result:
+    "0": 您的出价比较低，只超过了%{per}的广告。
+    "1": 您的出价中等，超过了%{per}的广告。
+    "2": 您的出价超过了大部分(%{per})的广告。
+    "3": 您的出价超过了绝大部分(%{per})的广告。

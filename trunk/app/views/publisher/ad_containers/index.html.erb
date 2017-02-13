@@ -1,0 +1,36 @@
+<%page_title '广告容器管理'
+  side_bar 'publisher'%>
+
+<div class="section">
+  <div class="head">
+    <div class="buttons">
+      <%=link_to '新建广告容器', new_publisher_ad_container_path(:format=>:html),:class=>'button long'%>
+    </div>
+    <h2>广告容器管理</h2>
+    <div class="search">
+       <% form_tag publisher_ad_containers_path(:format=>:html), :method=>:get, :id=>'search_form' do %>
+          <span class="ml20"><%= AdContainer.human_attribute_name :name %>：</span>
+          <%= text_field_tag 'name', params[:name], :size=>10 %>
+          <span class="ml20"><%= AdContainer.human_attribute_name :channel %>：</span>
+          <%= select_tag 'channel_id', options_from_collection_for_select(Channel.find(:all), 'id', 'name', params[:channel_id]), :include_blank=>true %>
+          <span class="ml20"><%= AdContainer.human_attribute_name :status %>：</span>
+          <%= select_tag 'status',options_for_select(choice_for_status, :selected=>params[:status]), :include_blank=>true %>
+          <%= submit_tag '查询', :class=>'primary_button' %>
+       <% end %>
+    </div>
+  </div>
+  
+  <div class="body">
+    <table class="data_list stripped">
+      <tr class="head">
+	<th width="*"><%= AdContainer.human_attribute_name :name %></th>
+	<th width="22%"><%= AdContainer.human_attribute_name :channel %></th>
+	<th width="22%"><%= AdContainer.human_attribute_name :status %></th>
+	<th width="12%"><%= AdContainer.human_attribute_name :operate %></th>
+      </tr>
+      
+      <%= render :partial=>'container',:collection=>@ad_containers%>
+    </table>
+    <%= will_paginate @ad_containers%>
+  </div>
+</div>

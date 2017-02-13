@@ -1,0 +1,25 @@
+<%
+  page_title '我的合约'
+  @contracts = current_user.party.contracts
+  side_bar 'my_company'%>
+
+<div class="section">
+  <div class="head">
+    <h2>我的合约</h2>
+  </div>
+  
+  <div class="body">
+    <table class="data_list stripped">
+      <tr class="head">
+	<th width="*"><%= Contract.human_attribute_name :contact_person %></th>
+	<th width="22%"><%= Contract.human_attribute_name :business_type %></th>
+	<th width="22%"><%= Contract.human_attribute_name :mobile_phone %></th>
+	<th width="12%"><%= Contract.human_attribute_name :start_from %></th>
+	<th width="12%"><%= Contract.human_attribute_name :expired_at %></th>
+	<th width="12%"><%= Contract.human_attribute_name :expiration_processed %></th>
+      </tr>
+      
+      <%= render :partial=>'contract',:collection=>@contracts%>
+    </table>
+  </div>
+</div>

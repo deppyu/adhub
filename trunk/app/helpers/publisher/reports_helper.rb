@@ -1,0 +1,2 @@
+module Publisher::ReportsHelper
+end

@@ -1,0 +1,33 @@
+<%page_title '黑名单管理'
+  side_bar 'publisher'%>
+
+<div class="section">
+  <div class="head">
+    <div class="buttons">
+      <%#=link_to '新建黑名单', new_publisher_ad_container_path(:format=>:html),:class=>'button long'%>
+    </div>
+    <h2>黑名单管理</h2>
+    <div class="search">
+       <% form_tag publisher_black_lists_path(:format=>:html), :method=>:get, :id=>'search_form' do %>
+          <span class="ml20"><%= BlackList.human_attribute_name :black_member_name %>：</span>
+          <%= text_field_tag 'keyword', params[:keyword], :size=>10 %>
+          <span class="ml20"><%= BlackList.human_attribute_name :black_member_type %>：</span>
+          <%= select_tag 'black_member_type',options_for_select(choice_for_black_member_type, :selected=>params[:black_member_type]), :include_blank=>true %>
+          <%= submit_tag '查询', :class=>'primary_button' %>
+       <% end %>
+    </div>
+  </div>
+  
+  <div class="body">
+    <table class="data_list stripped">
+      <tr class="head">
+	<th width="*"><%= BlackList.human_attribute_name :black_member_name %></th>
+	<th width="22%"><%= BlackList.human_attribute_name :black_member_type %></th>
+	<th width="12%"><%= AdContainer.human_attribute_name :operate %></th>
+      </tr>
+      
+      <%= render :partial=>'black_list',:collection=>@black_lists%>
+    </table>
+    <%= will_paginate @black_lists %>
+  </div>
+</div>

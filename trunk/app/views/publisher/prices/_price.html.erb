@@ -1,0 +1,9 @@
+<tr id="<%=element_id price %>">
+  <td><%= price.channel.name  %></td>
+  <td><%= price.pay_method.name %></td>
+  <td><%= price.base_price  %></td>
+  <td>
+    <%= link_to (t "price.operate.1"), edit_publisher_price_path(price ,:format=>:js) %>
+    <%= link_to (t "price.operate.2"), publisher_price_path(price ,:format=>:js), :class=>'delete' %>
+  </td>
+</tr>

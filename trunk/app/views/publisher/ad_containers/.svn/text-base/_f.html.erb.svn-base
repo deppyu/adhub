@@ -1,0 +1,46 @@
+<% @channels = Channel.find :all
+   @content_categories = ContentCategory.where(:for_ad_container => true) %>
+
+<div class="form_error">
+    <%= f.error_messages %>
+</div>
+<fieldset>
+    <%= f.label :os_type,:class=>'form-label'%>
+    <%= f.select :os_type,choice_for_os_type%>
+</fieldset>
+<fieldset>
+    <%= f.label :url,:class=>'form-label'%>
+    <div class="group">
+        <%= f.text_field :url,:class=>'required url',:size=>40%>
+        <p class="help">
+            例如:http://market.android.com/details?id=package.name
+        </p>
+    </div>
+</fieldset>
+<fieldset>
+    <%= f.label :channel, :class=>'form-label' %>
+    <%= f.collection_select :channel_id, @channels, :id, :name %>
+</fieldset>
+<fieldset>
+    <%= f.label :name,:class=>'form-label'%>
+    <%= f.text_field :name,:class=>'required',:maxlength=>80,:size=>40 %>
+</fieldset>
+<fieldset>
+    <%= f.label :description,:class=>'form-label'%>
+    <div class="group">
+        <%= f.text_area :description,:class=>'required',:size=>'47X6',:maxlength=>1400%>
+        <p class="help">
+            *少于700个字。
+        </p>
+    </div>
+</fieldset>
+<fieldset>
+    <label class="form-label">选择内容分类</label>
+    <div class="group">
+        <ul class="data_list">
+            <%for cc in @content_categories%>
+                <li><%= check_box_tag "content_categories[#{cc.id}]", 1, false, :class=>'cb_content_category'%><%=cc.name%></li>
+            <%end%>
+         </ul>
+     </div>
+ </fieldset>

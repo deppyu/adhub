@@ -1,0 +1,2 @@
+module ApproveLogsHelper
+end

@@ -1,0 +1,50 @@
+publisher:
+  id: 1
+  party_id: 2
+  email: publisher@foot.com
+  password_hash: '21232f297a57a5a743894a0e4a801fc3'
+  ha1: '21232f297a57a5a743894a0e4a801fc3'
+  is_admin: 0
+  status: 1
+
+ad_owner:
+  id: 2
+  party_id: 3
+  email: owner@bar.com
+  password_hash: '21232f297a57a5a743894a0e4a801fc3'
+  is_admin: 0
+  status: 1
+
+admin:
+  id: 3
+  party_id: 1
+  email: admin@adhub.cn
+  password_hash: '21232f297a57a5a743894a0e4a801fc3'
+  is_admin: 1
+  status: 1
+
+agent:
+  id: 4
+  party_id: 4
+  email: agent@adhub.cn
+  password_hash: '21232f297a57a5a743894a0e4a801fc3'
+  is_admin: 1
+  status: 1
+
+ad_owner_w_agent:
+  id: 5
+  party_id: 5
+  email: ado2@adhub.com
+  password_hash: '21232f297a57a5a743894a0e4a801fc3'
+  is_admin: 0
+  status: 1
+
+sales:
+  id: 6
+  party_id: 4
+  email: sales@adhub.com
+  password_hash: '21232f297a57a5a743894a0e4a801fc3'
+  is_admin: 0
+  status: 1
+  
+  

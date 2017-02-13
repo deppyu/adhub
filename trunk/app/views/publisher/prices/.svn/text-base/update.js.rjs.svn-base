@@ -1,0 +1,3 @@
+page.replace "price_#{@price.pay_method_id}_#{@price.channel_id}", link_to_set_price(@price.channel, @price.pay_method)
+	
+	

@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>AdHub: 账号激活邮件</title>
+</head>
+<body>
+<p><%= @member.email %>您好：
+<p>“<%= @party.name %>”使用这个邮件地址在AdHub注册了员工账号，初始密码：<%= @password %>，为了您的账户安全，请激活后设置新密码。这份邮件是为了验证该邮件地址的合法有效性。请点击以下链接激活您的账号：</p>
+<p><%= link_to @url, @url %></p>
+<p>激活之后您就可以正常登录AdHub了。</p>
+<br/>
+<br/>
+<br/>
+<p>AdHub</p>
+
+</body>
+</html>

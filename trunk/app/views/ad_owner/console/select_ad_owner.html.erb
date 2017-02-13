@@ -1,0 +1,13 @@
+<div class="section">
+	<div class="head">
+		<h2>选择广告客户</h2>
+	</div>
+	
+	<div class="body">
+		<ul class="data_list">
+		   <%for ado in @ad_owners%>
+		     <li><%= link_to ado.name,"/ad_owner?p_id= #{ado.id}"%></li>
+		   <%end%>
+		</ul>
+	</div>
+</div>

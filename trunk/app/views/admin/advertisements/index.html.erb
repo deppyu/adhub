@@ -1,0 +1,45 @@
+<% page_title '管理广告创意' 
+   side_bar 'admin_console' -%>
+
+<div class="section">
+  <div class="head">
+    <h2>管理广告创意</h2>
+  </div>
+  
+  <div class="search">
+    <%form_tag admin_advertisements_path(:format=>:html),:method=>:get,:id=>"admin_advertisement_form" do%>
+      <p><span>
+      	  广告主：<%= text_field_tag :member,params[:member],:size=>20%>
+        </span>
+        <span>
+        	状态：<select name="status">
+        		  <option value="">请选择</option>
+        		  <%=options_for_select choice_for_ad_status, params[:status]%>
+        	     </select>
+        </span>
+        <%=submit_tag '查找',:class=>'primary_button'%>
+      </p> 
+    <%end%>	
+  </div>
+  
+  <div class="body">
+    <table class="data_list">
+      <tr>
+	<th width="30%">广告主</th>
+	<th width="*">广告创意名称</th>
+	<th width="12%">广告格式</th>
+	<th width="10%">广告状态</th>
+      </tr>
+      <tr>
+	<% for ad in @advertisements -%>
+	  <tr>
+	    <td><%= ad.party.name || ad.party.email %></td>
+	    <td><%= link_to ad.name, admin_advertisement_path(ad, :format=>:html) %></td>
+	    <td><%if ad.ad_format%><%= ad.ad_format.note %><%end%></td>
+	    <td><%= advertisement_status ad %></td>
+	  </tr>
+	<% end -%>
+      </tr>
+    </table>
+  </div>
+</div>

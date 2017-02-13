@@ -1,0 +1,19 @@
+<div class="show_icon_text">
+<dl class="attributes">
+  <dt>图标:</dt>
+  <dd><%= image_resource @advertisement.resource_of_name('icon'), :class=>'icon' %></dd>
+  <dt>标题:</dt>
+  <dd><%= text_of_resource @advertisement.resource_of_name('title') %></dd>
+  <dt>副标题:</dt>
+  <dd><%= text_of_resource @advertisement.resource_of_name('subtitle') %></dd>
+</dl>
+
+<h3>预览</h3>
+<div class="ad_preview icon_text">
+  <div class="icon">
+    <%= image_resource @advertisement.resource_of_name('icon'), :class=>'icon' %>
+  </div>
+  <p class="text_resource title"><%= text_of_resource @advertisement.resource_of_name('title') %></p>
+  <p class="text_resource subtitle"><%= text_of_resource @advertisement.resource_of_name('subtitle') %></p>
+</div>
+</div>

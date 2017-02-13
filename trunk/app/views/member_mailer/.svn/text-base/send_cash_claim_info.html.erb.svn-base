@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>AdHub: 提现要求驳回原因</title>
+</head>
+<body>
+<p><%= @cash_claim.member.email %>您好：
+<p>您在<h2>AdHub</h2>您在AdHub上请求<%=number_to_currency @cash_claim.amount,:unit=>'￥'%>的提现要求被驳回。驳回理由如下：</p>
+<br/>
+<p><%= @cash_claim.fail_reason%></p>
+<p></p>
+<p><%= link_to '点击这里登陆AdHub网站',new_session_path(:format=>:html) %></p>
+<br/>
+<br/>
+<br/>
+<p>AdHub</p>
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+if @member.status == Member::STATUS_LOCKED 
+  page.alert '已经锁定'
+  page.replace_html "current_status","已经锁定"
+  page.replace_html "status_button","解锁用户"
+  #page<< "$('#current_status').html('已经锁定');"
+  #page<< "$('#status_button').html('解锁用户');"
+else
+  page.alert '已经解锁'
+  page.replace_html "current_status","活跃用户"
+  page.replace_html "status_button","锁定用户"
+  #page<< "$('#current_status').html('活跃用户');"
+  #page<< "$('#status_button').html('锁定用户');"
+end

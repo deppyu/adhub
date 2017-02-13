@@ -1,0 +1,13 @@
+cpm:
+  id: 1
+  unit: 1000
+  name: CPM
+  note: CPM
+  pay_on: 0
+
+cpc:
+  id: 2
+  unit: 1
+  name: CPC
+  note: CPC
+  pay_on: 1

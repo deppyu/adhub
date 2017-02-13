@@ -1,0 +1,8 @@
+<fieldset>
+  <%= f.label :password, :class=>'form-label' %>
+  <%= f.password_field :password, :size=>20, :minlength=>"6", :class=>'required' %>
+</fieldset>
+<fieldset>
+  <%= f.label :password_confirm, :class=>'form-label'%>
+  <%= password_field_tag :password_confirm, '', :size=>20, :class=>'required', :equalTo=>'#member_password' %>
+</fieldset>

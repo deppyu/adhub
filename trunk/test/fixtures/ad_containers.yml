@@ -1,0 +1,22 @@
+app1:
+  id: 1
+  channel_id: 1
+  party_id: 2
+  os_type: 0 # Android
+  status: 1 # ACTIVE
+  type: Application
+  name: App1
+  url: "http://www.foo.com/app1"
+  identity: kasldAdkal23092AE
+  description: desc
+
+app2:
+  channel_id: 1
+  party_id: 2
+  os_type: 0 # Android
+  status: 1 # ACTIVE
+  type: Application
+  name: App2
+  url: "http://www.foo.com/app2"
+  identity: kasldAdkal2323023
+  description: desc

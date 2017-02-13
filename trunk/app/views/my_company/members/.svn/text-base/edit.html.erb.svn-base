@@ -1,0 +1,31 @@
+<% page_title (t "member.operate.5")
+ -%>
+
+<div class="section">
+  <div class="head">
+    <h2 class="beside_site_logo">
+        <%= (t "member.operate.5") %>
+    </h2>
+  </div>
+  <div class="form">
+  <% form_for :member, @member, :url=>my_company_member_path(@member, :format=>:html), 
+     :html=>{:id=>'member_form', :method=>:put} do |f| -%>
+  <%= render :partial=>'f', :locals=> {:f=>f} %>
+  <fieldset>
+    <label class="form-label">角色</label>
+    <div class="group">
+      <% current_user.party.available_roles.each do |role| -%>
+	<p>
+	  <%= check_box_tag "member[role_ids][]", role.id, @member.roles.include?(role) %>
+	  <%= role.name %>
+	</p>
+      <% end -%>
+    </div>
+  </fieldset>
+  <div class="buttons">
+    <input type="submit" value="修改" class="primary_button"/>
+    <%= link_to '取消', my_company_members_path(:format=>:html), :class=>'secondary_button' %>
+  </div>
+  <% end -%>
+  </div>
+</div>

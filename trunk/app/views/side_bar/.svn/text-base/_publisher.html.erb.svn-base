@@ -1,0 +1,25 @@
+<ul class="menu">
+  <li><%= link_to '控制台', '/publisher' %></li>
+   <li><%= link_to '广告容器管理',publisher_ad_containers_path(:format=>:html)%></li>
+   <li><%= link_to (PublishPolicy.human_attribute_name :publisher_admin_title), publisher_publish_policies_path(:format=>:html) %></li>
+   <li><%= link_to (Price.human_attribute_name :page_title_content),publisher_prices_path(:format=>:html) %></li>
+   <li><%= link_to '黑名单管理',publisher_black_lists_path(:format=>:html) %></li>
+  <li>统计报表</li>
+  <li class="level_2"><%= link_to '按时间段汇总', summary_publisher_report_path(:format=>:html) %></li>
+  <li class="level_2"><%= link_to '按日分析', daily_publisher_report_path(:format=>:html) %></li>
+   <li><%= link_to '提现', new_publisher_cash_claim_path(:format=>:html)%></li>
+   <li class="level_2"><%= link_to '设置提现账号', publisher_bank_accounts_path(:format=>:html) %></li>
+</ul>
+
+<div class="section">
+  <div class="head">
+    <h2>下载SDK:</h2>
+  </div>
+  <ul class="list">
+    <li><%= link_to 'Android SDK',sdks_list_sdks_path(:format=>:html)%> </li>
+    <li>iOS SDK </li>
+    <li>开发者指南 </li>
+  </ul>
+</div>
+
+

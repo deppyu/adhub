@@ -1,0 +1,22 @@
+<tr id="<%= element_id pp%>">
+  <td><%=link_to pp.name,ad_owner_campaign_publish_policy_path(pp.campaign,pp,:format=>:html)%></td>
+         <td><%= pp.pay_method.note%></td>
+         <td><%= pp.daily_budget%></td>
+         <td><%=format_date pp.start_from %></td>
+         <td><%=format_date pp.end_to%></td>
+         <td><%=publsh_policy_status(pp)%></td>
+         <td>
+          <div class="dropdown_menu">
+            <ul class="menu">
+            <% if pp.stopped? and pp.party.has_enough_balance_to_run_ad %>
+              <li><%= link_to '执行',execute_ad_owner_campaign_publish_policy_path(pp.campaign,pp,:format=>:js,:from=>'table'),:class=>'remote',
+              	              'data-method'=>:post%></li>
+            <% end %>
+            <%if pp.running?%>
+              <li><%= link_to '停止',stop_ad_owner_campaign_publish_policy_path(pp.campaign,pp,:format=>:js,:from=>'table'),:class=>'remote',
+              	              'data-method'=>:post%></li>
+            <%end%>       	
+            </ul>
+          </div>
+         </td>	 
+</tr>

@@ -1,0 +1,12 @@
+<ul class="menu">
+	<%if session[:party]%>
+	   <li><%= session[:party].name%>[<%= link_to '切换','/ad_owner/console/select_ad_owner'%>]</li>
+	<%end%>
+  <li><%= link_to '控制台', '/ad_owner' %></li>
+  <li><%= link_to '广告活动', ad_owner_campaigns_path(:format=>:html) %></li>
+  <li><%= link_to '预算', budgets_ad_owner_campaigns_path(:format=>:html) %></li>
+  <li><%= link_to '广告创意',ad_owner_advertisements_path(:format=>:html)%></li>
+  <li>分析报告</li>
+  <li class="level_2"><%= link_to '按时间段汇总', summary_ad_owner_report_path(:format=>:html) %></li>
+  <li class="level_2"><%= link_to '按日分析', daily_ad_owner_report_path(:format=>:html) %></li>
+</ul>

@@ -1,0 +1,2 @@
+module AdOwner::AdGroupsHelper
+end

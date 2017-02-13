@@ -1,0 +1,68 @@
+<% page_title @advertisement.name
+   side_bar 'admin_console'  
+   include_css_file 'ad_editor' -%>
+
+<% javascript_tag do -%>
+  $(function(){
+    $('#approve_result').change(function(e){
+      if ($(this).val() == '0') {
+         $('#approve_opinion').removeClass('required');
+  } else { 
+         $('#approve_opinion').addClass('required');
+      }
+      $('#approve_form').validate();
+    });
+  });
+<% end -%>
+
+<% navigation_bar [link_to('管理后台', '/admin'), 
+		   link_to('管理广告创意', admin_advertisements_path(:format=>:html)),
+		   @advertisement.name ] -%>
+
+<div class="section">
+  <div class="head">
+    <h2><%= @advertisement.name %></h2>
+  </div>
+
+  <div class="body">
+    <dl class="attributes">
+      <dt>广告主</dt>
+      <dd><%= @advertisement.party.name || @advertisement.party.email %></dd>
+      <dt>状态</dt>
+      <dd><%= advertisement_status @advertisement %></dd>
+      <dt>类型</dt>
+      <dd><%if @advertisement.ad_format%><%= @advertisement.ad_format.note %><%end%></dd>      
+    </dl>
+    
+    
+    <h3>创意资源</h3>
+    <%if @advertisement.ad_format%>
+    <%= render :partial=>"/ad_owner/advertisements/show_#{@advertisement.ad_format.name}" %>
+    <%end%>
+  </div>
+</div>
+
+<% if @advertisement.waiting_approve? -%>
+  <div class="section">
+    <div class="head">
+      <h2>审核</h2>
+    </div>
+
+    <div class="body form">
+      <%= form_tag approve_admin_advertisement_path(@advertisement, :format=>:html),
+	   :id=>'approve_form' do %>
+      <fieldset>
+	<label class='form-label'>审批结果</label>
+	<%= approve_option_select_tag :approve_result %>
+      </fieldset>
+      <fieldset>
+	<label class='form-label'>审批意见</label>
+	<%= text_area_tag :approve_opinion, params[:approve_opinion], :size=>'40x5' %>
+      </fieldset>
+      <div class="buttons">
+	<%= link_to '提交', '', :class=>'submit primary_button'  %>
+      </div>
+      <% end -%>
+    </div>
+  </div>
+<% end -%>
